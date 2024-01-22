@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'test.dart';
+import 'engine/engine.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
-      home: ResponsiveWidgetTest()
+      home: Game(gameJson: "gameJson"),
     );
   }
 }
