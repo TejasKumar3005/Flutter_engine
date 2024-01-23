@@ -10,28 +10,20 @@ class ResponsiveWidgetTest extends StatelessWidget {
     //   ),
     //   body: Center(
     //     child: 
-    return Container(
-          width: getHorizontalSize(200.0),
-          height: getVerticalSize(0100.0),
-          margin: getMargin(all: 16.0),
-          padding: getPadding(all: 8.0),
-          color: Color.fromARGB(255, 115, 195, 49),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Responsive Text',
-                style: TextStyle(fontSize: getFontSize(20.0)),
-              ),
-              SizedBox(height: 16.0),
-              Container(
-                width: getSize(50.0),
-                height: getSize(500.0),
-                color: Colors.red,
-              ),
-            ],
-          ),
-        );
+      return MaterialApp(
+        home: Scaffold(
+          appBar: AppBar(
+            title: const Text('My demo app'),
+          ), //AppBar
+          body: const Center(
+            child: Text(
+              'Hello Geeks',
+              style: TextStyle(fontSize: 24),
+            ), //Text
+          ), // center
+        ), //Scaffold
+        debugShowCheckedModeBanner: false, //Removing Debug Banner
+      );
       // ),
     // );
   }
