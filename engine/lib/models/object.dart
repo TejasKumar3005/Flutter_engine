@@ -31,7 +31,6 @@ class Object {
 }
 
 
-<<<<<<< HEAD
 // class Character extends Object {
 
 //   //  character has an image
@@ -49,18 +48,3 @@ class Object {
 
   
 // }
-=======
-class Character extends Object {
-  // Character has a name
-  String name;
-  // Character has an image 
-  
-  // Constructor with named parameters
-  Character({required this.name, required double x, required double y, required double width, required double height}) : super(x: x, y: y, width: width, height: height);
-
-  @override
-  String toString() {  
-    return 'Character{name: $name, x: $x, y: $y, width: $width, height: $height}';
-  }
-}
->>>>>>> 56688e7226c3b9c7800e6a5ac2e93a96115aa4ce
