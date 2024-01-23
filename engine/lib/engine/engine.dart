@@ -1,20 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:flame/game.dart';
-// import '../utils/dimensions.dart';
 import '../test.dart';
-// Engine widget that takes a JSON onject and then implements the game 
 
-// Data structure class for the game
-// widget that takes a JSON onject and then implements the game
-
-
-
-class Game extends GameWidget {
-  
+class Game extends StatefulWidget {
   final String gameJson;
 
   Game({Key? key, required this.gameJson}) : super(key: key);
 
   @override
-  State<GameWidget> createState() => _GameState();
+  State<Game> createState() => _GameState();
+}
+
+class _GameState extends State<Game> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      // Set your desired aspect ratio here
+      width: 200.0,
+      height: 100.0,
+      color: Color.fromARGB(255, 23, 13, 220),
+      child: AspectRatio(
+        aspectRatio: 4/3, // Example aspect ratio: width / height
+        child: Stack(
+          children: [
+            ResponsiveWidgetTest(),
+          ],
+        ),
+      ),
+    );
+  }
 }
