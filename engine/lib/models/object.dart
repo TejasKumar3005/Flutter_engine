@@ -35,8 +35,7 @@ class Character extends Object {
   // Character has a name
   String name;
   // Character has an image 
-
-
+  
   // Constructor with named parameters
   Character({required this.name, required double x, required double y, required double width, required double height}) : super(x: x, y: y, width: width, height: height);
 
