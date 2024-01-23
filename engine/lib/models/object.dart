@@ -31,17 +31,20 @@ class Object {
 }
 
 
-class Character extends Object {
-  // Character has a name
-  String name;
-  // Character has an image 
+// class Character extends Object {
 
+//   //  character has an image
+//   // Take all possible ways to input an image
+//   // 1. Image.asset('assets/images/character.png')
+//   // 2. Image.file(File('assets/images/character.png'))
+//   // 3. Image.memory(bytes)
+//   // 4. Image.network('https://example.com/foobar.jpg')
+//   // 5. Image(image: FileImage(File('assets/images/character.png')))
+//   // 6. Image(image: MemoryImage(bytes))
+//   // 7. Image(image: NetworkImage('https://example.com/foobar.jpg'))
+//   // 8. Image(image: AssetImage('assets/images/character.png'))
+//   // 9. Image(image: ExactAssetImage('assets/images/character.png'))
+//   // 10. Image(image: ResizeImage(FileImage(File('assets/images/character.png')), width: 120, height: 120))
 
-  // Constructor with named parameters
-  Character({required this.name, required double x, required double y, required double width, required double height}) : super(x: x, y: y, width: width, height: height);
-
-  @override
-  String toString() {  
-    return 'Character{name: $name, x: $x, y: $y, width: $width, height: $height}';
-  }
-}
+  
+// }
