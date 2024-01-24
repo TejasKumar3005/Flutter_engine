@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'test.dart';
+import 'engine/engine.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -31,8 +33,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
-      home: ResponsiveWidgetTest()
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      // home: Game(gameJson: "gameJson"),
     );
   }
 }
@@ -57,6 +59,15 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+
+  @override
+  void initState() { 
+    super.initState();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
+    }
 
   void _incrementCounter() {
     setState(() {
