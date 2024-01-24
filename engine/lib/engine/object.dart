@@ -10,9 +10,10 @@ import 'package:flame/components.dart';
 
 class Object extends SpriteComponent
     with HasGameReference<MyGame>, CollisionCallbacks {
-  Object({required this.velocity, position, size, image})
+  Object({velocity, position, size, image,required this.isStatic})
       : super(position: position, size: size);
-  final Vector2 velocity;
+  late Vector2 velocity;
+  final bool isStatic;
   String? image;
 
   @override
@@ -25,7 +26,10 @@ class Object extends SpriteComponent
   @override
   void update(double dt) {
     super.update(dt);
+    if(!isStatic){
+
     position += velocity * dt;
+    }
   }
 
   Future<Image> getImage(String path) async {
