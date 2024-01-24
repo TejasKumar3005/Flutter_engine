@@ -21,6 +21,7 @@ late GameData gameData;
   @override
   void initState() { 
   super.initState();
+
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeLeft,
       DeviceOrientation.landscapeRight,
@@ -38,7 +39,7 @@ late GameData gameData;
       child: AspectRatio(
         aspectRatio: 4/3, // Example aspect ratio: width / height
         child: GameWidget<MyGame>(
-          game: MyGame(gameJson: widget.gameJson),
+          game: MyGame(gamedata: widget.gameJson),
           backgroundBuilder: (context) {
             // Your custom widget as a background
             return gameData.background_builder(context);

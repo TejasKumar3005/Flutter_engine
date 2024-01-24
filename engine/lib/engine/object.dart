@@ -1,5 +1,5 @@
 import 'dart:ui';
-
+import 'package:flame/collisions.dart';
 import 'package:flame/game.dart';
 import 'game.dart';
 import 'package:flame/flame.dart';
@@ -8,13 +8,24 @@ import 'dart:async';
 
 import 'package:flame/components.dart';
 
-class Object extends SpriteComponent with HasGameReference<MyGame> {
-  Object({position, size}) : super(position: position, size: size);
+class Object extends SpriteComponent
+    with HasGameReference<MyGame>, CollisionCallbacks {
+  Object({required this.velocity, position, size, image})
+      : super(position: position, size: size);
+  final Vector2 velocity;
+  String? image;
+
   @override
   FutureOr<void> onLoad() async {
-    final networkImage = await Flame.images.fromCache('your_network_image_key');
+    final networkImage = await Flame.images.fromCache(image!);
     sprite = Sprite(networkImage);
     return super.onLoad();
+  }
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+    position += velocity * dt;
   }
 
   Future<Image> getImage(String path) async {

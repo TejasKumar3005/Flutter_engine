@@ -6,4 +6,5 @@ class GameData {
   VersatileImage? backgroundImage;
   Map<String, VersatileImage> character_images = {};
   
+  
 }
