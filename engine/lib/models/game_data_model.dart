@@ -26,30 +26,24 @@ class CharacterInfo {
 
 class GameData {
   VersatileImage? backgroundImage;
-  // Map<String, VersatileImage> character_images = {};
   Map<String, Variable> variables = {};
-  // Map<String, Vector2> positions = {};
-  // Map<String, Vector2> sizes = {};
-
   Map<String, CharacterInfo> characters = {};
 
-  GameData(
-      {this.backgroundImage,
-      this.character_images = const {},
-      this.variables = const {}});
+  GameData();
 
-  factory GameData.fromJson(Map<String, dynamic> json) {
+  factory GameData.fromJSON(Map<String, dynamic> json) {
     GameData gameData = GameData();
-    gameData.backgroundImage =
-        VersatileImage.assetPng(json['background_image']);
-    for (var character in json['characters']) {
-      gameData.character_images[character['name']] =
-          VersatileImage.assetPng(character['image']);
-    }
-    for (var variable in json['variables']) {
-      gameData.variables[variable['name']] =
-          Variable(variable['name'], variable['type'], variable['value']);
-    }
+    gameData.backgroundImage = VersatileImage.assetPng(json['background_image']);
+    json['variables'].forEach((key, value) {
+      gameData.variables[key] = Variable(key, value['type'], value['value']);
+    });
+    json['characters'].forEach((key, value) {
+      gameData.characters[key] = CharacterInfo(
+          image: value['image'],
+          position: Vector2(value['position'][0], value['position'][1]),
+          size: Vector2(value['size'][0], value['size'][1]),
+          isStatic: value['isStatic']);
+    });
     return gameData;
   }
 }
