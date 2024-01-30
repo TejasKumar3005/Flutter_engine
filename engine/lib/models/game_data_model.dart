@@ -11,6 +11,128 @@ class Variable {
   Variable(this.name, this.type, this.value);
 }
 
+class ConditionalOp {
+  String operation; // Operation type (e.g., "and", "or", "isEqual", etc.)
+  Variable var1;
+  Variable var2;
+
+  ConditionalOp(this.operation, this.var1, this.var2);
+
+  dynamic evaluate() {
+    switch (operation) {
+      case 'isEqual':
+        return isEqual(var1, var2);
+      case 'isGreaterThan':
+        return isGreaterThan(var1, var2);
+      case 'isLessThan':
+        return isLessThan(var1, var2);
+      case 'and':
+        return and(var1, var2);
+      case 'or':
+        return or(var1, var2);
+      default:
+        throw Exception('Unsupported operation: $operation');
+    }
+  }
+
+  bool isEqual(Variable var1, Variable var2) {
+    if (var1.type != var2.type) return false;
+
+    switch (var1.type) {
+      case 'String':
+        return var1.value == var2.value;
+      case 'int':
+        return var1.value == var2.value;
+      case 'double':
+        return var1.value == var2.value;
+      case 'bool':
+        return var1.value == var2.value;
+      case 'List':
+        return _listEquals(var1.value, var2.value);
+      default:
+        return false;
+    }
+  }
+
+  bool isGreaterThan(Variable var1, Variable var2) {
+    if (var1.type != var2.type) return false;
+
+    switch (var1.type) {
+      case 'int':
+      case 'double':
+        return var1.value > var2.value;
+      default:
+        throw Exception('Comparison not supported for type ${var1.type}');
+    }
+  }
+
+  bool isLessThan(Variable var1, Variable var2) {
+    if (var1.type != var2.type) return false;
+
+    switch (var1.type) {
+      case 'int':
+      case 'double':
+        return var1.value < var2.value;
+      default:
+        throw Exception('Comparison not supported for type ${var1.type}');
+    }
+  }
+
+  // Utility function for list comparison
+  bool _listEquals(List<dynamic> list1, List<dynamic> list2) {
+    if (list1.length != list2.length) return false;
+    for (int i = 0; i < list1.length; i++) {
+      if (list1[i] != list2[i]) return false;
+    }
+    return true;
+  }
+
+  bool and(Variable var1, Variable var2) {
+    return _toBoolean(var1) && _toBoolean(var2);
+  }
+
+  bool or(Variable var1, Variable var2) {
+    return _toBoolean(var1) || _toBoolean(var2);
+  }
+
+  // Convert Variable to a boolean value
+  bool _toBoolean(Variable variable) {
+    switch (variable.type) {
+      case 'bool':
+        return variable.value;
+      case 'int':
+      case 'double':
+        return variable.value != 0;
+      case 'String':
+        return variable.value.isNotEmpty;
+      case 'List':
+        return variable.value.isNotEmpty;
+      default:
+        return false; // Or throw an exception depending on your preference
+    }
+  }
+
+}
+
+class Conditional {
+
+  // have to look if nesting of variables works properly here
+  List<ConditionalOp> operations;
+  Conditional(this.operations);
+
+  bool evaluate() {
+    bool result = true;
+    for (ConditionalOp op in operations) {
+      result = result && op.evaluate();
+    }
+    return result;
+  }
+}
+
+class Action {
+   // TODO: Add more actions
+}
+
 class CharacterInfo {
   String image;
   Vector2 position;
