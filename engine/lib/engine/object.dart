@@ -27,7 +27,6 @@ class Object extends SpriteComponent
   void update(double dt) {
     super.update(dt);
     if(!isStatic){
-
     position += velocity * dt;
     }
   }
