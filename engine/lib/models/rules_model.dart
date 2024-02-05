@@ -29,9 +29,9 @@ class GameRules {
 }
 
 class Action {
-  String? var1;
-  String? var2;
-  String? targetvar;
+  DataType? var1;
+  DataType? var2;
+  Variable? targetvar;
   String? operation; // +, -, *, inplace+, inplace*, inplace-
 
   // Constructors for different types of actions
@@ -49,45 +49,42 @@ class Action {
   }
 
   void performVariableOperation(GameData gameData) {
-    if (gameData.variables.containsKey(var1) &&
-        gameData.variables.containsKey(var2)) {
+    // if (gameData.variables.containsKey(var1) &&
+    //     gameData.variables.containsKey(var2)) {
       dynamic result;
       switch (operation) {
         case '+':
-          result = gameData.variables[var1]!.value +
-              gameData.variables[var2]!.value;
+          result = var1!.getValue(gameData) + var2!.getValue(gameData);
           break;
         case '-':
-          result = gameData.variables[var1]!.value -
-              gameData.variables[var2]!.value;
+          result = var1!.getValue(gameData) - var2!.getValue(gameData);
           break;
         case '*':
-          result = gameData.variables[var1]!.value *
-              gameData.variables[var2]!.value;
+          result = var1!.getValue(gameData) * var2!.getValue(gameData); 
           break;
-        case '+=':
-          gameData.variables[var1]!.value +=
-              gameData.variables[var2]!.value;
-          break;
-        case '-=':
-          gameData.variables[var1]!.value -=
-              gameData.variables[var2]!.value;
-          break;
-        case '*=':
-          gameData.variables[var1]!.value *=
-              gameData.variables[var2]!.value;
-          break;
+        // case '+=':
+        //   gameData.variables[var1]!.value +=
+        //       gameData.variables[var2]!.value;
+        //   break;
+        // case '-=':
+        //   gameData.variables[var1]!.value -=
+        //       gameData.variables[var2]!.value;
+        //   break;
+        // case '*=':
+        //   gameData.variables[var1]!.value *=
+        //       gameData.variables[var2]!.value;
+        //   break;
         case 'OR':
-          result = _toBoolean(gameData.variables[var1]!) ||
-              _toBoolean(gameData.variables[var2]!);
+          result = _toBoolean(var1!, gameData) ||
+              _toBoolean(var2!, gameData);
           break;
         case 'AND':
-          result = _toBoolean(gameData.variables[var1]!) &&
-              _toBoolean(gameData.variables[var2]!);
+          result = _toBoolean(var1!,gameData) &&
+              _toBoolean(var2!,gameData);
           break;
         case 'NOR':
-          result = _toBoolean(gameData.variables[var1]!) &&
-              !_toBoolean(gameData.variables[var2]!);
+          result = _toBoolean(var1!,gameData) &&
+              !_toBoolean(var2!,gameData);
           break;
         case 'string':
           result = '${gameData.variables[var1]!.value}${gameData.variables[var2]!.value}';
@@ -99,49 +96,36 @@ class Action {
           throw Exception('Unsupported variable operation: $operation');
       }
       if (result != null) {
-        gameData.variables[targetvar]!.value = result;
+        targetvar!.setValue(gameData, result);
       }
     }
-  }
+  // }
 
   void replaceValues(GameData gameData) {
     if (gameData.variables.containsKey(var1) &&
         gameData.variables.containsKey(var2)) {
-      gameData.variables[var1]!.value =
-          gameData.variables[var2]!.value;
+      // replace the values of var1 with var2 and vice versa
+      var temp = gameData.variables[var1]!.value;
+      gameData.variables[var1]!.value = gameData.variables[var2]!.value;
+      gameData.variables[var2]!.value = temp;
     }
   }
 
-  bool _toBoolean(Variable variable) {
+  bool _toBoolean(DataType variable, GameData gameData) {
     switch (variable.type) {
       case 'bool':
-        return variable.value;
+        return variable.getValue(gameData);
       case 'int':
       case 'double':
-        return variable.value != 0;
+        return variable.getValue(gameData) != 0;
       case 'String':
-        return variable.value.isNotEmpty;
+        return variable.getValue(gameData).isNotEmpty;
       case 'List':
-        return variable.value.isNotEmpty;
+        return variable.getValue(gameData).isNotEmpty;
       default:
         return false;
     }
   }
 }
 
-  bool _toBoolean(Variable variable) {
-    switch (variable.type) {
-      case 'bool':
-        return variable.value;
-      case 'int':
-      case 'double':
-        return variable.value != 0;
-      case 'String':
-        return variable.value.isNotEmpty;
-      case 'List':
-        return variable.value.isNotEmpty;
-      default:
-        return false;
-    }
-  }
 

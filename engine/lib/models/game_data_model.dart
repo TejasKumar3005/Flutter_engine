@@ -3,18 +3,35 @@
 import 'package:engine/utils/Image.dart';
 import 'package:flame/game.dart';
 
-class Variable {
-  String name;
+class DataType {
   String type;
   //value can be a string, int, or double, bool or list
   dynamic value;
-  Variable(this.name, this.type, this.value);
+  DataType(this.type, this.value);
+
+  dynamic getValue(GameData gameData) {
+    return value;
+  }
+}
+class Variable extends DataType {
+  String name;
+  Variable(this.name, String type, dynamic value) : super(type, value);
+  Variable.fromGameData(GameData gameData, this.name) : super(gameData.variables[name]!.type, gameData.variables[name]!.value);
+
+  @override
+  dynamic getValue(GameData gameData) {
+    return gameData.variables[name]!.value;
+  }
+
+  void setValue(GameData gameData, dynamic value) {
+    gameData.variables[name]!.value = value;
+  }
 }
 
 class ConditionalOp {
   String operation; // Operation type (e.g., "and", "or", "isEqual", etc.)
-  Variable var1;
-  Variable var2;
+  DataType var1;
+  DataType var2;
 
   ConditionalOp(this.operation, this.var1, this.var2);
 
@@ -35,7 +52,7 @@ class ConditionalOp {
     }
   }
 
-  bool isEqual(Variable var1, Variable var2) {
+  bool isEqual(DataType var1, DataType var2) {
     if (var1.type != var2.type) return false;
 
     switch (var1.type) {
@@ -54,7 +71,7 @@ class ConditionalOp {
     }
   }
 
-  bool isGreaterThan(Variable var1, Variable var2) {
+  bool isGreaterThan(DataType var1, DataType var2) {
     if (var1.type != var2.type) return false;
 
     switch (var1.type) {
@@ -66,7 +83,7 @@ class ConditionalOp {
     }
   }
 
-  bool isLessThan(Variable var1, Variable var2) {
+  bool isLessThan(DataType var1, DataType var2) {
     if (var1.type != var2.type) return false;
 
     switch (var1.type) {
@@ -87,16 +104,16 @@ class ConditionalOp {
     return true;
   }
 
-  bool and(Variable var1, Variable var2) {
+  bool and(DataType var1, DataType var2) {
     return _toBoolean(var1) && _toBoolean(var2);
   }
 
-  bool or(Variable var1, Variable var2) {
+  bool or(DataType var1, DataType var2) {
     return _toBoolean(var1) || _toBoolean(var2);
   }
 
   // Convert Variable to a boolean value
-  bool _toBoolean(Variable variable) {
+  bool _toBoolean(DataType variable) {
     switch (variable.type) {
       case 'bool':
         return variable.value;
