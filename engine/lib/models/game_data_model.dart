@@ -1,15 +1,10 @@
 import 'package:engine/utils/Image.dart'; // Import the necessary dependencies for images
 import 'package:flame/game.dart'; // Import the necessary dependencies for game logic
 import 'package:vector_math/vector_math_64.dart'; // Import Vector2 from the vector_math library for 2D vectors
-import 'package:engine/utils/Image.dart'; // Import the necessary dependencies for images
-import 'package:flame/game.dart'; // Import the necessary dependencies for game logic
-import 'package:vector_math/vector_math_64.dart'; // Import Vector2 from the vector_math library for 2D vectors
 
 class DataType {
   String type;
   dynamic value;
-
-  DataType({required this.type, required this.value});
 
   DataType({required this.type, required this.value});
 
@@ -18,15 +13,8 @@ class DataType {
   }
 }
 
-
 class Variable extends DataType {
   String name;
-
-  Variable({required this.name, required String type, required dynamic value})
-      : super(type: type, value: value);
-
-  Variable.fromGameData(GameData gameData, {required this.name})
-      : super(type: gameData.variables[name]!.type, value: gameData.variables[name]!.value);
 
   Variable({required this.name, required String type, required dynamic value})
       : super(type: type, value: value);
@@ -46,36 +34,28 @@ class Variable extends DataType {
 
 class ConditionalOp {
   String operation;
-  String operation;
   DataType var1;
   DataType var2;
 
   ConditionalOp(this.operation, this.var1, this.var2);
 
   dynamic evaluate(GameData gameData) {
-  dynamic evaluate(GameData gameData) {
     switch (operation) {
       case 'isEqual':
         return isEqual(var1, var2, gameData);
-        return isEqual(var1, var2, gameData);
       case 'isGreaterThan':
-        return isGreaterThan(var1, var2, gameData);
         return isGreaterThan(var1, var2, gameData);
       case 'isLessThan':
         return isLessThan(var1, var2, gameData);
-        return isLessThan(var1, var2, gameData);
       case 'and':
         return and(var1, var2, gameData);
-        return and(var1, var2, gameData);
       case 'or':
-        return or(var1, var2, gameData);
         return or(var1, var2, gameData);
       default:
         throw Exception('Unsupported operation: $operation');
     }
   }
 
-  bool isEqual(DataType var1, DataType var2, GameData gameData) {
   bool isEqual(DataType var1, DataType var2, GameData gameData) {
     if (var1.type != var2.type) return false;
 
@@ -85,9 +65,7 @@ class ConditionalOp {
       case 'double':
       case 'bool':
         return var1.getValue(gameData) == var2.getValue(gameData);
-        return var1.getValue(gameData) == var2.getValue(gameData);
       case 'List':
-        return _listEquals(var1.getValue(gameData), var2.getValue(gameData));
         return _listEquals(var1.getValue(gameData), var2.getValue(gameData));
       default:
         return false;
@@ -95,13 +73,11 @@ class ConditionalOp {
   }
 
   bool isGreaterThan(DataType var1, DataType var2, GameData gameData) {
-  bool isGreaterThan(DataType var1, DataType var2, GameData gameData) {
     if (var1.type != var2.type) return false;
 
     switch (var1.type) {
       case 'int':
       case 'double':
-        return var1.getValue(gameData) > var2.getValue(gameData);
         return var1.getValue(gameData) > var2.getValue(gameData);
       default:
         throw Exception('Comparison not supported for type ${var1.type}');
@@ -109,13 +85,11 @@ class ConditionalOp {
   }
 
   bool isLessThan(DataType var1, DataType var2, GameData gameData) {
-  bool isLessThan(DataType var1, DataType var2, GameData gameData) {
     if (var1.type != var2.type) return false;
 
     switch (var1.type) {
       case 'int':
       case 'double':
-        return var1.getValue(gameData) < var2.getValue(gameData);
         return var1.getValue(gameData) < var2.getValue(gameData);
       default:
         throw Exception('Comparison not supported for type ${var1.type}');
@@ -132,49 +106,38 @@ class ConditionalOp {
 
   bool and(DataType var1, DataType var2, GameData gameData) {
     return _toBoolean(var1, gameData) && _toBoolean(var2, gameData);
-  bool and(DataType var1, DataType var2, GameData gameData) {
-    return _toBoolean(var1, gameData) && _toBoolean(var2, gameData);
   }
 
   bool or(DataType var1, DataType var2, GameData gameData) {
     return _toBoolean(var1, gameData) || _toBoolean(var2, gameData);
-  bool or(DataType var1, DataType var2, GameData gameData) {
-    return _toBoolean(var1, gameData) || _toBoolean(var2, gameData);
   }
 
-  bool _toBoolean(DataType variable, GameData gameData) {
   bool _toBoolean(DataType variable, GameData gameData) {
     switch (variable.type) {
       case 'bool':
         return variable.getValue(gameData);
-        return variable.getValue(gameData);
       case 'int':
       case 'double':
         return variable.getValue(gameData) != 0;
-        return variable.getValue(gameData) != 0;
       case 'String':
-        return variable.getValue(gameData).isNotEmpty;
         return variable.getValue(gameData).isNotEmpty;
       case 'List':
         return variable.getValue(gameData).isNotEmpty;
-        return variable.getValue(gameData).isNotEmpty;
       default:
-        return false;
         return false;
     }
   }
+
 }
 
 class Conditional {
-  late List<ConditionalOp> operations;
+List<ConditionalOp> operations;
 //   List<ConditionalOp> operations;
   Conditional(this.operations);
 
   bool evaluate(GameData gameData) {
-  bool evaluate(GameData gameData) {
     bool result = true;
     for (ConditionalOp op in operations) {
-      result = result && op.evaluate(gameData);
       result = result && op.evaluate(gameData);
     }
     return result;
@@ -197,18 +160,10 @@ class CharacterInfo {
     required this.size,
     required this.isStatic,
   });
-  CharacterInfo({
-    required this.image,
-    required this.position,
-    required this.size,
-    required this.isStatic,
-  });
 }
 
 class GameData {
   VersatileImage? backgroundImage;
-  late Map<String, Variable> variables;
-  late Map<String, CharacterInfo> characters;
   late Map<String, Variable> variables;
   late Map<String, CharacterInfo> characters;
 
