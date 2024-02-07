@@ -146,9 +146,6 @@ class Conditional {
   }
 }
 
-class Action {
-   // TODO: Add more actions
-}
 
 class CharacterInfo {
   String image;

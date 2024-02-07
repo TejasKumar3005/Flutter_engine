@@ -1,50 +1,50 @@
-import 'dart:ui'; // Import dart:ui for Offset and Size
-// object has size and position 
+import 'dart:ui';
+import 'package:flame/collisions.dart';
+import 'package:flame/game.dart';
+import '../engine/game.dart';
+import 'package:flame/flame.dart';
+import 'package:flutter/material.dart';
+import 'dart:async';
 
-class Object {
-  double x;
-  double y;
-  double width;
-  double height;
-  String name;
+import 'package:flame/components.dart';
 
-  // Constructor with named parameters
-  Object({required this.x, required this.y, required this.width, required this.height, required this.name});
+class Object extends SpriteComponent
+    with HasGameReference<MyGame>, CollisionCallbacks {
+  Object({position, size, image ,required this.isStatic})
+      : super(position: position, size: size);
+  final bool isStatic;
+  String? image;
 
-  // Example of a method to update position
-  void updatePosition(Offset newPosition) {
-    x = newPosition.dx;
-    y = newPosition.dy;
-  }
-
-  // Example of a method to update size
-  void updateSize(Size newSize) {
-    width = newSize.width;
-    height = newSize.height;
+  @override
+  FutureOr<void> onLoad() async {
+    final networkImage = await Flame.images.fromCache(image!);
+    sprite = Stripe.fromImage(await networkImage.image);
+    return super.onLoad();
   }
 
   @override
-  String toString() {
-    return 'Object $name {x: $x, y: $y, width: $width, height: $height}';
+  void update(double dt) {
+
   }
 
+  Future<Image> getImage(String path) async {
+    Completer<Image> completer = Completer();
+
+    try {
+      var img = NetworkImage(path);
+      img.resolve(ImageConfiguration()).addListener(
+        ImageStreamListener((ImageInfo info, bool _) {
+          completer.complete(info.image as FutureOr<Image>?);
+        }),
+      );
+      await completer.future;
+    } catch (error) {
+      // Handle errors here
+      print('Error loading image: $error');
+      // You can throw the error or return a placeholder image if needed
+      completer.completeError(error);
+    }
+
+    return completer.future;
+  }
 }
-
-
-// class Character extends Object {
-
-//   //  character has an image
-//   // Take all possible ways to input an image
-//   // 1. Image.asset('assets/images/character.png')
-//   // 2. Image.file(File('assets/images/character.png'))
-//   // 3. Image.memory(bytes)
-//   // 4. Image.network('https://example.com/foobar.jpg')
-//   // 5. Image(image: FileImage(File('assets/images/character.png')))
-//   // 6. Image(image: MemoryImage(bytes))
-//   // 7. Image(image: NetworkImage('https://example.com/foobar.jpg'))
-//   // 8. Image(image: AssetImage('assets/images/character.png'))
-//   // 9. Image(image: ExactAssetImage('assets/images/character.png'))
-//   // 10. Image(image: ResizeImage(FileImage(File('assets/images/character.png')), width: 120, height: 120))
-
-  
-// }
