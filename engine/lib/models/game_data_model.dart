@@ -1,22 +1,26 @@
-// Build Game data class to store all relevant game data
-
-import 'package:engine/utils/Image.dart';
-import 'package:flame/game.dart';
+import 'package:engine/utils/Image.dart'; // Import the necessary dependencies for images
+import 'package:flame/game.dart'; // Import the necessary dependencies for game logic
+import 'package:vector_math/vector_math_64.dart'; // Import Vector2 from the vector_math library for 2D vectors
 
 class DataType {
   String type;
-  //value can be a string, int, or double, bool or list
   dynamic value;
-  DataType(this.type, this.value);
+
+  DataType({required this.type, required this.value});
 
   dynamic getValue(GameData gameData) {
     return value;
   }
 }
+
 class Variable extends DataType {
   String name;
-  Variable(this.name, String type, dynamic value) : super(type, value);
-  Variable.fromGameData(GameData gameData, this.name) : super(gameData.variables[name]!.type, gameData.variables[name]!.value);
+
+  Variable({required this.name, required String type, required dynamic value})
+      : super(type: type, value: value);
+
+  Variable.fromGameData(GameData gameData, {required this.name})
+      : super(type: gameData.variables[name]!.type, value: gameData.variables[name]!.value);
 
   @override
   dynamic getValue(GameData gameData) {
@@ -29,73 +33,69 @@ class Variable extends DataType {
 }
 
 class ConditionalOp {
-  String operation; // Operation type (e.g., "and", "or", "isEqual", etc.)
+  String operation;
   DataType var1;
   DataType var2;
 
   ConditionalOp(this.operation, this.var1, this.var2);
 
-  dynamic evaluate() {
+  dynamic evaluate(GameData gameData) {
     switch (operation) {
       case 'isEqual':
-        return isEqual(var1, var2);
+        return isEqual(var1, var2, gameData);
       case 'isGreaterThan':
-        return isGreaterThan(var1, var2);
+        return isGreaterThan(var1, var2, gameData);
       case 'isLessThan':
-        return isLessThan(var1, var2);
+        return isLessThan(var1, var2, gameData);
       case 'and':
-        return and(var1, var2);
+        return and(var1, var2, gameData);
       case 'or':
-        return or(var1, var2);
+        return or(var1, var2, gameData);
       default:
         throw Exception('Unsupported operation: $operation');
     }
   }
 
-  bool isEqual(DataType var1, DataType var2) {
+  bool isEqual(DataType var1, DataType var2, GameData gameData) {
     if (var1.type != var2.type) return false;
 
     switch (var1.type) {
       case 'String':
-        return var1.value == var2.value;
       case 'int':
-        return var1.value == var2.value;
       case 'double':
-        return var1.value == var2.value;
       case 'bool':
-        return var1.value == var2.value;
+        return var1.getValue(gameData) == var2.getValue(gameData);
       case 'List':
-        return _listEquals(var1.value, var2.value);
+        return _listEquals(var1.getValue(gameData), var2.getValue(gameData));
       default:
         return false;
     }
   }
 
-  bool isGreaterThan(DataType var1, DataType var2) {
+  bool isGreaterThan(DataType var1, DataType var2, GameData gameData) {
     if (var1.type != var2.type) return false;
 
     switch (var1.type) {
       case 'int':
       case 'double':
-        return var1.value > var2.value;
+        return var1.getValue(gameData) > var2.getValue(gameData);
       default:
         throw Exception('Comparison not supported for type ${var1.type}');
     }
   }
 
-  bool isLessThan(DataType var1, DataType var2) {
+  bool isLessThan(DataType var1, DataType var2, GameData gameData) {
     if (var1.type != var2.type) return false;
 
     switch (var1.type) {
       case 'int':
       case 'double':
-        return var1.value < var2.value;
+        return var1.getValue(gameData) < var2.getValue(gameData);
       default:
         throw Exception('Comparison not supported for type ${var1.type}');
     }
   }
 
-  // Utility function for list comparison
   bool _listEquals(List<dynamic> list1, List<dynamic> list2) {
     if (list1.length != list2.length) return false;
     for (int i = 0; i < list1.length; i++) {
@@ -104,50 +104,48 @@ class ConditionalOp {
     return true;
   }
 
-  bool and(DataType var1, DataType var2) {
-    return _toBoolean(var1) && _toBoolean(var2);
+  bool and(DataType var1, DataType var2, GameData gameData) {
+    return _toBoolean(var1, gameData) && _toBoolean(var2, gameData);
   }
 
-  bool or(DataType var1, DataType var2) {
-    return _toBoolean(var1) || _toBoolean(var2);
+  bool or(DataType var1, DataType var2, GameData gameData) {
+    return _toBoolean(var1, gameData) || _toBoolean(var2, gameData);
   }
 
-  // Convert Variable to a boolean value
-  bool _toBoolean(DataType variable) {
+  bool _toBoolean(DataType variable, GameData gameData) {
     switch (variable.type) {
       case 'bool':
-        return variable.value;
+        return variable.getValue(gameData);
       case 'int':
       case 'double':
-        return variable.value != 0;
+        return variable.getValue(gameData) != 0;
       case 'String':
-        return variable.value.isNotEmpty;
+        return variable.getValue(gameData).isNotEmpty;
       case 'List':
-        return variable.value.isNotEmpty;
+        return variable.getValue(gameData).isNotEmpty;
       default:
-        return false; // Or throw an exception depending on your preference
+        return false;
     }
   }
 
 }
 
 class Conditional {
-
-  // have to look if nesting of variables works properly here
-  List<ConditionalOp> operations;
+  late List<ConditionalOp> operations;
+//   List<ConditionalOp> operations;
   Conditional(this.operations);
 
-  bool evaluate() {
+  bool evaluate(GameData gameData) {
     bool result = true;
     for (ConditionalOp op in operations) {
-      result = result && op.evaluate();
+      result = result && op.evaluate(gameData);
     }
     return result;
   }
 }
 
 class Action {
-   // TODO: Add more actions
+  // Define actions here
 }
 
 class CharacterInfo {
@@ -156,32 +154,38 @@ class CharacterInfo {
   Vector2 size;
   bool isStatic;
 
-  CharacterInfo(
-      {required this.image,
-      required this.position,
-      required this.size,
-      required this.isStatic});
+  CharacterInfo({
+    required this.image,
+    required this.position,
+    required this.size,
+    required this.isStatic,
+  });
 }
 
 class GameData {
   VersatileImage? backgroundImage;
-  Map<String, Variable> variables = {};
-  Map<String, CharacterInfo> characters = {};
+  late Map<String, Variable> variables;
+  late Map<String, CharacterInfo> characters;
 
-  GameData();
+  GameData()
+      : variables = {},
+        characters = {};
 
   factory GameData.fromJSON(Map<String, dynamic> json) {
     GameData gameData = GameData();
-    gameData.backgroundImage = VersatileImage.assetPng(json['background_image']);
+    gameData.backgroundImage =
+        VersatileImage.assetPng(json['background_image']);
     json['variables'].forEach((key, value) {
-      gameData.variables[key] = Variable(key, value['type'], value['value']);
+      gameData.variables[key] =
+          Variable(name: key, type: value['type'], value: value['value']);
     });
     json['characters'].forEach((key, value) {
       gameData.characters[key] = CharacterInfo(
-          image: value['image'],
-          position: Vector2(value['position'][0], value['position'][1]),
-          size: Vector2(value['size'][0], value['size'][1]),
-          isStatic: value['isStatic']);
+        image: value['image'],
+        position: Vector2(value['position'][0], value['position'][1]),
+        size: Vector2(value['size'][0], value['size'][1]),
+        isStatic: value['isStatic'],
+      );
     });
     return gameData;
   }
