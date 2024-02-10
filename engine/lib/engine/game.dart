@@ -1,6 +1,6 @@
 import 'package:engine/models/game_data_model.dart';
 import 'package:flame/game.dart';
-import "object.dart";
+import '../models/object.dart';
 
 class MyGame extends FlameGame {
   MyGame({required this.gamedata});
