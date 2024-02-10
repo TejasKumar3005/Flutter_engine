@@ -7,6 +7,6 @@ class MyGame extends FlameGame {
   final GameData gamedata;
   @override
   Future<void> onLoad() async {
-    gamedata.characters.values.forEach((element) {world.add(Object(position: element.position,size:element.size ,image:element.image ,isStatic:element.isStatic ,velocity: 0));});
+    gamedata.characters.values.forEach((element) {world.add(Object(position: element.position,size:element.size ,image:element.image ,isStatic:element.isStatic ));});
   }
 }

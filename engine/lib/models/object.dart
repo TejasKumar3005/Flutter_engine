@@ -10,7 +10,7 @@ import 'package:flame/components.dart';
 
 class Object extends SpriteComponent
     with HasGameReference<MyGame>, CollisionCallbacks {
-  Object({position, size, image ,required this.isStatic})
+  Object({position, size, image, required this.isStatic})
       : super(position: position, size: size);
   final bool isStatic;
   String? image;
@@ -18,14 +18,18 @@ class Object extends SpriteComponent
   @override
   FutureOr<void> onLoad() async {
     final networkImage = await Flame.images.fromCache(image!);
-    sprite = Stripe.fromImage(await networkImage.image);
+    sprite = Sprite(networkImage);
     return super.onLoad();
   }
 
   @override
-  void update(double dt) {
+  void update(double dt) {}
 
-  }
+  @override 
+  void onCollisionStart(
+      Set<Vector2> intersectionPoints, PositionComponent other) {
+
+      }
 
   Future<Image> getImage(String path) async {
     Completer<Image> completer = Completer();

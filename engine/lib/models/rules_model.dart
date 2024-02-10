@@ -8,7 +8,7 @@ class GameRules {
 
   // Placeholder for conditional logic
   bool checkCondition(ConditionalOp condition, GameData gameData) {
-    return condition.evaluate();
+    return condition.evaluate(gameData);
   }
 
   // Placeholder for rule application logic
@@ -19,7 +19,6 @@ class GameRules {
   // Placeholder for applying rules based on conditions
   void applyRules(List<Action> actions, List<ConditionalOp> conditions, GameData gameData) {
     trigger(gameData); // Trigger at the beginning (customize based on your needs)
-
     for (int i = 0; i < actions.length; i++) {
       if (conditions.length > i && checkCondition(conditions[i], gameData)) {
         applyRule(actions[i], gameData);
