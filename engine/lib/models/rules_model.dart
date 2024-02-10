@@ -8,7 +8,7 @@ class GameRules {
 
   // Placeholder for conditional logic
   bool checkCondition(ConditionalOp condition, GameData gameData) {
-    return condition.evaluate();
+    return condition.evaluate(gameData);
   }
 
   // Placeholder for rule application logic
