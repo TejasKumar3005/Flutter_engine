@@ -21,7 +21,7 @@ class _GameState extends State<Game> {
   @override
   void initState() {
     super.initState();
-    gameData = GameData.fromJson(widget.gameJson);
+    gameData = GameData.fromJSON(widget.gameJson);
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeLeft,
       DeviceOrientation.landscapeRight,
