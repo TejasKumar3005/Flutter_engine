@@ -160,30 +160,40 @@ class CharacterInfo {
 }
 
 class GameData {
-  VersatileImage? backgroundImage;
+  late VersatileImage backgroundImage;
   late Map<String, Variable> variables;
   late Map<String, CharacterInfo> characters;
 
-  GameData()
-      : variables = {},
-        characters = {};
+  GameData({
+    required this.variables,
+    required this.characters,
+  });
 
-  factory GameData.fromJSON(Map<String, dynamic> json) {
-    GameData gameData = GameData();
-    gameData.backgroundImage =
-        VersatileImage.assetPng(json['background_image']);
+  factory GameData.fromJson(Map<String, dynamic> json) {
+    Map<String, Variable> variables = {};
+    Map<String, CharacterInfo> characters = {};
+
     json['variables'].forEach((key, value) {
-      gameData.variables[key] =
-          Variable(name: key, type: value['type'], value: value['value']);
+      variables[key] = Variable(
+        name: key,
+        type: value['type'],
+        value: value['value'],
+      );
     });
+
     json['characters'].forEach((key, value) {
-      gameData.characters[key] = CharacterInfo(
+      characters[key] = CharacterInfo(
         image: value['image'],
         position: Vector2(value['position'][0], value['position'][1]),
         size: Vector2(value['size'][0], value['size'][1]),
         isStatic: value['isStatic'],
       );
     });
-    return gameData;
+
+    return GameData(
+      variables: variables,
+      characters: characters,
+    );
   }
+  
 }
