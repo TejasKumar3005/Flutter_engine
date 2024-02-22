@@ -43,6 +43,11 @@ Game State:
 Game Rules:
   Diya:
     - collision_with:   
+        - Diya:
+            condition: IsValidPosition()
+            action: Update_position(Diya)
+            condition: DiyasPlaced == 5 && RangolisPlaced == 1
+            action: DecorationComplete = true
         - Diya-placeholder:
             condition: IsValidPosition()
             action: Update_position(Diya-placeholder), Diyaplaced++
