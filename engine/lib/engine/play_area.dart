@@ -1,0 +1,22 @@
+
+import 'dart:async';
+import 'dart:ui';
+
+import 'package:engine/engine/game.dart';
+import 'package:flame/collisions.dart';
+import 'package:flame/components.dart';
+
+
+class PlayArea extends RectangleComponent with HasGameReference<MyGame>{
+  PlayArea()
+      : super(
+          paint: Paint()..color = const Color(0xfff2e8cf),
+          children: [RectangleHitbox()],
+        );
+
+  @override
+  FutureOr<void> onLoad() async {
+    super.onLoad();
+    size = Vector2(game.width, game.height);
+  }
+}

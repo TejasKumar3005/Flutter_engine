@@ -1,0 +1,1061 @@
+{
+    "Objective": "The game educates children about the Diwali festival through interactive decoration of a scene. Children interact by placing diyas, rangolis, fireworks, and sweets. Each placement teaches them a fact about Diwali, aiming to complete the decoration.\n",
+    "Character": [
+        {
+            "name": "Diya1",
+            "description": "A small clay lamp filled with oil and a cotton wick, burning brightly.",
+            "count": 1,
+            "size": {
+                "width": 50,
+                "height": 50
+            },
+            "isMovable": true,
+            "position": {
+                "x": 100,
+                "y": 500
+            }
+        },
+        {
+            "name": "Diya2",
+            "description": "A small clay lamp filled with oil and a cotton wick, burning brightly.",
+            "count": 1,
+            "size": {
+                "width": 50,
+                "height": 50
+            },
+            "isMovable": true,
+            "position": {
+                "x": 200,
+                "y": 500
+            }
+        },
+        {
+            "name": "Diya3",
+            "description": "A small clay lamp filled with oil and a cotton wick, burning brightly.",
+            "count": 1,
+            "size": {
+                "width": 50,
+                "height": 50
+            },
+            "isMovable": true,
+            "position": {
+                "x": 300,
+                "y": 500
+            }
+        },
+        {
+            "name": "Diya4",
+            "description": "A small clay lamp filled with oil and a cotton wick, burning brightly.",
+            "count": 1,
+            "size": {
+                "width": 50,
+                "height": 50
+            },
+            "isMovable": true,
+            "position": {
+                "x": 400,
+                "y": 500
+            }
+        },
+        {
+            "name": "Diya5",
+            "description": "A small clay lamp filled with oil and a cotton wick, burning brightly.",
+            "count": 1,
+            "size": {
+                "width": 50,
+                "height": 50
+            },
+            "isMovable": true,
+            "position": {
+                "x": 500,
+                "y": 500
+            }
+        },
+        {
+            "name": "Rangoli1",
+            "description": "Colorful pattern made on the ground using colored rice, dry flour, colored sand or flower petals.",
+            "count": 1,
+            "size": {
+                "width": 150,
+                "height": 150
+            },
+            "isMovable": true,
+            "position": {
+                "x": 300,
+                "y": 500
+            }
+        },
+        {
+            "name": "Rangoli-placeholder1",
+            "description": "Red-colored circle with a white border.",
+            "count": 1,
+            "size": {
+                "width": 20,
+                "height": 20
+            },
+            "isMovable": false,
+            "position": {
+                "x": 300,
+                "y": 300
+            }
+        },
+        {
+            "name": "Diya-placeholder1",
+            "description": "Brown-colored circle with a white border.",
+            "count": 1,
+            "size": {
+                "width": 20,
+                "height": 20
+            },
+            "isMovable": false,
+            "position": {
+                "x": 100,
+                "y": 100
+            }
+        },
+        {
+            "name": "Diya-placeholder2",
+            "description": "Brown-colored circle with a white border.",
+            "count": 1,
+            "size": {
+                "width": 20,
+                "height": 20
+            },
+            "isMovable": false,
+            "position": {
+                "x": 200,
+                "y": 100
+            }
+        },
+        {
+            "name": "Diya-placeholder3",
+            "description": "Brown-colored circle with a white border.",
+            "count": 1,
+            "size": {
+                "width": 20,
+                "height": 20
+            },
+            "isMovable": false,
+            "position": {
+                "x": 300,
+                "y": 100
+            }
+        },
+        {
+            "name": "Diya-placeholder4",
+            "description": "Brown-colored circle with a white border.",
+            "count": 1,
+            "size": {
+                "width": 20,
+                "height": 20
+            },
+            "isMovable": false,
+            "position": {
+                "x": 400,
+                "y": 100
+            }
+        },
+        {
+            "name": "Diya-placeholder5",
+            "description": "Brown-colored circle with a white border.",
+            "count": 1,
+            "size": {
+                "width": 20,
+                "height": 20
+            },
+            "isMovable": false,
+            "position": {
+                "x": 500,
+                "y": 100
+            }
+        }
+    ],
+    "Background": "A night-time village scene with simple houses, a starry sky, and an open area for decorations, setting the stage for Diwali celebrations.\n",
+    "Game State": [
+        {
+            "name": "DiyasPlaced",
+            "type": "Integer",
+            "value": 0
+        },
+        {
+            "name": "RangolisPlaced",
+            "type": "Integer",
+            "value": 0
+        },
+        {
+            "name": "DecorationComplete",
+            "type": "Boolean",
+            "value": false
+        }
+    ],
+    "Game Rules": {
+        "Diya1": [
+            {
+                "collision_with": [
+                    {
+                        "Diya-placeholder1": {
+                            "condition": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ],
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "Diya-placeholder2": {
+                            "condition": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ],
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "Diya-placeholder3": {
+                            "condition": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ],
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "Diya-placeholder4": {
+                            "condition": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ],
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "Diya-placeholder5": {
+                            "condition": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ],
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
+                        }
+                    }
+                ]
+            }
+        ],
+        "Diya2": [
+            {
+                "collision_with": [
+                    {
+                        "Diya-placeholder1": {
+                            "condition": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ],
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "Diya-placeholder2": {
+                            "condition": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ],
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "Diya-placeholder3": {
+                            "condition": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ],
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "Diya-placeholder4": {
+                            "condition": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ],
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "Diya-placeholder5": {
+                            "condition": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ],
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
+                        }
+                    }
+                ]
+            }
+        ],
+        "Diya3": [
+            {
+                "collision_with": [
+                    {
+                        "Diya-placeholder1": {
+                            "condition": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ],
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "Diya-placeholder2": {
+                            "condition": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ],
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "Diya-placeholder3": {
+                            "condition": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ],
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "Diya-placeholder4": {
+                            "condition": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ],
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "Diya-placeholder5": {
+                            "condition": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ],
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
+                        }
+                    }
+                ]
+            }
+        ],
+        "Diya4": [
+            {
+                "collision_with": [
+                    {
+                        "Diya-placeholder1": {
+                            "condition": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ],
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "Diya-placeholder2": {
+                            "condition": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ],
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "Diya-placeholder3": {
+                            "condition": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ],
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "Diya-placeholder4": {
+                            "condition": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ],
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "Diya-placeholder5": {
+                            "condition": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ],
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
+                        }
+                    }
+                ]
+            }
+        ],
+        "Diya5": [
+            {
+                "collision_with": [
+                    {
+                        "Diya-placeholder1": {
+                            "condition": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ],
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "Diya-placeholder2": {
+                            "condition": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ],
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "Diya-placeholder3": {
+                            "condition": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ],
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "Diya-placeholder4": {
+                            "condition": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ],
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "Diya-placeholder5": {
+                            "condition": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ],
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
+                        }
+                    }
+                ]
+            }
+        ],
+        "Rangoli1": [
+            {
+                "collision_with": [
+                    {
+                        "Rangoli-placeholder1": {
+                            "condition": [
+                                [
+                                    {
+                                        "operand1": "Rangoliplaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    },
+                                    {
+                                        "operand1": "DiyasPlaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    }
+                                ]
+                            ],
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Rangoliplaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    },
+                                    {
+                                        "operand1": "DiyasPlaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    }
+                                ]
+                            ]
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+}

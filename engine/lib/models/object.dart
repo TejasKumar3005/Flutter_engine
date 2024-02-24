@@ -8,30 +8,31 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:flame/components.dart';
-
-class Object extends SpriteComponent
+class Object extends CircleComponent 
     with HasGameReference<MyGame>, CollisionCallbacks, DragCallbacks {
   Object({name, position, size, image ,required this.isStatic})
-      : super(position: position, size: size);
+      : super(position: position, radius: 10,
+            
+            paint: Paint()
+              ..color = const Color(0xff1e6091)
+              ..style = PaintingStyle.fill);
   String? name;
   final bool isStatic;
   String? image;
 
+  // @override
+  // FutureOr<void> onLoad() async {
+  //   // final networkImage = await Flame.images.fromCache(image!);
+  //   // sprite = Sprite.fromImage(await networkImage.image);
+  //   return super.onLoad();
+  // }
+
   @override
-  FutureOr<void> onLoad() async {
-    final networkImage = await Flame.images.fromCache(image!);
-    sprite = Sprite.fromImage(await networkImage.image);
-    return super.onLoad();
+  void update(double dt) {
+    // Your update logic here
   }
 
-  @override
-  void update(double dt) {}
 
-  @override 
-  void onCollisionStart(
-      Set<Vector2> intersectionPoints, PositionComponent other) {
-
-      }
 
   Future<Image> getImage(String path) async {
     Completer<Image> completer = Completer();
