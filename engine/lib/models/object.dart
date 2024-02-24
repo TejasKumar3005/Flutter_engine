@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flame/collisions.dart';
+import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import '../engine/game.dart';
 import 'package:flame/flame.dart';
@@ -9,16 +10,17 @@ import 'dart:async';
 import 'package:flame/components.dart';
 
 class Object extends SpriteComponent
-    with HasGameReference<MyGame>, CollisionCallbacks {
-  Object({position, size, image, required this.isStatic})
+    with HasGameReference<MyGame>, CollisionCallbacks, DragCallbacks {
+  Object({name, position, size, image ,required this.isStatic})
       : super(position: position, size: size);
+  String? name;
   final bool isStatic;
   String? image;
 
   @override
   FutureOr<void> onLoad() async {
     final networkImage = await Flame.images.fromCache(image!);
-    sprite = Sprite(networkImage);
+    sprite = Sprite.fromImage(await networkImage.image);
     return super.onLoad();
   }
 
