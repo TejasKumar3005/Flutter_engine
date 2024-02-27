@@ -1,5 +1,6 @@
 import 'package:engine/utils/Image.dart'; // Import the necessary dependencies for images
 import 'package:flame/game.dart'; // Import the necessary dependencies for game logic
+import 'package:flutter/material.dart';
 import 'package:vector_math/vector_math_64.dart'; // Import Vector2 from the vector_math library for 2D vectors
 
 class DataType {
@@ -19,7 +20,9 @@ class Variable extends DataType {
   Variable({ required this.name});
 
   Variable.fromGameData(GameData gameData, {required this.name})
-      : super(type: gameData.variables[name]!.type, value: gameData.variables[name]!.value);
+      : super(
+            type: gameData.variables[name]!.type,
+            value: gameData.variables[name]!.value);
 
   @override
   dynamic getValue(GameData gameData) {
@@ -126,11 +129,10 @@ class ConditionalOp {
         return false;
     }
   }
-
 }
 
 class Conditional {
-List<ConditionalOp> operations;
+  List<ConditionalOp> operations;
 //   List<ConditionalOp> operations;
   Conditional(this.operations);
 
@@ -157,25 +159,32 @@ List<ConditionalOp> operations;
   }
 }
 
-
 class CharacterInfo {
   String image;
   Vector2 position;
   Vector2 size;
-  bool isStatic;
+  bool isMovable;
+  String name;
 
-  CharacterInfo({
-    required this.image,
-    required this.position,
-    required this.size,
-    required this.isStatic,
-  });
+  CharacterInfo(
+      {required this.image,
+      required this.position,
+      required this.size,
+      required this.isMovable,
+      required this.name});
 }
 
 class GameData {
   late VersatileImage backgroundImage;
   late Map<String, Variable> variables;
   late Map<String, CharacterInfo> characters;
+
+  Widget background_builder(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+          image: DecorationImage(image: AssetImage("assets/bg.jpg"))),
+    );
+  }
 
   GameData({
     required this.variables,
@@ -186,27 +195,26 @@ class GameData {
     Map<String, Variable> variables = {};
     Map<String, CharacterInfo> characters = {};
 
-    json['variables'].forEach((key, value) {
-      variables[key] = Variable(
-        name: key,
-        type: value['type'],
-        value: value['value'],
-      );
+    // json['variables'].forEach((key, value) {
+    //   variables[key] = Variable(
+    //     name: key,
+    //     type: value['type'],
+    //     value: value['value'],
+    //   );
+    // });
+    List chrs = json['Character'];
+    chrs.forEach((value) {
+      characters[value["name"]] = CharacterInfo(
+          image: '',
+          position: Vector2(value['position']["x"], value['position']['y']),
+          size: Vector2(value['size']["width"], value['size']["height"]),
+          isMovable: value['isMovable'],
+          name: value["name"]);
     });
-
-    json['characters'].forEach((key, value) {
-      characters[key] = CharacterInfo(
-        image: value['image'],
-        position: Vector2(value['position'][0], value['position'][1]),
-        size: Vector2(value['size'][0], value['size'][1]),
-        isStatic: value['isStatic'],
-      );
-    });
-
+   
     return GameData(
       variables: variables,
       characters: characters,
     );
   }
-  
 }
