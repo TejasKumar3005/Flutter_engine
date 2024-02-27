@@ -3,10 +3,10 @@ import 'package:flame/game.dart'; // Import the necessary dependencies for game 
 import 'package:vector_math/vector_math_64.dart'; // Import Vector2 from the vector_math library for 2D vectors
 
 class DataType {
-  String type;
-  dynamic value;
+  String? type;
+  dynamic? value;
 
-  DataType({required this.type, required this.value});
+  DataType({this.type, this.value});
 
   dynamic getValue(GameData gameData) {
     return value;
@@ -16,8 +16,7 @@ class DataType {
 class Variable extends DataType {
   String name;
 
-  Variable({required this.name, required String type, required dynamic value})
-      : super(type: type, value: value);
+  Variable({ required this.name});
 
   Variable.fromGameData(GameData gameData, {required this.name})
       : super(type: gameData.variables[name]!.type, value: gameData.variables[name]!.value);
@@ -141,6 +140,20 @@ List<ConditionalOp> operations;
       result = result && op.evaluate(gameData);
     }
     return result;
+  }
+
+  factory Conditional.fromJson(Map<String, dynamic> json) {
+    List<ConditionalOp> operations = [];
+    json['operations'].forEach((op) {
+      bool isOp1Var = op['var1']['type'] == 'variable';
+      bool isOp2Var = op['var2']['type'] == 'variable'; 
+      operations.add(ConditionalOp(
+        op['operation'],
+        isOp1Var ? Variable(name: op['var1']['value']) : DataType(type: op['var1']['type'], value: op['var1']['value']),
+        isOp2Var ? Variable(name: op['var2']['value']) : DataType(type: op['var2']['type'], value: op['var2']['value']),
+      ));
+    });
+    return Conditional(operations);
   }
 }
 

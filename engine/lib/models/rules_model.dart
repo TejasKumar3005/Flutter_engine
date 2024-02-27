@@ -1,24 +1,47 @@
 import 'package:engine/models/game_data_model.dart';
 
 class GameRules {
-  // Placeholder for trigger logic
+  late Map<String, GameObjectRule> gameRules;
+
+  GameRules({
+    required this.gameRules,
+  });
+
+  factory GameRules.fromJson(Map<String, dynamic> json) {
+    Map<String, GameObjectRule> gameRules = {};
+    json.forEach((key, value) {
+      gameRules[key] = GameObjectRule.fromJson(value);
+    });
+    return GameRules(
+      gameRules: gameRules,
+    );
+  }
+
   void trigger(GameData gameData) {
     print('Trigger activated!');
   }
 
-  // Placeholder for conditional logic
   bool checkCondition(ConditionalOp condition, GameData gameData) {
     return condition.evaluate(gameData);
   }
 
-  // Placeholder for rule application logic
   void applyRule(Action action, GameData gameData) {
     action.execute(gameData);
   }
 
-  // Placeholder for applying rules based on conditions
+  void onTap(String objectType, GameData gameData) {
+    final rule = gameRules[objectType]?.tapWith;
+    if (rule != null) {
+      rule.forEach((key, value) {
+        if (checkCondition(value.condition, gameData)) {
+          applyRule(value.action, gameData);
+        }
+      });
+    }
+  }
+
   void applyRules(List<Action> actions, List<ConditionalOp> conditions, GameData gameData) {
-    trigger(gameData); // Trigger at the beginning (customize based on your needs)
+    trigger(gameData);
 
     for (int i = 0; i < actions.length; i++) {
       if (conditions.length > i && checkCondition(conditions[i], gameData)) {
@@ -28,10 +51,9 @@ class GameRules {
   }
 }
 
-
 class ConditionAction {
-  final String condition;
-  final String action;
+  final ConditionalOp condition;
+  final Action action;
 
   ConditionAction({
     required this.condition,
@@ -40,34 +62,41 @@ class ConditionAction {
 
   factory ConditionAction.fromJson(Map<String, dynamic> json) {
     return ConditionAction(
-      condition: json['condition'],
-      action: json['action'],
+      condition: ConditionalOp.fromJson(json['condition']),
+      action: Action.fromJson(json['action']),
     );
   }
 }
 
 class InteractionRule {
-  final Map<String, ConditionAction> conditionsActions;
+  final Conditional condition;
+  final Action action;
+  // final Map<String, ConditionAction> tapWith;
 
   InteractionRule({
-    required this.conditionsActions,
+    // required this.tapWith,
+    required this.condition,
+    required this.action,
   });
 
   factory InteractionRule.fromJson(Map<String, dynamic> json) {
-    Map<String, ConditionAction> conditionsActions = {};
-    json.forEach((key, value) {
-      conditionsActions[key] = ConditionAction.fromJson(value);
-    });
+    
     return InteractionRule(
-      conditionsActions: conditionsActions,
+      // tapWith: tapWith,
+      condition: Conditional.fromJson(json['condition']),
+      action: Action.fromJson(json['action']),
     );
   }
 }
 
+// All the rules asscoiated with one object
 class GameObjectRule {
+  // name of object
   final String objectType;
+  // map of rules for which object the collision has happened
   final Map<String, InteractionRule> collisionWith;
-  final Map<String, InteractionRule> tapWith;
+  //tap rule
+  final InteractionRule tapWith;
 
   GameObjectRule({
     required this.objectType,
@@ -75,18 +104,20 @@ class GameObjectRule {
     required this.tapWith,
   });
 
-  factory GameObjectRule.fromJson(Map<String, dynamic> json) {
-    String objectType = json.keys.first;
-    Map<String, dynamic> rulesJson = json[objectType];
+  factory GameObjectRule.fromJson(String name ,Map<String, dynamic> json) {
+    String objectType = name;
+
+    Map<String, dynamic> collisionRulesJson = json["collision_with"];
+    Map<String, dynamic> tapRulesJson = json["tap_with"];
+    InteractionRule tapWith;
     Map<String, InteractionRule> collisionWith = {};
-    Map<String, InteractionRule> tapWith = {};
-    rulesJson.forEach((key, value) {
-      if (key == "collision_with") {
-        collisionWith = _parseInteractionRules(value);
-      } else if (key == "tap_with") {
-        tapWith = _parseInteractionRules(value);
-      }
+
+    collisionRulesJson.forEach((key, value) {
+      collisionWith[key] = InteractionRule.fromJson(value);
     });
+
+    tapWith = InteractionRule.fromJson(tapRulesJson);
+
     return GameObjectRule(
       objectType: objectType,
       collisionWith: collisionWith,
@@ -104,81 +135,25 @@ class GameObjectRule {
 }
 
 
- // condition json parsing
-
- class ParsingCondition {
-  String _expression = '';
-
-  ParsingCondition.fromJson(Map<String, dynamic> json) {
-    _expression = _parseExpression(json['condition']);
-  }
-
-  String _parseExpression(dynamic condition) {
-    String result = '';
-
-    if (condition is List) {
-      if (condition.isNotEmpty) {
-        result += '(';
-        for (var i = 0; i < condition.length; i++) {
-          if (i > 0) {
-            result += ' && ';
-          }
-          result += _parseExpression(condition[i]);
-        }
-        result += ')';
-      }
-    } else if (condition is Map) {
-      List<dynamic> operands = condition.entries.map((e) {
-        String operand1 = e.value['operand1'];
-        String operator = e.value['operator'];
-        String operand2 = e.value['operand2'];
-        return '$operand1 $operator $operand2';
-      }).toList();
-
-      result = operands.join(' || ');
-    }
-
-    return result;
-  }
-
-  String getExpression() {
-    return _expression;
-  }
-}
-
-
-// action json parsing  
-
-class ParsingAction {
-  List<String> _actions = [];
-
-  ParsingAction.fromJson(Map<String, dynamic> json) {
-    _actions = _parseActions(json['action']);
-  }
-
-  List<String> _parseActions(List<dynamic> actionList) {
-    List<String> result = [];
-    for (var action in actionList) {
-      String target = action['target'];
-      String operand1 = action['operand1'];
-      String operator = action['operator'];
-      String operand2 = action['operand2'];
-      result.add('$target $operator $operand2');
-    }
-    return result;
-  }
-
-  List<String> getActions() {
-    return _actions;
-  }
-}
-
 // action class
 class Action {
   DataType? var1;
   DataType? var2;
   Variable? targetvar;
   String? operation; // +, -, *, inplace+, inplace*, inplace-
+
+  factory Action.fromJson(Map<String, dynamic> json) {
+    bool var1_isvariable =  json["var1"]["type"] == "Variable"? true : false;
+    bool var2_isvariable =  json["var2"]["type"] == "Variable"? true : false;
+    
+    return Action.variableOperation(
+      // check if var1 and var2 are variables or not
+      var1: var1_isvariable ? Variable(name : json["var1"]["name"]) : DataType(type: json['var1']['type'], value: json['var1']['value']),
+      var2: var2_isvariable ? Variable(name : json["var2"]["name"]) : DataType(type: json['var2']['type'], value: json['var2']['value']),
+      targetvar: Variable(name: json['targetvar']['name']),
+      operation: json['operation'],
+    );
+  }
 
   // Constructors for different types of actions
   Action.variableOperation({
