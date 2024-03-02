@@ -9,7 +9,7 @@ import 'dart:async';
 
 import 'package:flame/components.dart';
 class Object extends SpriteComponent
-    with HasGameReference<MyGame>, CollisionCallbacks, DragCallbacks {
+    with HasGameRef<MyGame>, CollisionCallbacks, DragCallbacks, TapCallbacks {
   Object({name, position, size, image ,required this.isStatic})
       : super(position: position, size: size);
   String? name;
@@ -26,31 +26,34 @@ class Object extends SpriteComponent
   @override
   void update(double dt) {
     // Your update logic here
+    if (!isDragged) {
+      // Do something when the object is dragged
+      position = gameRef.gamedata.characters[name]!.position;
+    }
   }
 
   // Override DragCallbacks methods
   @override
-  bool onDragStart(int pointerId, DragStartInfo info) {
-    // Only start dragging if isStatic is false
-    return !isStatic;
-  }
-
-  @override
-  bool onDragUpdate(int pointerId, DragUpdateInfo info) {
-    // Only allow dragging if isStatic is false
-    if (!isStatic) {
-      position.add(info.delta.game);
-      return true;
+    void onDragStart(DragStartEvent event) {
+      if(isStatic) return;
+      super.onDragStart(event);
+      priority = 10;
     }
-    return false;
-  }
 
-  @override
-  bool onDragEnd(int pointerId, DragEndInfo info) {
-    // You can implement any logic needed when drag ends
-    // For example, snapping the object back into a grid or boundaries
-    return !isStatic;
-  }
+    @override
+    void onDragEnd(DragEndEvent event) {
+      super.onDragEnd(event);
+      priority = 0;
+    }
+
+    @override
+    void onDragUpdate(DragUpdateEvent event) {
+      if (isStatic) {
+        return;
+      }
+      position += event.localDelta;
+    }
+
 
   Future<Image> getImage(String path) async {
     Completer<Image> completer = Completer();
