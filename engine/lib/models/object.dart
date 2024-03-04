@@ -9,7 +9,7 @@ import 'dart:async';
 
 import 'package:flame/components.dart';
 class Object extends CircleComponent 
-    with HasGameReference<MyGame>, CollisionCallbacks, DragCallbacks {
+    with HasGameRef<MyGame>, CollisionCallbacks, DragCallbacks {
   Object({name, position, size, image ,required this.isStatic})
       : super(position: position, radius: 10,
             
