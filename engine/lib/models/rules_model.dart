@@ -32,11 +32,7 @@ class GameRules {
   void onTap(String objectType, GameData gameData) {
     final rule = gameRules[objectType]?.tapWith;
     if (rule != null) {
-      rule.forEach((key, value) {
-        if (checkCondition(value.condition, gameData)) {
-          applyRule(value.action, gameData);
-        }
-      });
+      rule.execute(gameData);
     }
   }
  
@@ -80,6 +76,12 @@ class InteractionRule {
     required this.condition,
     required this.action,
   });
+
+  void execute (GameData gameData) {
+    if (condition.evaluate(gameData)) {
+      action.execute(gameData);
+    }
+  }
 
   factory InteractionRule.fromJson(Map<String, dynamic> json) {
     
