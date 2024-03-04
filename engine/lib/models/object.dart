@@ -36,6 +36,13 @@ class Object extends CircleComponent
     }
   }
 
+
+  // Override TapCallbacks methods
+  @override
+  void onTapUp(TapUpDetails details) {
+    gameRef.gameRules.gameRules.onTap(name!, gameRef.gamedata);
+  }
+
   // Override DragCallbacks methods
   @override
     void onDragStart(DragStartEvent event) {
