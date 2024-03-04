@@ -30,24 +30,38 @@ class GameRules {
     action.execute(gameData);
   }
 
- void onTap(String objectType, GameData gameData) {
-  final rule = gameRules[objectType]?.tapWith;
-  if (rule != null) {
-    rule.forEach((key, value) {
-      if (checkCondition(value.condition, gameData)) {
-        applyRule(value.action, gameData);
-      }
-    });
-  } else {
-    print('No rules defined for $objectType');
-  }
-}
+//  void onTap(String objectType, GameData gameData) {
+//   final rule = gameRules[objectType]?.tapWith;
+//   if (rule != null) {
+//     rule.forEach((key, value) {
+//       if (checkCondition(value.condition, gameData)) {
+//         applyRule(value.action, gameData);
+//       }
+//     });
+//   } else {
+//     print('No rules defined for $objectType');
+//   }
+// }
   void onTap(String objectType, GameData gameData) {
     final rule = gameRules[objectType]?.tapWith;
     if (rule != null) {
       rule.execute(gameData);
     }
   }
+  void onCollision(String objectType1,String objectType2, GameData gameData) {
+    final rule = gameRules[objectType1]?.collisionWith?[objectType2] ?? null;
+
+if (gameRules[objectType1]?.collisionWith != null && gameRules[objectType1]?.collisionWith?.containsKey(objectType2) == true) {
+    // Collision rule exists for objectType2
+    // You can use rule here
+    rule!.execute(gameData);
+    
+} 
+
+   
+      
+  }
+  
  
 
 
