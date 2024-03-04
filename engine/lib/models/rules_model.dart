@@ -40,6 +40,7 @@ class GameRules {
     }
   }
 
+
   void applyRules(List<Action> actions, List<ConditionalOp> conditions, GameData gameData) {
     trigger(gameData);
 

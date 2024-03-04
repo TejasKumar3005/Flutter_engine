@@ -132,16 +132,23 @@ class ConditionalOp {
 }
 
 class Conditional {
-  List<ConditionalOp> operations;
+  List<List<ConditionalOp>> operations;
 //   List<ConditionalOp> operations;
   Conditional(this.operations);
 
   bool evaluate(GameData gameData) {
-    bool result = true;
-    for (ConditionalOp op in operations) {
-      result = result && op.evaluate(gameData);
+    List<bool> result = [];
+    bool check = true;
+     for(int i = 0; i < operations.length; i++){
+      result[i] = false;
+       for (ConditionalOp op in operations[i]) {
+      result[i] = result[i] || op.evaluate(gameData);
+     }    
+   }
+   for (int i = 0; i < result.length; i++){
+      check = check && result[i];
     }
-    return result;
+    return check;
   }
 
   factory Conditional.fromJson(Map<String, dynamic> json) {
