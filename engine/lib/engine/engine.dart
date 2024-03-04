@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:engine/models/game_data_model.dart';
+import 'package:engine/models/rules_model.dart';
 import 'package:flutter/material.dart';
 import '../test.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ class Game extends StatefulWidget {
 
 class _GameState extends State<Game> {
   late GameData gameData = GameData(characters: {}, variables: {});
+  GameRules gameRules = GameRules(gameRules: {});
 
   @override
   void initState() {
@@ -26,7 +28,6 @@ class _GameState extends State<Game> {
     fetchData().then((value) => {
           setState(() {
             gameData = GameData.fromJson(value);
-           
           })
         });
 
@@ -50,11 +51,11 @@ class _GameState extends State<Game> {
       child: AspectRatio(
           aspectRatio: 4 / 3, // Example aspect ratio: width / height
           child: GameWidget<MyGame>(
-            game: MyGame(gamedata: gameData),
-            // backgroundBuilder: (context) {
-            //   // Your custom widget as a background
-            //   return gameData.background_builder(context);
-            // },
+            game: MyGame(gamedata: gameData,gameRules: gameRules),
+            backgroundBuilder: (context) {
+              // Your custom widget as a background
+              return gameData.background_builder(context);
+            },
             // You can still use all the other properties like backgroundBuilder, overlayBuilderMap, etc.
           )),
     );

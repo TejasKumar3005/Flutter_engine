@@ -10,7 +10,7 @@ class GameRules {
   factory GameRules.fromJson(Map<String, dynamic> json) {
     Map<String, GameObjectRule> gameRules = {};
     json.forEach((key, value) {
-      gameRules[key] = GameObjectRule.fromJson(value);
+      // gameRules[key] = GameObjectRule.fromJson(value);
     });
     return GameRules(
       gameRules: gameRules,
@@ -42,6 +42,13 @@ class GameRules {
     print('No rules defined for $objectType');
   }
 }
+  void onTap(String objectType, GameData gameData) {
+    final rule = gameRules[objectType]?.tapWith;
+    if (rule != null) {
+      rule.execute(gameData);
+    }
+  }
+ 
 
 
   void applyRules(List<Action> actions, List<ConditionalOp> conditions, GameData gameData) {
@@ -84,6 +91,12 @@ class InteractionRule {
     required this.condition,
     required this.action,
   });
+
+  void execute (GameData gameData) {
+    if (condition.evaluate(gameData)) {
+      action.execute(gameData);
+    }
+  }
 
   factory InteractionRule.fromJson(Map<String, dynamic> json) {
     
