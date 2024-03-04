@@ -41,6 +41,25 @@ class ConditionalOp {
 
   ConditionalOp(this.operation, this.var1, this.var2);
 
+    factory ConditionalOp.fromJson(Map<String, dynamic> json){
+    bool var1_isvariable =  json["operand1"]["type"] == "Variable"? true : false;
+    bool var2_isvariable =  json["operand2"]["type"] == "Variable"? true : false;
+    
+    return ConditionalOp.variableOperation(
+      // check if var1 and var2 are variables or not
+      var1: var1_isvariable ? Variable(name : json["operand1"]["name"]) : DataType(type: json['var1']['type'], value: json['var1']['value']),
+      var2: var2_isvariable ? Variable(name : json["operand2"]["name"]) : DataType(type: json['var2']['type'], value: json['var2']['value']),
+      operation: json['operator'],
+    );
+    }
+
+     ConditionalOp.variableOperation({
+    required this.var1,
+    required this.var2,
+    required this.operation,
+     });
+    
+
   dynamic evaluate(GameData gameData) {
     switch (operation) {
       case 'isEqual':
@@ -151,19 +170,18 @@ class Conditional {
     return check;
   }
 
-  factory Conditional.fromJson(Map<String, dynamic> json) {
-    List<ConditionalOp> operations = [];
-    json['operations'].forEach((op) {
-      bool isOp1Var = op['var1']['type'] == 'variable';
-      bool isOp2Var = op['var2']['type'] == 'variable'; 
-      operations.add(ConditionalOp(
-        op['operation'],
-        isOp1Var ? Variable(name: op['var1']['value']) : DataType(type: op['var1']['type'], value: op['var1']['value']),
-        isOp2Var ? Variable(name: op['var2']['value']) : DataType(type: op['var2']['type'], value: op['var2']['value']),
-      ));
-    });
-    return Conditional(operations);
+ factory Conditional.fromJson(List<List<dynamic>> json) {
+  List<List<ConditionalOp>> operations = [];
+
+  for (var i = 0; i < json.length; i++) {
+    List<ConditionalOp> ops = [];
+    for (var j = 0; j < json[i].length; j++) {
+      ops.add(ConditionalOp.fromJson(json[i][j]));
+    }
+    operations.add(ops);
   }
+  return Conditional(operations);
+}
 }
 
 class CharacterInfo {

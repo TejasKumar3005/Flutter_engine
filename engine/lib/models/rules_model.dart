@@ -19,6 +19,7 @@ class GameRules {
 
   void trigger(GameData gameData) {
     print('Trigger activated!');
+    // You might want to do something more here when trigger activates.
   }
 
   bool checkCondition(ConditionalOp condition, GameData gameData) {
@@ -29,16 +30,18 @@ class GameRules {
     action.execute(gameData);
   }
 
-  void onTap(String objectType, GameData gameData) {
-    final rule = gameRules[objectType]?.tapWith;
-    if (rule != null) {
-      rule.forEach((key, value) {
-        if (checkCondition(value.condition, gameData)) {
-          applyRule(value.action, gameData);
-        }
-      });
-    }
+ void onTap(String objectType, GameData gameData) {
+  final rule = gameRules[objectType]?.tapWith;
+  if (rule != null) {
+    rule.forEach((key, value) {
+      if (checkCondition(value.condition, gameData)) {
+        applyRule(value.action, gameData);
+      }
+    });
+  } else {
+    print('No rules defined for $objectType');
   }
+}
 
 
   void applyRules(List<Action> actions, List<ConditionalOp> conditions, GameData gameData) {
@@ -51,6 +54,8 @@ class GameRules {
     }
   }
 }
+
+
 
 class ConditionAction {
   final ConditionalOp condition;
@@ -93,21 +98,19 @@ class InteractionRule {
 // All the rules asscoiated with one object
 class GameObjectRule {
   // name of object
-  final String objectType;
+  
   // map of rules for which object the collision has happened
   final Map<String, InteractionRule> collisionWith;
   //tap rule
   final InteractionRule tapWith;
 
   GameObjectRule({
-    required this.objectType,
     required this.collisionWith,
     required this.tapWith,
   });
 
-  factory GameObjectRule.fromJson(String name ,Map<String, dynamic> json) {
-    String objectType = name;
-
+  factory GameObjectRule.fromJson(Map<String, dynamic> json) {
+   
     Map<String, dynamic> collisionRulesJson = json["collision_with"];
     Map<String, dynamic> tapRulesJson = json["tap_with"];
     InteractionRule tapWith;
@@ -120,7 +123,6 @@ class GameObjectRule {
     tapWith = InteractionRule.fromJson(tapRulesJson);
 
     return GameObjectRule(
-      objectType: objectType,
       collisionWith: collisionWith,
       tapWith: tapWith,
     );
