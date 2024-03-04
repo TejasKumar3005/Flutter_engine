@@ -175,12 +175,12 @@
         {
             "name": "DiyasPlaced",
             "type": "Integer",
-            "value": 100
+            "value": 0
         },
         {
             "name": "RangolisPlaced",
             "type": "Integer",
-            "value": 1
+            "value": 0
         },
         {
             "name": "DecorationComplete",
@@ -208,12 +208,20 @@
                                     }
                                 ]
                             ],
-                            "action": {
-                                "target": "DecorationComplete",
-                                "operand1": "DecorationComplete",
-                                "operator": "=",
-                                "operand2": "true"
-                            }
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
                         }
                     },
                     {
@@ -232,12 +240,20 @@
                                     }
                                 ]
                             ],
-                            "action": {
-                                "target": "DecorationComplete",
-                                "operand1": "DecorationComplete",
-                                "operator": "=",
-                                "operand2": "true"
-                            }
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
                         }
                     },
                     {
@@ -256,12 +272,20 @@
                                     }
                                 ]
                             ],
-                            "action": {
-                                "target": "DecorationComplete",
-                                "operand1": "DecorationComplete",
-                                "operator": "=",
-                                "operand2": "true"
-                            }
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
                         }
                     },
                     {
@@ -280,12 +304,20 @@
                                     }
                                 ]
                             ],
-                            "action": {
-                                "target": "DecorationComplete",
-                                "operand1": "DecorationComplete",
-                                "operator": "=",
-                                "operand2": "true"
-                            }
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
                         }
                     },
                     {
@@ -304,12 +336,20 @@
                                     }
                                 ]
                             ],
-                            "action": {
-                                "target": "DecorationComplete",
-                                "operand1": "DecorationComplete",
-                                "operator": "=",
-                                "operand2": "true"
-                            }
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
                         }
                     }
                 ]
@@ -334,12 +374,20 @@
                                     }
                                 ]
                             ],
-                            "action": {
-                                "target": "DecorationComplete",
-                                "operand1": "DecorationComplete",
-                                "operator": "=",
-                                "operand2": "true"
-                            }
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
                         }
                     },
                     {
@@ -358,12 +406,20 @@
                                     }
                                 ]
                             ],
-                            "action": {
-                                "target": "DecorationComplete",
-                                "operand1": "DecorationComplete",
-                                "operator": "=",
-                                "operand2": "true"
-                            }
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
                         }
                     },
                     {
@@ -382,12 +438,20 @@
                                     }
                                 ]
                             ],
-                            "action": {
-                                "target": "DecorationComplete",
-                                "operand1": "DecorationComplete",
-                                "operator": "=",
-                                "operand2": "true"
-                            }
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
                         }
                     },
                     {
@@ -406,12 +470,20 @@
                                     }
                                 ]
                             ],
-                            "action": {
-                                "target": "DecorationComplete",
-                                "operand1": "DecorationComplete",
-                                "operator": "=",
-                                "operand2": "true"
-                            }
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
                         }
                     },
                     {
@@ -430,12 +502,20 @@
                                     }
                                 ]
                             ],
-                            "action": {
-                                "target": "DecorationComplete",
-                                "operand1": "DecorationComplete",
-                                "operator": "=",
-                                "operand2": "true"
-                            }
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
                         }
                     }
                 ]
@@ -460,12 +540,20 @@
                                     }
                                 ]
                             ],
-                            "action": {
-                                "target": "DecorationComplete",
-                                "operand1": "DecorationComplete",
-                                "operator": "=",
-                                "operand2": "true"
-                            }
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
                         }
                     },
                     {
@@ -484,12 +572,20 @@
                                     }
                                 ]
                             ],
-                            "action": {
-                                "target": "DecorationComplete",
-                                "operand1": "DecorationComplete",
-                                "operator": "=",
-                                "operand2": "true"
-                            }
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
                         }
                     },
                     {
@@ -508,12 +604,20 @@
                                     }
                                 ]
                             ],
-                            "action": {
-                                "target": "DecorationComplete",
-                                "operand1": "DecorationComplete",
-                                "operator": "=",
-                                "operand2": "true"
-                            }
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
                         }
                     },
                     {
@@ -532,12 +636,20 @@
                                     }
                                 ]
                             ],
-                            "action": {
-                                "target": "DecorationComplete",
-                                "operand1": "DecorationComplete",
-                                "operator": "=",
-                                "operand2": "true"
-                            }
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
                         }
                     },
                     {
@@ -556,12 +668,20 @@
                                     }
                                 ]
                             ],
-                            "action": {
-                                "target": "DecorationComplete",
-                                "operand1": "DecorationComplete",
-                                "operator": "=",
-                                "operand2": "true"
-                            }
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
                         }
                     }
                 ]
@@ -586,12 +706,20 @@
                                     }
                                 ]
                             ],
-                            "action": {
-                                "target": "DecorationComplete",
-                                "operand1": "DecorationComplete",
-                                "operator": "=",
-                                "operand2": "true"
-                            }
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
                         }
                     },
                     {
@@ -610,12 +738,20 @@
                                     }
                                 ]
                             ],
-                            "action": {
-                                "target": "DecorationComplete",
-                                "operand1": "DecorationComplete",
-                                "operator": "=",
-                                "operand2": "true"
-                            }
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
                         }
                     },
                     {
@@ -634,12 +770,20 @@
                                     }
                                 ]
                             ],
-                            "action": {
-                                "target": "DecorationComplete",
-                                "operand1": "DecorationComplete",
-                                "operator": "=",
-                                "operand2": "true"
-                            }
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
                         }
                     },
                     {
@@ -658,12 +802,20 @@
                                     }
                                 ]
                             ],
-                            "action": {
-                                "target": "DecorationComplete",
-                                "operand1": "DecorationComplete",
-                                "operator": "=",
-                                "operand2": "true"
-                            }
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
                         }
                     },
                     {
@@ -682,12 +834,20 @@
                                     }
                                 ]
                             ],
-                            "action": {
-                                "target": "DecorationComplete",
-                                "operand1": "DecorationComplete",
-                                "operator": "=",
-                                "operand2": "true"
-                            }
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
                         }
                     }
                 ]
@@ -712,12 +872,20 @@
                                     }
                                 ]
                             ],
-                            "action": {
-                                "target": "DecorationComplete",
-                                "operand1": "DecorationComplete",
-                                "operator": "=",
-                                "operand2": "true"
-                            }
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
                         }
                     },
                     {
@@ -736,12 +904,20 @@
                                     }
                                 ]
                             ],
-                            "action": {
-                                "target": "DecorationComplete",
-                                "operand1": "DecorationComplete",
-                                "operator": "=",
-                                "operand2": "true"
-                            }
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
                         }
                     },
                     {
@@ -760,12 +936,20 @@
                                     }
                                 ]
                             ],
-                            "action": {
-                                "target": "DecorationComplete",
-                                "operand1": "DecorationComplete",
-                                "operator": "=",
-                                "operand2": "true"
-                            }
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
                         }
                     },
                     {
@@ -784,12 +968,20 @@
                                     }
                                 ]
                             ],
-                            "action": {
-                                "target": "DecorationComplete",
-                                "operand1": "DecorationComplete",
-                                "operator": "=",
-                                "operand2": "true"
-                            }
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
                         }
                     },
                     {
@@ -808,12 +1000,20 @@
                                     }
                                 ]
                             ],
-                            "action": {
-                                "target": "DecorationComplete",
-                                "operand1": "DecorationComplete",
-                                "operator": "=",
-                                "operand2": "true"
-                            }
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Diyaplaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    },
+                                    {
+                                        "operand1": "RangoliPlaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    }
+                                ]
+                            ]
                         }
                     }
                 ]
@@ -838,12 +1038,20 @@
                                     }
                                 ]
                             ],
-                            "action": {
-                                "target": "DecorationComplete",
-                                "operand1": "DecorationComplete",
-                                "operator": "=",
-                                "operand2": "true"
-                            }
+                            "action": [
+                                [
+                                    {
+                                        "operand1": "Rangoliplaced",
+                                        "operator": "equal",
+                                        "operand2": "1"
+                                    },
+                                    {
+                                        "operand1": "DiyasPlaced",
+                                        "operator": "equal",
+                                        "operand2": "5"
+                                    }
+                                ]
+                            ]
                         }
                     }
                 ]
