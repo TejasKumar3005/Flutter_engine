@@ -151,19 +151,19 @@ class Conditional {
     return check;
   }
 
-  factory Conditional.fromJson(Map<String, dynamic> json) {
-    List<ConditionalOp> operations = [];
-    json['operations'].forEach((op) {
-      bool isOp1Var = op['var1']['type'] == 'variable';
-      bool isOp2Var = op['var2']['type'] == 'variable'; 
-      operations.add(ConditionalOp(
-        op['operation'],
-        isOp1Var ? Variable(name: op['var1']['value']) : DataType(type: op['var1']['type'], value: op['var1']['value']),
-        isOp2Var ? Variable(name: op['var2']['value']) : DataType(type: op['var2']['type'], value: op['var2']['value']),
-      ));
-    });
-    return Conditional(operations);
-  }
+  // factory Conditional.fromJson(Map<String, dynamic> json) {
+  //   List<ConditionalOp> operations = [];
+  //   json['operations'].forEach((op) {
+  //     bool isOp1Var = op['var1']['type'] == 'variable';
+  //     bool isOp2Var = op['var2']['type'] == 'variable'; 
+  //     operations.add(ConditionalOp(
+  //       op['operation'],
+  //       isOp1Var ? Variable(name: op['var1']['value']) : DataType(type: op['var1']['type'], value: op['var1']['value']),
+  //       isOp2Var ? Variable(name: op['var2']['value']) : DataType(type: op['var2']['type'], value: op['var2']['value']),
+  //     ));
+  //   });
+  //   return Conditional(operations);
+  // }
 }
 
 class CharacterInfo {

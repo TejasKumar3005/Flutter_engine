@@ -8,11 +8,13 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:flame/components.dart';
-class Object extends CircleComponent 
+
+class Object extends CircleComponent
     with HasGameRef<MyGame>, CollisionCallbacks, DragCallbacks {
-  Object({name, position, size, image ,required this.isStatic})
-      : super(position: position, radius: 10,
-            
+  Object({name, position, size, image, required this.isStatic})
+      : super(
+            position: position,
+            radius: 10,
             paint: Paint()
               ..color = const Color(0xff1e6091)
               ..style = PaintingStyle.fill);
@@ -38,26 +40,41 @@ class Object extends CircleComponent
 
   // Override DragCallbacks methods
   @override
-    void onDragStart(DragStartEvent event) {
-      if(isStatic) return;
-      super.onDragStart(event);
-      priority = 10;
-    }
+  void onDragStart(DragStartEvent event) {
+    if (isStatic) return;
+    super.onDragStart(event);
+    priority = 10;
+  }
 
-    @override
-    void onDragEnd(DragEndEvent event) {
-      super.onDragEnd(event);
-      priority = 0;
-    }
+  @override
+  void onDragEnd(DragEndEvent event) {
+    super.onDragEnd(event);
+    priority = 0;
+  }
 
-    @override
-    void onDragUpdate(DragUpdateEvent event) {
-      if (isStatic) {
-        return;
-      }
-      position += event.localDelta;
+  @override
+  void onDragUpdate(DragUpdateEvent event) {
+    if (isStatic) {
+      return;
     }
+    position += event.localDelta;
+  }
 
+  @override
+  void onCollision(Set<Vector2> points, PositionComponent other) {
+    if (other is Object) {
+      var curr_obj = name;
+      var oth_obj = other.name;
+      gameRef.gameRules.onTap(objectType, gameRef.gamedata);
+    } else {}
+  }
+
+  @override
+  void onCollisionEnd(PositionComponent other) {
+    if (other is ScreenHitbox) {
+      //...
+    }
+  }
 
   Future<Image> getImage(String path) async {
     Completer<Image> completer = Completer();

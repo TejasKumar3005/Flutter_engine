@@ -10,7 +10,7 @@ class GameRules {
   factory GameRules.fromJson(Map<String, dynamic> json) {
     Map<String, GameObjectRule> gameRules = {};
     json.forEach((key, value) {
-      gameRules[key] = GameObjectRule.fromJson(value);
+      // gameRules[key] = GameObjectRule.fromJson(value);
     });
     return GameRules(
       gameRules: gameRules,
@@ -39,6 +39,7 @@ class GameRules {
       });
     }
   }
+ 
 
 
   void applyRules(List<Action> actions, List<ConditionalOp> conditions, GameData gameData) {
