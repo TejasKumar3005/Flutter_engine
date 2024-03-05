@@ -48,6 +48,20 @@ class GameRules {
       rule.execute(gameData);
     }
   }
+  void onCollision(String objectType1,String objectType2, GameData gameData) {
+    final rule = gameRules[objectType1]?.collisionWith?[objectType2] ?? null;
+
+if (gameRules[objectType1]?.collisionWith != null && gameRules[objectType1]?.collisionWith?.containsKey(objectType2) == true) {
+    // Collision rule exists for objectType2
+    // You can use rule here
+    rule!.execute(gameData);
+    
+} 
+
+   
+      
+  }
+  
  
 
 

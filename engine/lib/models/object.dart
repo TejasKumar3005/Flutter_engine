@@ -42,7 +42,7 @@ class Object extends CircleComponent
   // Override TapCallbacks methods
   @override
   void onTapUp(TapUpDetails details) {
-    gameRef.gameRules.gameRules.onTap(name!, gameRef.gamedata);
+    gameRef.gameRules.onTap(name!, gameRef.gamedata);
   }
 
   // Override DragCallbacks methods
@@ -68,20 +68,16 @@ class Object extends CircleComponent
   }
 
   @override
-  void onCollision(Set<Vector2> points, PositionComponent other) {
+  void onCollisionStart(Set<Vector2> intersectionPoints, PositionComponent other) {
+    super.onCollisionStart(intersectionPoints, other);
     if (other is Object) {
-      var curr_obj = name;
-      var oth_obj = other.name;
-      gameRef.gameRules.onTap(objectType, gameRef.gamedata);
-    } else {}
+      String curr_obj = name!;
+      String oth_obj = other.name!;
+      gameRef.gameRules.onCollision(curr_obj,oth_obj, gameRef.gamedata);
+    } 
   }
 
-  @override
-  void onCollisionEnd(PositionComponent other) {
-    if (other is ScreenHitbox) {
-      //...
-    }
-  }
+ 
 
   Future<Image> getImage(String path) async {
     Completer<Image> completer = Completer();
