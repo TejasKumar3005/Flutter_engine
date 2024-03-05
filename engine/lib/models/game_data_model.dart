@@ -50,7 +50,7 @@ class ConditionalOp {
       var1: var1_isvariable ? Variable(name : json["operand1"]["name"]) : DataType(type: json['var1']['type'], value: json['var1']['value']),
       var2: var2_isvariable ? Variable(name : json["operand2"]["name"]) : DataType(type: json['var2']['type'], value: json['var2']['value']),
       operation: json['operator'],
-    );
+      );
     }
 
      ConditionalOp.variableOperation({

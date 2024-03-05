@@ -30,18 +30,18 @@ class GameRules {
     action.execute(gameData);
   }
 
- void onTap(String objectType, GameData gameData) {
-  final rule = gameRules[objectType]?.tapWith;
-  if (rule != null) {
-    rule.forEach((key, value) {
-      if (checkCondition(value.condition, gameData)) {
-        applyRule(value.action, gameData);
-      }
-    });
-  } else {
-    print('No rules defined for $objectType');
-  }
-}
+//  void onTap(String objectType, GameData gameData) {
+//   final rule = gameRules[objectType]?.tapWith;
+//   if (rule != null) {
+//     rule.forEach((key, value) {
+//       if (checkCondition(value.condition, gameData)) {
+//         applyRule(value.action, gameData);
+//       }
+//     });
+//   } else {
+//     print('No rules defined for $objectType');
+//   }
+// }
   void onTap(String objectType, GameData gameData) {
     final rule = gameRules[objectType]?.tapWith;
     if (rule != null) {
