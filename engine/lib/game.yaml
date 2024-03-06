@@ -42,22 +42,17 @@ Game State:
 
 Game Rules:
   Diya:
-    - collision_with:   
-        - Diya:
-            condition: IsValidPosition()
-            action: Update_position(Diya)
-            condition: DiyasPlaced == 5 && RangolisPlaced == 1
-            action: DecorationComplete = true
+    - collision_with:
         - Diya-placeholder:
-            condition: IsValidPosition()
-            action: Update_position(Diya-placeholder), Diyaplaced++
+            condition: true
+            action: Diyaplaced++
             condition: Diyaplaced == 5 && RangoliPlaced == 1
             action: DecorationComplete = true
   Rangoli:
     - collision_with:
         - Rangoli-placeholder:
-            condition: IsValidPosition()
-            action: Update_position(Rangoli-placeholder), Rangoliplaced++
+            condition: true
+            action: Rangoliplaced++
             condition: Rangoliplaced == 1 && DiyasPlaced == 5
             action: DecorationComplete = true   
 
