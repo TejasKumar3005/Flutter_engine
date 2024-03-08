@@ -55,13 +55,13 @@ class GameData {
     Map<String, Variable> variables = {};
     Map<String, CharacterInfo> characters = {};
 
-    // json['variables'].forEach((key, value) {
-    //   variables[key] = Variable(
-    //     name: key,
-    //     type: value['type'],
-    //     value: value['value'],
-    //   );
-    // });
+    json['Game State'].forEach((key, value) {
+      variables[key] = Variable(
+        name: value['name'],
+        type: value['type'],
+        value: value['value'],
+      );
+    });
     List chrs = json['Character'];
     chrs.forEach((value) {
       characters[value["name"]] = CharacterInfo(

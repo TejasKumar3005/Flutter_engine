@@ -4,7 +4,7 @@ import 'game_data_model.dart';
 
 class DataType {
   String? type;
-  dynamic? value;
+  dynamic value;
 
   DataType({this.type, this.value});
 
@@ -21,7 +21,8 @@ class DataType {
 class Variable extends DataType {
   String name;
 
-  Variable({ required this.name});
+  Variable({ required this.name, String? type, dynamic value} )
+  :super(type: type, value: value);
 
   Variable.fromGameData(GameData gameData, {required this.name})
       : super(
