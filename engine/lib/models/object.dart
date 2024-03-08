@@ -9,12 +9,12 @@ import 'dart:async';
 
 import 'package:flame/components.dart';
 
-class Object extends CircleComponent
+class Object extends SpriteComponent
     with HasGameRef<MyGame>, CollisionCallbacks, DragCallbacks, TapCallbacks {
   Object({required this.name, position, size, image, required this.isStatic})
       : super(
             position: position,
-            radius: 30,
+            
             children: [CircleHitbox()],
             paint: Paint()
               ..color = Color.fromARGB(255, 6, 180, 76)
@@ -23,12 +23,14 @@ class Object extends CircleComponent
   final bool isStatic;
   String? image;
   Vector2? draggedPosition;
-  // @override
-  // FutureOr<void> onLoad() async {
-  //   // final networkImage = await Flame.images.fromCache(image!);
-  //   // sprite = Sprite.fromImage(await networkImage.image);
-  //   return super.onLoad();
-  // }
+  @override
+  FutureOr<void> onLoad() async {
+     final image = gameRef.generatedImages[name];
+    if (image!=null) {
+      sprite = Sprite(image);
+    }
+    return super.onLoad();
+  }
 
   @override
   void update(double dt) {

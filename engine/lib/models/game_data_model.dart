@@ -65,7 +65,7 @@ class GameData {
     List chrs = json['Character'];
     chrs.forEach((value) {
       characters[value["name"]] = CharacterInfo(
-          image: '',
+          image: value["image"],
           position: Vector2((value['position']["x"]).toDouble(), value['position']['y'].toDouble()),
           size: Vector2(value['size']["width"].toDouble(), value['size']["height"].toDouble()),
           isMovable: value['isMovable'],
