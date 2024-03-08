@@ -242,4 +242,21 @@ class GameData {
       characters: characters,
     );
   }
+
+  @override
+  String toString() {
+    // Convert variables map to string
+    String variablesString = 'Variables:\n';
+    variables.forEach((key, value) {
+      variablesString += '$key: ${value.toString()}\n';
+    });
+
+    // Convert characters map to string
+    String charactersString = 'Characters:\n';
+    characters.forEach((key, value) {
+      charactersString += '$key: ${value.toString()}\n';
+    });
+
+    return '$variablesString\n$charactersString';
+  }
 }
