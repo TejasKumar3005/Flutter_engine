@@ -11,17 +11,18 @@ import 'package:flame/components.dart';
 
 class Object extends CircleComponent
     with HasGameRef<MyGame>, CollisionCallbacks, DragCallbacks {
-  Object({name, position, size, image, required this.isStatic})
+  Object({required this.name, position, size, image, required this.isStatic})
       : super(
             position: position,
             radius: 10,
+            children: [CircleHitbox()],
             paint: Paint()
               ..color = const Color(0xff1e6091)
               ..style = PaintingStyle.fill);
-  String? name;
+  final String name;
   final bool isStatic;
   String? image;
-
+  Vector2? draggedPosition;
   // @override
   // FutureOr<void> onLoad() async {
   //   // final networkImage = await Flame.images.fromCache(image!);
@@ -32,23 +33,23 @@ class Object extends CircleComponent
   @override
   void update(double dt) {
     // Your update logic here
-    if (!isDragged) {
-      // Do something when the object is dragged
-      position = gameRef.gamedata.characters[name]!.position;
-    }
+    // if (!isDragged) {
+    //   // Do something when the object is dragged
+    //   position = gameRef.gamedata.characters[name]!.position;
+    // }
   }
-
 
   // Override TapCallbacks methods
   @override
   void onTapUp(TapUpDetails details) {
+    
+    print("tapped");
     gameRef.gameRules.onTap(name!, gameRef.gamedata);
   }
 
   // Override DragCallbacks methods
   @override
   void onDragStart(DragStartEvent event) {
-    if (isStatic) return;
     super.onDragStart(event);
     priority = 10;
   }
@@ -61,23 +62,20 @@ class Object extends CircleComponent
 
   @override
   void onDragUpdate(DragUpdateEvent event) {
-    if (isStatic) {
-      return;
-    }
     position += event.localDelta;
   }
 
   @override
-  void onCollisionStart(Set<Vector2> intersectionPoints, PositionComponent other) {
+  void onCollisionStart(
+      Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollisionStart(intersectionPoints, other);
+    print("col");
     if (other is Object) {
       String curr_obj = name!;
       String oth_obj = other.name!;
-      gameRef.gameRules.onCollision(curr_obj,oth_obj, gameRef.gamedata);
-    } 
+      gameRef.gameRules.onCollision(curr_obj, oth_obj, gameRef.gamedata);
+    }
   }
-
- 
 
   Future<Image> getImage(String path) async {
     Completer<Image> completer = Completer();

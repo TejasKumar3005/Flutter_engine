@@ -48,22 +48,21 @@ class GameRules {
       rule.execute(gameData);
     }
   }
-  void onCollision(String objectType1,String objectType2, GameData gameData) {
+
+  void onCollision(String objectType1, String objectType2, GameData gameData) {
     final rule = gameRules[objectType1]?.collisionWith?[objectType2] ?? null;
 
-if (gameRules[objectType1]?.collisionWith != null && gameRules[objectType1]?.collisionWith?.containsKey(objectType2) == true) {
-    // Collision rule exists for objectType2
-    // You can use rule here
-    rule!.execute(gameData);
-    
-} 
-  
+    if (gameRules[objectType1]?.collisionWith != null &&
+        gameRules[objectType1]?.collisionWith?.containsKey(objectType2) ==
+            true) {
+      // Collision rule exists for objectType2
+      // You can use rule here
+      rule!.execute(gameData);
+    }
   }
-  
- 
 
-
-  void applyRules(List<Action> actions, List<ConditionalOp> conditions, GameData gameData) {
+  void applyRules(
+      List<Action> actions, List<ConditionalOp> conditions, GameData gameData) {
     trigger(gameData);
 
     for (int i = 0; i < actions.length; i++) {
@@ -73,8 +72,6 @@ if (gameRules[objectType1]?.collisionWith != null && gameRules[objectType1]?.col
     }
   }
 }
-
-
 
 class ConditionAction {
   final ConditionalOp condition;
@@ -104,14 +101,14 @@ class InteractionRule {
     required this.action,
   });
 
-  void execute (GameData gameData) {
+  void execute(GameData gameData) {
     if (condition.evaluate(gameData)) {
+      print("collision");
       action.execute(gameData);
     }
   }
 
   factory InteractionRule.fromJson(Map<String, dynamic> json) {
-    
     return InteractionRule(
       // tapWith: tapWith,
       condition: Conditional.fromJson(json['condition']),
@@ -135,7 +132,6 @@ class GameObjectRule {
   });
 
   factory GameObjectRule.fromJson(Map<String, dynamic> json) {
-   
     Map<String, dynamic> collisionRulesJson = json["collision_with"];
     Map<String, dynamic> tapRulesJson = json["tap_with"];
     InteractionRule tapWith;
@@ -153,7 +149,8 @@ class GameObjectRule {
     );
   }
 
-  static Map<String, InteractionRule> _parseInteractionRules(Map<String, dynamic> json) {
+  static Map<String, InteractionRule> _parseInteractionRules(
+      Map<String, dynamic> json) {
     Map<String, InteractionRule> interactionRules = {};
     json.forEach((key, value) {
       interactionRules[key] = InteractionRule.fromJson(value);
@@ -161,7 +158,6 @@ class GameObjectRule {
     return interactionRules;
   }
 }
-
 
 // action class
 class Action {
@@ -171,13 +167,17 @@ class Action {
   String? operation; // +, -, *, inplace+, inplace*, inplace-
 
   factory Action.fromJson(Map<String, dynamic> json) {
-    bool var1_isvariable =  json["var1"]["type"] == "Variable"? true : false;
-    bool var2_isvariable =  json["var2"]["type"] == "Variable"? true : false;
-    
+    bool var1_isvariable = json["var1"]["type"] == "Variable" ? true : false;
+    bool var2_isvariable = json["var2"]["type"] == "Variable" ? true : false;
+
     return Action.variableOperation(
       // check if var1 and var2 are variables or not
-      var1: var1_isvariable ? Variable(name : json["var1"]["name"]) : DataType(type: json['var1']['type'], value: json['var1']['value']),
-      var2: var2_isvariable ? Variable(name : json["var2"]["name"]) : DataType(type: json['var2']['type'], value: json['var2']['value']),
+      var1: var1_isvariable
+          ? Variable(name: json["var1"]["name"])
+          : DataType(type: json['var1']['type'], value: json['var1']['value']),
+      var2: var2_isvariable
+          ? Variable(name: json["var2"]["name"])
+          : DataType(type: json['var2']['type'], value: json['var2']['value']),
       targetvar: Variable(name: json['targetvar']['name']),
       operation: json['operation'],
     );
@@ -200,54 +200,52 @@ class Action {
   void performVariableOperation(GameData gameData) {
     // if (gameData.variables.containsKey(var1) &&
     //     gameData.variables.containsKey(var2)) {
-      dynamic result;
-      switch (operation) {
-        case '+':
-          result = var1!.getValue(gameData) + var2!.getValue(gameData);
-          break;
-        case '-':
-          result = var1!.getValue(gameData) - var2!.getValue(gameData);
-          break;
-        case '*':
-          result = var1!.getValue(gameData) * var2!.getValue(gameData); 
-          break;
-        // case '+=':
-        //   gameData.variables[var1]!.value +=
-        //       gameData.variables[var2]!.value;
-        //   break;
-        // case '-=':
-        //   gameData.variables[var1]!.value -=
-        //       gameData.variables[var2]!.value;
-        //   break;
-        // case '*=':
-        //   gameData.variables[var1]!.value *=
-        //       gameData.variables[var2]!.value;
-        //   break;
-        case 'OR':
-          result = _toBoolean(var1!, gameData) ||
-              _toBoolean(var2!, gameData);
-          break;
-        case 'AND':
-          result = _toBoolean(var1!,gameData) &&
-              _toBoolean(var2!,gameData);
-          break;
-        case 'NOR':
-          result = _toBoolean(var1!,gameData) &&
-              !_toBoolean(var2!,gameData);
-          break;
-        case 'string':
-          result = '${gameData.variables[var1]!.value}${gameData.variables[var2]!.value}';
-          break;
-        case 'replace':
-          replaceValues(gameData);
-          break;
-        default:
-          throw Exception('Unsupported variable operation: $operation');
-      }
-      if (result != null) {
-        targetvar!.setValue(gameData, result);
-      }
+    dynamic result;
+    switch (operation) {
+      case '+':
+        result = var1!.getValue(gameData) + var2!.getValue(gameData);
+        break;
+      case '-':
+        result = var1!.getValue(gameData) - var2!.getValue(gameData);
+        break;
+      case '*':
+        result = var1!.getValue(gameData) * var2!.getValue(gameData);
+        break;
+      // case '+=':
+      //   gameData.variables[var1]!.value +=
+      //       gameData.variables[var2]!.value;
+      //   break;
+      // case '-=':
+      //   gameData.variables[var1]!.value -=
+      //       gameData.variables[var2]!.value;
+      //   break;
+      // case '*=':
+      //   gameData.variables[var1]!.value *=
+      //       gameData.variables[var2]!.value;
+      //   break;
+      case 'OR':
+        result = _toBoolean(var1!, gameData) || _toBoolean(var2!, gameData);
+        break;
+      case 'AND':
+        result = _toBoolean(var1!, gameData) && _toBoolean(var2!, gameData);
+        break;
+      case 'NOR':
+        result = _toBoolean(var1!, gameData) && !_toBoolean(var2!, gameData);
+        break;
+      case 'string':
+        result =
+            '${gameData.variables[var1]!.value}${gameData.variables[var2]!.value}';
+        break;
+      case 'replace':
+        replaceValues(gameData);
+        break;
+      default:
+        throw Exception('Unsupported variable operation: $operation');
     }
+    if (result != null) {
+      targetvar!.setValue(gameData, result);
+    }
+  }
   // }
 
   void replaceValues(GameData gameData) {
@@ -276,5 +274,3 @@ class Action {
     }
   }
 }
-
-

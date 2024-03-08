@@ -28,6 +28,7 @@ class _GameState extends State<Game> {
     fetchData().then((value) => {
           setState(() {
             gameData = GameData.fromJson(value);
+            
           })
         });
 
@@ -51,7 +52,7 @@ class _GameState extends State<Game> {
       child: AspectRatio(
           aspectRatio: 4 / 3, // Example aspect ratio: width / height
           child: GameWidget<MyGame>(
-            game: MyGame(gamedata: gameData,gameRules: gameRules),
+            game: MyGame(gamedata: gameData, gameRules: gameRules),
             backgroundBuilder: (context) {
               // Your custom widget as a background
               return gameData.background_builder(context);
@@ -68,7 +69,7 @@ class _GameState extends State<Game> {
   Future<Map<String, dynamic>> fetchData() async {
     try {
       String jsonString =
-          await loadJsonFromAssets('assets/json/final_game_context.json');
+          await loadJsonFromAssets('assets/final_game_context.json');
       Map<String, dynamic> data = jsonDecode(jsonString);
 
       return data;
