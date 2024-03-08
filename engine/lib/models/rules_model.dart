@@ -57,9 +57,7 @@ if (gameRules[objectType1]?.collisionWith != null && gameRules[objectType1]?.col
     rule!.execute(gameData);
     
 } 
-
-   
-      
+  
   }
   
  
@@ -125,7 +123,7 @@ class InteractionRule {
 // All the rules asscoiated with one object
 class GameObjectRule {
   // name of object
-  
+
   // map of rules for which object the collision has happened
   final Map<String, InteractionRule> collisionWith;
   //tap rule
