@@ -12,6 +12,11 @@ class DataType {
   dynamic getValue(GameData gameData) {
     return value;
   }
+
+  @override
+  String toString() {
+    return 'Type: $type, Value: $value';
+  }
 }
 
 class Variable extends DataType {
@@ -31,6 +36,11 @@ class Variable extends DataType {
 
   void setValue(GameData gameData, dynamic value) {
     gameData.variables[name]!.value = value;
+  }
+
+  @override
+  toString() {
+    return 'Variable: $name, type: $type, value: $value';
   }
 }
 
@@ -197,6 +207,11 @@ class CharacterInfo {
       required this.size,
       required this.isMovable,
       required this.name});
+
+  @override
+  String toString() {
+    return 'Name: $name, Position: $position, Size: $size, IsMovable: $isMovable ';
+  }
 }
 
 class GameData {
