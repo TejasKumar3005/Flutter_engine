@@ -40,9 +40,12 @@ class _GameState extends State<Game> {
 
   @override
   Widget build(BuildContext context) {
-    if (gameData == null) {
+    if (gameData.characters == {}) {
       // Handle the case where gameData is not initialized yet
-      return CircularProgressIndicator(); // Or any other loading indicator
+      return CircularProgressIndicator(
+        color: Colors.white,
+        
+      ); // Or any other loading indicator
     }
     return Container(
       // Set your desired aspect ratio here
@@ -72,6 +75,9 @@ class _GameState extends State<Game> {
       String jsonString =
           await loadJsonFromAssets('assets/final_game_context.json');
       Map<String, dynamic> data = jsonDecode(jsonString);
+      print("json");
+      print(jsonString);
+      print(data);
 
       return data;
     } catch (e) {
