@@ -19,6 +19,7 @@ class Game extends StatefulWidget {
 }
 
 class _GameState extends State<Game> {
+  bool loading = true;
   late GameData gameData = GameData(characters: {}, variables: {});
   GameRules gameRules = GameRules(gameRules: {});
 
@@ -28,7 +29,7 @@ class _GameState extends State<Game> {
     fetchData().then((value) => {
           setState(() {
             gameData = GameData.fromJson(value);
-            
+            loading = false;
           })
         });
 
@@ -40,17 +41,18 @@ class _GameState extends State<Game> {
 
   @override
   Widget build(BuildContext context) {
-    if (gameData == null) {
-      // Handle the case where gameData is not initialized yet
-      return CircularProgressIndicator(); // Or any other loading indicator
-    }
+    // if (gameData.characters == {}) {
+    //   return CircularProgressIndicator(
+    //     color: Colors.white,
+    //   );
+    // }
     return Container(
       // Set your desired aspect ratio here
-      // size take the height and width of the screen 
+      // size take the height and width of the screen
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
       color: Color.fromARGB(255, 216, 19, 19),
-      child: AspectRatio(
+      child: loading?Center(child: CircularProgressIndicator(color: Colors.white,),):AspectRatio(
           aspectRatio: 4 / 3, // Example aspect ratio: width / height
           child: GameWidget<MyGame>(
             game: MyGame(gamedata: gameData, gameRules: gameRules),
@@ -68,6 +70,7 @@ class _GameState extends State<Game> {
   }
 
   Future<Map<String, dynamic>> fetchData() async {
+    
     try {
       String jsonString =
           await loadJsonFromAssets('assets/final_game_context.json');
@@ -75,6 +78,9 @@ class _GameState extends State<Game> {
 
       return data;
     } catch (e) {
+      setState(() {
+        loading = false;
+      });
       print('Error loading JSON data: $e');
       return {};
     }

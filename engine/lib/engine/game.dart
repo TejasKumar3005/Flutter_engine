@@ -29,6 +29,7 @@ class MyGame extends FlameGame with HasCollisionDetection {
   double get height => size.y;
   @override
   Future<void> onLoad() async {
+
     await preloadImages();
     camera.viewfinder.anchor = Anchor.topLeft;
 
@@ -41,6 +42,7 @@ class MyGame extends FlameGame with HasCollisionDetection {
           name: element.name));
     });
   }
+   
 
   Future<void> preloadImages() async {
     for (var character in gamedata.characters.values) {
