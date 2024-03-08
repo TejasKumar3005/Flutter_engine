@@ -3,7 +3,7 @@
     "Character": [
         {
             "name": "Diya1",
-            "description": "A small clay lamp filled with oil and a cotton wick, burning brightly.",
+            "image": "https://svar.in/assets/img/vector3.1.png",
             "count": 1,
             "size": {
                 "width": 50,
@@ -17,7 +17,7 @@
         },
         {
             "name": "Diya2",
-            "description": "A small clay lamp filled with oil and a cotton wick, burning brightly.",
+            "image": "https://svar.in/assets/img/vector3.1.png",
             "count": 1,
             "size": {
                 "width": 1200,
@@ -31,7 +31,7 @@
         },
         {
             "name": "Diya3",
-            "description": "A small clay lamp filled with oil and a cotton wick, burning brightly.",
+            "image": "https://svar.in/assets/img/vector3.1.png",
             "count": 1,
             "size": {
                 "width": 50,
@@ -45,7 +45,7 @@
         },
         {
             "name": "Diya4",
-            "description": "A small clay lamp filled with oil and a cotton wick, burning brightly.",
+            "image": "https://svar.in/assets/img/vector3.1.png",
             "count": 1,
             "size": {
                 "width": 50,
@@ -59,7 +59,7 @@
         },
         {
             "name": "Diya5",
-            "description": "A small clay lamp filled with oil and a cotton wick, burning brightly.",
+            "image": "https://svar.in/assets/img/vector3.1.png",
             "count": 1,
             "size": {
                 "width": 50,
@@ -73,7 +73,7 @@
         },
         {
             "name": "Rangoli1",
-            "description": "Colorful pattern made on the ground using colored rice, dry flour, colored sand or flower petals.",
+            "image": "https://www.google.com/logos/doodles/2024/international-womens-day-2024-6753651837110196.4-s.png",
             "count": 1,
             "size": {
                 "width": 150,
@@ -87,7 +87,7 @@
         },
         {
             "name": "Rangoli-placeholder1",
-            "description": "Red-colored circle with a white border.",
+            "image": "https://w7.pngwing.com/pngs/409/302/png-transparent-free-download-icon-cloud-down-computer-system-blue-computer-blue-laptop.png",
             "count": 1,
             "size": {
                 "width": 20,
@@ -101,7 +101,7 @@
         },
         {
             "name": "Diya-placeholder1",
-            "description": "Brown-colored circle with a white border.",
+            "image": "https://w7.pngwing.com/pngs/409/302/png-transparent-free-download-icon-cloud-down-computer-system-blue-computer-blue-laptop.png",
             "count": 1,
             "size": {
                 "width": 20,
@@ -115,7 +115,7 @@
         },
         {
             "name": "Diya-placeholder2",
-            "description": "Brown-colored circle with a white border.",
+            "image": "https://w7.pngwing.com/pngs/409/302/png-transparent-free-download-icon-cloud-down-computer-system-blue-computer-blue-laptop.png",
             "count": 1,
             "size": {
                 "width": 20,
@@ -129,7 +129,7 @@
         },
         {
             "name": "Diya-placeholder3",
-            "description": "Brown-colored circle with a white border.",
+            "image": "https://w7.pngwing.com/pngs/409/302/png-transparent-free-download-icon-cloud-down-computer-system-blue-computer-blue-laptop.png",
             "count": 1,
             "size": {
                 "width": 20,
@@ -143,7 +143,7 @@
         },
         {
             "name": "Diya-placeholder4",
-            "description": "Brown-colored circle with a white border.",
+            "image": "https://w7.pngwing.com/pngs/409/302/png-transparent-free-download-icon-cloud-down-computer-system-blue-computer-blue-laptop.png",
             "count": 1,
             "size": {
                 "width": 20,
@@ -157,7 +157,7 @@
         },
         {
             "name": "Diya-placeholder5",
-            "description": "Brown-colored circle with a white border.",
+            "image": "https://w7.pngwing.com/pngs/409/302/png-transparent-free-download-icon-cloud-down-computer-system-blue-computer-blue-laptop.png",
             "count": 1,
             "size": {
                 "width": 20,
