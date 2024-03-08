@@ -207,7 +207,7 @@ class GameData {
   Widget background_builder(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage("assets/bg.jpg"))),
+          image: DecorationImage(image: AssetImage("assets/bg.jpeg"))),
     );
   }
 
@@ -231,8 +231,8 @@ class GameData {
     chrs.forEach((value) {
       characters[value["name"]] = CharacterInfo(
           image: '',
-          position: Vector2(value['position']["x"], value['position']['y']),
-          size: Vector2(value['size']["width"], value['size']["height"]),
+          position: Vector2((value['position']["x"]).toDouble(), value['position']['y'].toDouble()),
+          size: Vector2(value['size']["width"].toDouble(), value['size']["height"].toDouble()),
           isMovable: value['isMovable'],
           name: value["name"]);
     });
