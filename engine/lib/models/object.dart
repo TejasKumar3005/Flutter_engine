@@ -10,14 +10,14 @@ import 'dart:async';
 import 'package:flame/components.dart';
 
 class Object extends CircleComponent
-    with HasGameRef<MyGame>, CollisionCallbacks, DragCallbacks {
+    with HasGameRef<MyGame>, CollisionCallbacks, DragCallbacks, TapCallbacks {
   Object({required this.name, position, size, image, required this.isStatic})
       : super(
             position: position,
-            radius: 10,
+            radius: 30,
             children: [CircleHitbox()],
             paint: Paint()
-              ..color = const Color(0xff1e6091)
+              ..color = Color.fromARGB(255, 6, 180, 76)
               ..style = PaintingStyle.fill);
   final String name;
   final bool isStatic;
@@ -41,7 +41,7 @@ class Object extends CircleComponent
 
   // Override TapCallbacks methods
   @override
-  void onTapUp(TapUpDetails details) {
+  void onTapUp(TapUpEvent details) {
     
     print("tapped");
     gameRef.gameRules.onTap(name!, gameRef.gamedata);
@@ -69,10 +69,10 @@ class Object extends CircleComponent
   void onCollisionStart(
       Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollisionStart(intersectionPoints, other);
-    print("col");
     if (other is Object) {
       String curr_obj = name!;
       String oth_obj = other.name!;
+    print("col $curr_obj $oth_obj");
       gameRef.gameRules.onCollision(curr_obj, oth_obj, gameRef.gamedata);
     }
   }

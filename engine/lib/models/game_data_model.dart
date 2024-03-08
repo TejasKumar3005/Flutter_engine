@@ -205,10 +205,17 @@ class GameData {
   late Map<String, CharacterInfo> characters;
 
   Widget background_builder(BuildContext context) {
-    return Container(
+    return 
+    Center(
+      child:
+    AspectRatio(aspectRatio: 4 / 3, 
+    child: 
+    Container(
+      height: MediaQuery.of(context).size.height,
+      width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage("assets/bg.jpeg"))),
-    );
+          image: DecorationImage(image: AssetImage("assets/bg.jpeg"),fit: BoxFit.fitHeight)),
+    )));
   }
 
   GameData({

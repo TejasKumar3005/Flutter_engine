@@ -9,8 +9,8 @@ class MyGame extends FlameGame  with HasCollisionDetection{
   MyGame({required this.gamedata, required this.gameRules})
       : super(
           camera: CameraComponent.withFixedResolution(
-            width: 500,
-            height: 500,
+            width: 1200,
+            height: 900,
           ),
         );
   final GameData gamedata;

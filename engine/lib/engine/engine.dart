@@ -46,9 +46,10 @@ class _GameState extends State<Game> {
     }
     return Container(
       // Set your desired aspect ratio here
-      width: 500.0,
-      height: 500.0,
-      color: Color.fromARGB(255, 23, 13, 220),
+      // size take the height and width of the screen 
+      height: MediaQuery.of(context).size.height,
+      width: MediaQuery.of(context).size.width,
+      color: Color.fromARGB(255, 216, 19, 19),
       child: AspectRatio(
           aspectRatio: 4 / 3, // Example aspect ratio: width / height
           child: GameWidget<MyGame>(
