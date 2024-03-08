@@ -14,7 +14,7 @@ class Object extends SpriteComponent
   Object({required this.name, position, size, image, required this.isStatic})
       : super(
             position: position,
-            
+            size: size,
             children: [CircleHitbox()],
             paint: Paint()
               ..color = Color.fromARGB(255, 6, 180, 76)

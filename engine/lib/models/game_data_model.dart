@@ -42,7 +42,7 @@ class GameData {
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage("assets/bg.jpeg"),fit: BoxFit.fitHeight)),
+          image: DecorationImage(image: NetworkImage("https://svar.in/assets/img/vector3.1.png"),fit: BoxFit.fitHeight)),
     )));
   }
 
@@ -55,15 +55,15 @@ class GameData {
     Map<String, Variable> variables = {};
     Map<String, CharacterInfo> characters = {};
 
-    json['Game State'].forEach((key, value) {
-      variables[key] = Variable(
+    json['Game State'].map(( value) {
+      variables[value['name']] = Variable(
         name: value['name'],
         type: value['type'],
         value: value['value'],
       );
     });
     List chrs = json['Character'];
-    chrs.forEach((value) {
+    chrs.map((value) {
       characters[value["name"]] = CharacterInfo(
           image: value["image"],
           position: Vector2((value['position']["x"]).toDouble(), value['position']['y'].toDouble()),

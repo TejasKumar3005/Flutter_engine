@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
@@ -22,14 +21,15 @@ class MyGame extends FlameGame with HasCollisionDetection {
           ),
         );
 
-  final generatedImages = <String,ui.Image>{};
-      
+  final generatedImages = <String, ui.Image>{};
+
   final GameData gamedata;
   final GameRules gameRules;
   double get width => size.x;
   double get height => size.y;
   @override
   Future<void> onLoad() async {
+    await preloadImages();
     camera.viewfinder.anchor = Anchor.topLeft;
 
     gamedata.characters.values.forEach((element) {
@@ -43,20 +43,13 @@ class MyGame extends FlameGame with HasCollisionDetection {
   }
 
   Future<void> preloadImages() async {
-   
-
     for (var character in gamedata.characters.values) {
-    
-       final response = await http.get(Uri.parse(character.image));
+      final response = await http.get(Uri.parse(character.image));
 
-  
-     final image = await decodeImageFromList(response.bodyBytes);
+      final image = await decodeImageFromList(response.bodyBytes);
 
-        // Store the ui.Image in the generatedImages map
-        generatedImages[character.name] = image;
-  
+      // Store the ui.Image in the generatedImages map
+      generatedImages[character.name] = image;
     }
-
-   
   }
 }
