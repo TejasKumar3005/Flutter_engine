@@ -55,7 +55,10 @@ class GameData {
     Map<String, Variable> variables = {};
     Map<String, CharacterInfo> characters = {};
 
-    json['Game State'].map(( value) {
+    print("game stateeeeeeeeeeeeeeeeeeeeeeeee");
+    print(json['Game State']);
+    json['Game State'].forEach( (value) {
+      print("hfweiufhuwehfiuwehifuhwief");
       variables[value['name']] = Variable(
         name: value['name'],
         type: value['type'],
@@ -63,7 +66,7 @@ class GameData {
       );
     });
     List chrs = json['Character'];
-    chrs.map((value) {
+    chrs.forEach((value) {
       characters[value["name"]] = CharacterInfo(
           image: value["image"],
           position: Vector2((value['position']["x"]).toDouble(), value['position']['y'].toDouble()),

@@ -45,7 +45,11 @@ class MyGame extends FlameGame with HasCollisionDetection {
    
 
   Future<void> preloadImages() async {
+    print("loading images");
+    print(gamedata.characters.values.length);
+    print(gamedata);
     for (var character in gamedata.characters.values) {
+      print("loading some image");
       final response = await http.get(Uri.parse(character.image));
 
       final image = await decodeImageFromList(response.bodyBytes);

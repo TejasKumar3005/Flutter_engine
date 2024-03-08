@@ -75,6 +75,9 @@ class _GameState extends State<Game> {
       String jsonString =
           await loadJsonFromAssets('assets/final_game_context.json');
       Map<String, dynamic> data = jsonDecode(jsonString);
+      print("json");
+      print(jsonString);
+      print(data);
 
       return data;
     } catch (e) {
