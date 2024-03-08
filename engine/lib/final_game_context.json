@@ -11,8 +11,8 @@
             },
             "isMovable": true,
             "position": {
-                "x": 100,
-                "y": 500
+                "x": 0,
+                "y": 0
             }
         },
         {
@@ -20,8 +20,8 @@
             "description": "A small clay lamp filled with oil and a cotton wick, burning brightly.",
             "count": 1,
             "size": {
-                "width": 50,
-                "height": 50
+                "width": 1200,
+                "height": 900
             },
             "isMovable": true,
             "position": {
