@@ -55,7 +55,7 @@ class _GameState extends State<Game> {
       child: loading?Center(child: CircularProgressIndicator(color: Colors.white,),):AspectRatio(
           aspectRatio: 4 / 3, // Example aspect ratio: width / height
           child: GameWidget<MyGame>(
-            game: MyGame(gamedata: gameData, gameRules: gameRules),
+            game: MyGame(gamedata: gameData, gameRules: gameRules,context: context),
             backgroundBuilder: (context) {
               // Your custom widget as a background
               return gameData.background_builder(context);

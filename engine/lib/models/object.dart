@@ -11,7 +11,13 @@ import 'package:flame/components.dart';
 
 class Object extends SpriteComponent
     with HasGameRef<MyGame>, CollisionCallbacks, DragCallbacks, TapCallbacks {
-  Object({required this.name, position, size, image, required this.isStatic})
+  Object(
+      {required this.name,
+      position,
+      size,
+      image,
+      required this.isStatic,
+      required this.context})
       : super(
             position: position,
             size: size,
@@ -21,12 +27,13 @@ class Object extends SpriteComponent
               ..style = PaintingStyle.fill);
   final String name;
   final bool isStatic;
+  final BuildContext context;
   String? image;
   Vector2? draggedPosition;
   @override
   FutureOr<void> onLoad() async {
-     final image = gameRef.generatedImages[name];
-    if (image!=null) {
+    final image = gameRef.generatedImages[name];
+    if (image != null) {
       sprite = Sprite(image);
     }
     return super.onLoad();
@@ -44,8 +51,31 @@ class Object extends SpriteComponent
   // Override TapCallbacks methods
   @override
   void onTapUp(TapUpEvent details) {
-    
-    print("tapped");
+     showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Input Dialog'),
+          content: TextField(
+            decoration: InputDecoration(hintText: "Enter your input here"),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('Submit'),
+              onPressed: () {
+                // Handle the submit action
+              },
+            ),
+          ],
+        );
+      },
+    );
     gameRef.gameRules.onTap(name!, gameRef.gamedata);
   }
 
@@ -74,7 +104,7 @@ class Object extends SpriteComponent
     if (other is Object) {
       String curr_obj = name!;
       String oth_obj = other.name!;
-    print("col $curr_obj $oth_obj");
+      print("col $curr_obj $oth_obj");
       gameRef.gameRules.onCollision(curr_obj, oth_obj, gameRef.gamedata);
     }
   }
