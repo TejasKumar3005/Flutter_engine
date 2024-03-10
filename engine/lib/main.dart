@@ -28,10 +28,6 @@ class MyApp extends StatelessWidget {
       home: Game(gameJson: {}),
     );
   }
-  
-
-
-
 }
 
 

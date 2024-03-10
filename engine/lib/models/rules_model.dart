@@ -12,16 +12,20 @@ class GameRules {
   });
 
   factory GameRules.fromJson(Map<String, dynamic> json) {
+    print("khaali?");
+    print(json);
     Map<String, GameObjectRule> gameRules = {};
     json.forEach((key, value) {
-      gameRules[key] = GameObjectRule.fromJson(value);
+      print("wertyui");
+      print(value[0]);
+
+      gameRules[key] = GameObjectRule.fromJson(value[0]);  // TODO remove 0 in future
     });
+
     return GameRules(
       gameRules: gameRules,
-    );
+    ); 
   }
-
-
 
   void trigger(GameData gameData) {
     print('Trigger activated!');
@@ -49,21 +53,25 @@ class GameRules {
 //   }
 // }
   void onTap(String objectType, GameData gameData) {
-    final rule = gameRules[objectType]?.tapWith;
-    if (rule != null) {
-      rule.execute(gameData);
+    final rules = gameRules[objectType]?.tapWith;
+    if (rules!= null) {
+      for(var rule in rules){
+        rule.execute(gameData);
+      }
     }
   }
 
   void onCollision(String objectType1, String objectType2, GameData gameData) {
-    final rule = gameRules[objectType1]?.collisionWith?[objectType2] ?? null;
+    final rules = gameRules[objectType1]?.collisionWith?[objectType2] ?? null;
 
     if (gameRules[objectType1]?.collisionWith != null &&
         gameRules[objectType1]?.collisionWith?.containsKey(objectType2) ==
             true) {
       // Collision rule exists for objectType2
       // You can use rule here
-      rule!.execute(gameData);
+      for( var rule in rules!){
+        rule.execute(gameData);
+      }
     }
   }
 
@@ -111,27 +119,30 @@ class GameObjectRule {
   // name of object
 
   // map of rules for which object the collision has happened
-  final Map<String, InteractionRule> collisionWith;
+  final Map<String, List<InteractionRule>> collisionWith;
   //tap rule
-  final InteractionRule tapWith;
+  final List<InteractionRule> tapWith;
 
   GameObjectRule({
     required this.collisionWith,
     required this.tapWith,
   });
 
-  factory GameObjectRule.fromJson(Map<String, dynamic> json) {
-    Map<String, dynamic> collisionRulesJson = json["collision_with"];
-    Map<String, dynamic> tapRulesJson = json["tap_with"];
-    InteractionRule tapWith;
-    Map<String, InteractionRule> collisionWith = {};
-
+  factory GameObjectRule.fromJson(Map<String?, dynamic> json) {
+    Map<String?, dynamic> collisionRulesJson = json["collision_with"];
+   List<Map<String, dynamic>> tapRulesJson = json["tap_with"] ?? [];
+    List<InteractionRule> tapWith;
+    Map<String, List<InteractionRule>> collisionWith = {};
+     print("codeishere");
     collisionRulesJson.forEach((key, value) {
-      collisionWith[key] = InteractionRule.fromJson(value);
+      collisionWith[key!] = 
+          (value as List).map((e) => InteractionRule.fromJson(e)).toList();
     });
+    print("collisionWith: $collisionWith");
+    
+    tapWith = (tapRulesJson).map((e) => InteractionRule.fromJson(e)).toList();
 
-    tapWith = InteractionRule.fromJson(tapRulesJson);
-
+    print("tapWith: $tapWith");
     return GameObjectRule(
       collisionWith: collisionWith,
       tapWith: tapWith,

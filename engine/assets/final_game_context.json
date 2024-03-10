@@ -3,7 +3,7 @@
     "Character": [
         {
             "name": "Diya1",
-            "image": "https://svar.in/assets/img/vector3.1.png",
+            "image": "https://www.google.com/logos/doodles/2024/international-womens-day-2024-6753651837110196.4-s.png",
             "count": 1,
             "size": {
                 "width": 50,
@@ -17,7 +17,7 @@
         },
         {
             "name": "Diya2",
-            "image": "https://svar.in/assets/img/vector3.1.png",
+            "image": "https://www.google.com/logos/doodles/2024/international-womens-day-2024-6753651837110196.4-s.png",
             "count": 1,
             "size": {
                 "width": 50,
@@ -31,7 +31,7 @@
         },
         {
             "name": "Diya3",
-            "image": "https://svar.in/assets/img/vector3.1.png",
+            "image": "https://www.google.com/logos/doodles/2024/international-womens-day-2024-6753651837110196.4-s.png",
             "count": 1,
             "size": {
                 "width": 50,
@@ -45,7 +45,7 @@
         },
         {
             "name": "Diya4",
-            "image": "https://svar.in/assets/img/vector3.1.png",
+            "image": "https://www.google.com/logos/doodles/2024/international-womens-day-2024-6753651837110196.4-s.png",
             "count": 1,
             "size": {
                 "width": 50,
@@ -59,7 +59,7 @@
         },
         {
             "name": "Diya5",
-            "image": "https://svar.in/assets/img/vector3.1.png",
+            "image": "https://www.google.com/logos/doodles/2024/international-womens-day-2024-6753651837110196.4-s.png",
             "count": 1,
             "size": {
                 "width": 50,
@@ -87,7 +87,7 @@
         },
         {
             "name": "Rangoli-placeholder1",
-            "image": "https://w7.pngwing.com/pngs/409/302/png-transparent-free-download-icon-cloud-down-computer-system-blue-computer-blue-laptop.png",
+            "image": "https://www.google.com/logos/doodles/2024/international-womens-day-2024-6753651837110196.4-s.png",
             "count": 1,
             "size": {
                 "width": 20,
@@ -101,7 +101,7 @@
         },
         {
             "name": "Diya-placeholder1",
-            "image": "https://w7.pngwing.com/pngs/409/302/png-transparent-free-download-icon-cloud-down-computer-system-blue-computer-blue-laptop.png",
+            "image": "https://www.google.com/logos/doodles/2024/international-womens-day-2024-6753651837110196.4-s.png",
             "count": 1,
             "size": {
                 "width": 20,
@@ -115,7 +115,7 @@
         },
         {
             "name": "Diya-placeholder2",
-            "image": "https://w7.pngwing.com/pngs/409/302/png-transparent-free-download-icon-cloud-down-computer-system-blue-computer-blue-laptop.png",
+            "image": "https://www.google.com/logos/doodles/2024/international-womens-day-2024-6753651837110196.4-s.png",
             "count": 1,
             "size": {
                 "width": 20,
@@ -129,7 +129,7 @@
         },
         {
             "name": "Diya-placeholder3",
-            "image": "https://w7.pngwing.com/pngs/409/302/png-transparent-free-download-icon-cloud-down-computer-system-blue-computer-blue-laptop.png",
+            "image": "https://www.google.com/logos/doodles/2024/international-womens-day-2024-6753651837110196.4-s.png",
             "count": 1,
             "size": {
                 "width": 20,
@@ -143,7 +143,7 @@
         },
         {
             "name": "Diya-placeholder4",
-            "image": "https://w7.pngwing.com/pngs/409/302/png-transparent-free-download-icon-cloud-down-computer-system-blue-computer-blue-laptop.png",
+            "image": "https://www.google.com/logos/doodles/2024/international-womens-day-2024-6753651837110196.4-s.png",
             "count": 1,
             "size": {
                 "width": 20,
@@ -157,7 +157,7 @@
         },
         {
             "name": "Diya-placeholder5",
-            "image": "https://w7.pngwing.com/pngs/409/302/png-transparent-free-download-icon-cloud-down-computer-system-blue-computer-blue-laptop.png",
+            "image": "https://www.google.com/logos/doodles/2024/international-womens-day-2024-6753651837110196.4-s.png",
             "count": 1,
             "size": {
                 "width": 20,
@@ -191,25 +191,19 @@
     "Game Rules": {
         "Diya1": [
             {
-                "collision_with": [
+                "collision_with": 
                     {
                         "Diya-placeholder1": [
                             {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
+                                "condition": [],
                                 "action": {
                                     "target": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operator": "+",
                                     "operand1": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operand2": {
@@ -224,10 +218,10 @@
                                     [
                                         {
                                             "operand1": {
-                                                "name": "Diyaplaced",
+                                                "name": "DiyasPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "5",
                                                 "value": 5,
@@ -236,10 +230,10 @@
                                         },
                                         {
                                             "operand1": {
-                                                "name": "RangoliPlaced",
+                                                "name": "RangolisPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "1",
                                                 "value": 1,
@@ -264,26 +258,19 @@
                                     "operator": "="
                                 }
                             }
-                        ]
-                    },
-                    {
+                        ],
+                    
                         "Diya-placeholder2": [
                             {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
+                                "condition": [],
                                 "action": {
                                     "target": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operator": "+",
                                     "operand1": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operand2": {
@@ -298,10 +285,10 @@
                                     [
                                         {
                                             "operand1": {
-                                                "name": "Diyaplaced",
+                                                "name": "DiyasPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "5",
                                                 "value": 5,
@@ -310,10 +297,10 @@
                                         },
                                         {
                                             "operand1": {
-                                                "name": "RangoliPlaced",
+                                                "name": "RangolisPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "1",
                                                 "value": 1,
@@ -338,26 +325,19 @@
                                     "operator": "="
                                 }
                             }
-                        ]
-                    },
-                    {
+                        ],
+                    
                         "Diya-placeholder3": [
                             {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
+                                "condition": [],
                                 "action": {
                                     "target": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operator": "+",
                                     "operand1": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operand2": {
@@ -372,10 +352,10 @@
                                     [
                                         {
                                             "operand1": {
-                                                "name": "Diyaplaced",
+                                                "name": "DiyasPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "5",
                                                 "value": 5,
@@ -384,10 +364,10 @@
                                         },
                                         {
                                             "operand1": {
-                                                "name": "RangoliPlaced",
+                                                "name": "RangolisPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "1",
                                                 "value": 1,
@@ -412,26 +392,19 @@
                                     "operator": "="
                                 }
                             }
-                        ]
-                    },
-                    {
+                        ],
+                    
                         "Diya-placeholder4": [
                             {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
+                                "condition": [],
                                 "action": {
                                     "target": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operator": "+",
                                     "operand1": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operand2": {
@@ -446,10 +419,10 @@
                                     [
                                         {
                                             "operand1": {
-                                                "name": "Diyaplaced",
+                                                "name": "DiyasPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "5",
                                                 "value": 5,
@@ -458,10 +431,10 @@
                                         },
                                         {
                                             "operand1": {
-                                                "name": "RangoliPlaced",
+                                                "name": "RangolisPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "1",
                                                 "value": 1,
@@ -486,26 +459,19 @@
                                     "operator": "="
                                 }
                             }
-                        ]
-                    },
-                    {
+                        ],
+                    
                         "Diya-placeholder5": [
                             {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
+                                "condition": [],
                                 "action": {
                                     "target": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operator": "+",
                                     "operand1": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operand2": {
@@ -520,10 +486,10 @@
                                     [
                                         {
                                             "operand1": {
-                                                "name": "Diyaplaced",
+                                                "name": "DiyasPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "5",
                                                 "value": 5,
@@ -532,10 +498,10 @@
                                         },
                                         {
                                             "operand1": {
-                                                "name": "RangoliPlaced",
+                                                "name": "RangolisPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "1",
                                                 "value": 1,
@@ -562,30 +528,23 @@
                             }
                         ]
                     }
-                ]
             }
         ],
         "Diya2": [
             {
-                "collision_with": [
+                "collision_with": 
                     {
                         "Diya-placeholder1": [
                             {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
+                                "condition": [],
                                 "action": {
                                     "target": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operator": "+",
                                     "operand1": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operand2": {
@@ -600,10 +559,10 @@
                                     [
                                         {
                                             "operand1": {
-                                                "name": "Diyaplaced",
+                                                "name": "DiyasPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "5",
                                                 "value": 5,
@@ -612,10 +571,10 @@
                                         },
                                         {
                                             "operand1": {
-                                                "name": "RangoliPlaced",
+                                                "name": "RangolisPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "1",
                                                 "value": 1,
@@ -640,26 +599,19 @@
                                     "operator": "="
                                 }
                             }
-                        ]
-                    },
-                    {
+                        ],
+                    
                         "Diya-placeholder2": [
                             {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
+                                "condition": [],
                                 "action": {
                                     "target": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operator": "+",
                                     "operand1": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operand2": {
@@ -674,10 +626,10 @@
                                     [
                                         {
                                             "operand1": {
-                                                "name": "Diyaplaced",
+                                                "name": "DiyasPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "5",
                                                 "value": 5,
@@ -686,10 +638,10 @@
                                         },
                                         {
                                             "operand1": {
-                                                "name": "RangoliPlaced",
+                                                "name": "RangolisPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "1",
                                                 "value": 1,
@@ -714,26 +666,19 @@
                                     "operator": "="
                                 }
                             }
-                        ]
-                    },
-                    {
+                        ],
+                    
                         "Diya-placeholder3": [
                             {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
+                                "condition": [],
                                 "action": {
                                     "target": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operator": "+",
                                     "operand1": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operand2": {
@@ -748,10 +693,10 @@
                                     [
                                         {
                                             "operand1": {
-                                                "name": "Diyaplaced",
+                                                "name": "DiyasPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "5",
                                                 "value": 5,
@@ -760,10 +705,10 @@
                                         },
                                         {
                                             "operand1": {
-                                                "name": "RangoliPlaced",
+                                                "name": "RangolisPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "1",
                                                 "value": 1,
@@ -788,26 +733,19 @@
                                     "operator": "="
                                 }
                             }
-                        ]
-                    },
-                    {
+                        ],
+                    
                         "Diya-placeholder4": [
                             {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
+                                "condition": [],
                                 "action": {
                                     "target": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operator": "+",
                                     "operand1": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operand2": {
@@ -822,10 +760,10 @@
                                     [
                                         {
                                             "operand1": {
-                                                "name": "Diyaplaced",
+                                                "name": "DiyasPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "5",
                                                 "value": 5,
@@ -834,10 +772,10 @@
                                         },
                                         {
                                             "operand1": {
-                                                "name": "RangoliPlaced",
+                                                "name": "RangolisPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "1",
                                                 "value": 1,
@@ -862,26 +800,19 @@
                                     "operator": "="
                                 }
                             }
-                        ]
-                    },
-                    {
+                        ],
+                    
                         "Diya-placeholder5": [
                             {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
+                                "condition": [],
                                 "action": {
                                     "target": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operator": "+",
                                     "operand1": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operand2": {
@@ -896,10 +827,10 @@
                                     [
                                         {
                                             "operand1": {
-                                                "name": "Diyaplaced",
+                                                "name": "DiyasPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "5",
                                                 "value": 5,
@@ -908,10 +839,10 @@
                                         },
                                         {
                                             "operand1": {
-                                                "name": "RangoliPlaced",
+                                                "name": "RangolisPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "1",
                                                 "value": 1,
@@ -938,30 +869,23 @@
                             }
                         ]
                     }
-                ]
             }
         ],
-        "Diya3": [
+        "Diya3":  [
             {
-                "collision_with": [
+                "collision_with": 
                     {
                         "Diya-placeholder1": [
                             {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
+                                "condition": [],
                                 "action": {
                                     "target": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operator": "+",
                                     "operand1": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operand2": {
@@ -976,10 +900,10 @@
                                     [
                                         {
                                             "operand1": {
-                                                "name": "Diyaplaced",
+                                                "name": "DiyasPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "5",
                                                 "value": 5,
@@ -988,10 +912,10 @@
                                         },
                                         {
                                             "operand1": {
-                                                "name": "RangoliPlaced",
+                                                "name": "RangolisPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "1",
                                                 "value": 1,
@@ -1016,26 +940,19 @@
                                     "operator": "="
                                 }
                             }
-                        ]
-                    },
-                    {
+                        ],
+                    
                         "Diya-placeholder2": [
                             {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
+                                "condition": [],
                                 "action": {
                                     "target": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operator": "+",
                                     "operand1": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operand2": {
@@ -1050,10 +967,10 @@
                                     [
                                         {
                                             "operand1": {
-                                                "name": "Diyaplaced",
+                                                "name": "DiyasPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "5",
                                                 "value": 5,
@@ -1062,10 +979,10 @@
                                         },
                                         {
                                             "operand1": {
-                                                "name": "RangoliPlaced",
+                                                "name": "RangolisPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "1",
                                                 "value": 1,
@@ -1090,26 +1007,19 @@
                                     "operator": "="
                                 }
                             }
-                        ]
-                    },
-                    {
+                        ],
+                    
                         "Diya-placeholder3": [
                             {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
+                                "condition": [],
                                 "action": {
                                     "target": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operator": "+",
                                     "operand1": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operand2": {
@@ -1124,10 +1034,10 @@
                                     [
                                         {
                                             "operand1": {
-                                                "name": "Diyaplaced",
+                                                "name": "DiyasPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "5",
                                                 "value": 5,
@@ -1136,10 +1046,10 @@
                                         },
                                         {
                                             "operand1": {
-                                                "name": "RangoliPlaced",
+                                                "name": "RangolisPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "1",
                                                 "value": 1,
@@ -1164,26 +1074,19 @@
                                     "operator": "="
                                 }
                             }
-                        ]
-                    },
-                    {
+                        ],
+                    
                         "Diya-placeholder4": [
                             {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
+                                "condition": [],
                                 "action": {
                                     "target": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operator": "+",
                                     "operand1": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operand2": {
@@ -1198,10 +1101,10 @@
                                     [
                                         {
                                             "operand1": {
-                                                "name": "Diyaplaced",
+                                                "name": "DiyasPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "5",
                                                 "value": 5,
@@ -1210,10 +1113,10 @@
                                         },
                                         {
                                             "operand1": {
-                                                "name": "RangoliPlaced",
+                                                "name": "RangolisPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "1",
                                                 "value": 1,
@@ -1238,26 +1141,19 @@
                                     "operator": "="
                                 }
                             }
-                        ]
-                    },
-                    {
+                        ],
+                    
                         "Diya-placeholder5": [
                             {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
+                                "condition": [],
                                 "action": {
                                     "target": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operator": "+",
                                     "operand1": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operand2": {
@@ -1272,10 +1168,10 @@
                                     [
                                         {
                                             "operand1": {
-                                                "name": "Diyaplaced",
+                                                "name": "DiyasPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "5",
                                                 "value": 5,
@@ -1284,10 +1180,10 @@
                                         },
                                         {
                                             "operand1": {
-                                                "name": "RangoliPlaced",
+                                                "name": "RangolisPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "1",
                                                 "value": 1,
@@ -1314,30 +1210,23 @@
                             }
                         ]
                     }
-                ]
             }
         ],
         "Diya4": [
             {
-                "collision_with": [
+                "collision_with": 
                     {
                         "Diya-placeholder1": [
                             {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
+                                "condition": [],
                                 "action": {
                                     "target": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operator": "+",
                                     "operand1": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operand2": {
@@ -1352,10 +1241,10 @@
                                     [
                                         {
                                             "operand1": {
-                                                "name": "Diyaplaced",
+                                                "name": "DiyasPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "5",
                                                 "value": 5,
@@ -1364,10 +1253,10 @@
                                         },
                                         {
                                             "operand1": {
-                                                "name": "RangoliPlaced",
+                                                "name": "RangolisPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "1",
                                                 "value": 1,
@@ -1392,26 +1281,19 @@
                                     "operator": "="
                                 }
                             }
-                        ]
-                    },
-                    {
+                        ],
+                    
                         "Diya-placeholder2": [
                             {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
+                                "condition": [],
                                 "action": {
                                     "target": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operator": "+",
                                     "operand1": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operand2": {
@@ -1426,10 +1308,10 @@
                                     [
                                         {
                                             "operand1": {
-                                                "name": "Diyaplaced",
+                                                "name": "DiyasPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "5",
                                                 "value": 5,
@@ -1438,10 +1320,10 @@
                                         },
                                         {
                                             "operand1": {
-                                                "name": "RangoliPlaced",
+                                                "name": "RangolisPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "1",
                                                 "value": 1,
@@ -1466,26 +1348,19 @@
                                     "operator": "="
                                 }
                             }
-                        ]
-                    },
-                    {
+                        ],
+                    
                         "Diya-placeholder3": [
                             {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
+                                "condition": [],
                                 "action": {
                                     "target": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operator": "+",
                                     "operand1": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operand2": {
@@ -1500,10 +1375,10 @@
                                     [
                                         {
                                             "operand1": {
-                                                "name": "Diyaplaced",
+                                                "name": "DiyasPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "5",
                                                 "value": 5,
@@ -1512,10 +1387,10 @@
                                         },
                                         {
                                             "operand1": {
-                                                "name": "RangoliPlaced",
+                                                "name": "RangolisPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "1",
                                                 "value": 1,
@@ -1540,26 +1415,19 @@
                                     "operator": "="
                                 }
                             }
-                        ]
-                    },
-                    {
+                        ],
+                    
                         "Diya-placeholder4": [
                             {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
+                                "condition": [],
                                 "action": {
                                     "target": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operator": "+",
                                     "operand1": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operand2": {
@@ -1574,10 +1442,10 @@
                                     [
                                         {
                                             "operand1": {
-                                                "name": "Diyaplaced",
+                                                "name": "DiyasPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "5",
                                                 "value": 5,
@@ -1586,10 +1454,10 @@
                                         },
                                         {
                                             "operand1": {
-                                                "name": "RangoliPlaced",
+                                                "name": "RangolisPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "1",
                                                 "value": 1,
@@ -1614,26 +1482,19 @@
                                     "operator": "="
                                 }
                             }
-                        ]
-                    },
-                    {
+                        ],
+                    
                         "Diya-placeholder5": [
                             {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
+                                "condition": [],
                                 "action": {
                                     "target": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operator": "+",
                                     "operand1": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operand2": {
@@ -1648,10 +1509,10 @@
                                     [
                                         {
                                             "operand1": {
-                                                "name": "Diyaplaced",
+                                                "name": "DiyasPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "5",
                                                 "value": 5,
@@ -1660,10 +1521,10 @@
                                         },
                                         {
                                             "operand1": {
-                                                "name": "RangoliPlaced",
+                                                "name": "RangolisPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "1",
                                                 "value": 1,
@@ -1690,30 +1551,23 @@
                             }
                         ]
                     }
-                ]
             }
         ],
-        "Diya5": [
+        "Diya5":  [
             {
-                "collision_with": [
+                "collision_with": 
                     {
                         "Diya-placeholder1": [
                             {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
+                                "condition": [],
                                 "action": {
                                     "target": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operator": "+",
                                     "operand1": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operand2": {
@@ -1728,10 +1582,10 @@
                                     [
                                         {
                                             "operand1": {
-                                                "name": "Diyaplaced",
+                                                "name": "DiyasPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "5",
                                                 "value": 5,
@@ -1740,10 +1594,10 @@
                                         },
                                         {
                                             "operand1": {
-                                                "name": "RangoliPlaced",
+                                                "name": "RangolisPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "1",
                                                 "value": 1,
@@ -1768,26 +1622,19 @@
                                     "operator": "="
                                 }
                             }
-                        ]
-                    },
-                    {
+                        ],
+                    
                         "Diya-placeholder2": [
                             {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
+                                "condition": [],
                                 "action": {
                                     "target": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operator": "+",
                                     "operand1": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operand2": {
@@ -1802,10 +1649,10 @@
                                     [
                                         {
                                             "operand1": {
-                                                "name": "Diyaplaced",
+                                                "name": "DiyasPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "5",
                                                 "value": 5,
@@ -1814,10 +1661,10 @@
                                         },
                                         {
                                             "operand1": {
-                                                "name": "RangoliPlaced",
+                                                "name": "RangolisPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "1",
                                                 "value": 1,
@@ -1842,26 +1689,19 @@
                                     "operator": "="
                                 }
                             }
-                        ]
-                    },
-                    {
+                        ],
+                    
                         "Diya-placeholder3": [
                             {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
+                                "condition": [],
                                 "action": {
                                     "target": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operator": "+",
                                     "operand1": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operand2": {
@@ -1876,10 +1716,10 @@
                                     [
                                         {
                                             "operand1": {
-                                                "name": "Diyaplaced",
+                                                "name": "DiyasPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "5",
                                                 "value": 5,
@@ -1888,10 +1728,10 @@
                                         },
                                         {
                                             "operand1": {
-                                                "name": "RangoliPlaced",
+                                                "name": "RangolisPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "1",
                                                 "value": 1,
@@ -1916,26 +1756,19 @@
                                     "operator": "="
                                 }
                             }
-                        ]
-                    },
-                    {
+                        ],
+                    
                         "Diya-placeholder4": [
                             {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
+                                "condition": [],
                                 "action": {
                                     "target": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operator": "+",
                                     "operand1": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operand2": {
@@ -1950,10 +1783,10 @@
                                     [
                                         {
                                             "operand1": {
-                                                "name": "Diyaplaced",
+                                                "name": "DiyasPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "5",
                                                 "value": 5,
@@ -1962,10 +1795,10 @@
                                         },
                                         {
                                             "operand1": {
-                                                "name": "RangoliPlaced",
+                                                "name": "RangolisPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "1",
                                                 "value": 1,
@@ -1990,26 +1823,19 @@
                                     "operator": "="
                                 }
                             }
-                        ]
-                    },
-                    {
+                        ],
+                    
                         "Diya-placeholder5": [
                             {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
+                                "condition": [],
                                 "action": {
                                     "target": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operator": "+",
                                     "operand1": {
-                                        "name": "Diyaplaced",
+                                        "name": "DiyasPlaced",
                                         "type": "variable"
                                     },
                                     "operand2": {
@@ -2024,10 +1850,10 @@
                                     [
                                         {
                                             "operand1": {
-                                                "name": "Diyaplaced",
+                                                "name": "DiyasPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "5",
                                                 "value": 5,
@@ -2036,10 +1862,10 @@
                                         },
                                         {
                                             "operand1": {
-                                                "name": "RangoliPlaced",
+                                                "name": "RangolisPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "1",
                                                 "value": 1,
@@ -2066,30 +1892,23 @@
                             }
                         ]
                     }
-                ]
             }
         ],
         "Rangoli1": [
             {
-                "collision_with": [
+                "collision_with": 
                     {
                         "Rangoli-placeholder1": [
                             {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
+                                "condition": [],
                                 "action": {
                                     "target": {
-                                        "name": "Rangoliplaced",
+                                        "name": "RangolisPlaced",
                                         "type": "variable"
                                     },
                                     "operator": "+",
                                     "operand1": {
-                                        "name": "Rangoliplaced",
+                                        "name": "RangolisPlaced",
                                         "type": "variable"
                                     },
                                     "operand2": {
@@ -2104,10 +1923,10 @@
                                     [
                                         {
                                             "operand1": {
-                                                "name": "Rangoliplaced",
+                                                "name": "RangolisPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "1",
                                                 "value": 1,
@@ -2119,7 +1938,7 @@
                                                 "name": "DiyasPlaced",
                                                 "type": "Variable"
                                             },
-                                            "operator": "equal",
+                                            "operator": "isEqual",
                                             "operand2": {
                                                 "name": "5",
                                                 "value": 5,
@@ -2146,7 +1965,7 @@
                             }
                         ]
                     }
-                ]
+                
             }
         ]
     }
