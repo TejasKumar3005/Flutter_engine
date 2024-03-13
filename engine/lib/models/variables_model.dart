@@ -31,6 +31,8 @@ class Variable extends DataType {
 
   @override
   dynamic getValue(GameData gameData) {
+    print(gameData.variables);
+    print(name);
     return gameData.variables[name]!.value;
   }
 

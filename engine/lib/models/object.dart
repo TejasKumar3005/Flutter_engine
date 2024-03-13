@@ -105,7 +105,10 @@ class Object extends SpriteComponent
       String curr_obj = name!;
       String oth_obj = other.name!;
       print("col $curr_obj $oth_obj");
+      print(gameRef.gamedata.variables);
       gameRef.gameRules.onCollision(curr_obj, oth_obj, gameRef.gamedata);
+      print(gameRef.gamedata.variables);
+
     }
   }
 

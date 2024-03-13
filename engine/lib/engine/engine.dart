@@ -29,6 +29,7 @@ class _GameState extends State<Game> {
     fetchData().then((value) => {
           setState(() {
             gameData = GameData.fromJson(value);
+            gameRules = GameRules.fromJson(value['Game Rules']);
             loading = false;
           })
         });
