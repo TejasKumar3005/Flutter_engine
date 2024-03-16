@@ -108,7 +108,6 @@ class Object extends SpriteComponent
       print(gameRef.gamedata.variables);
       gameRef.gameRules.onCollision(curr_obj, oth_obj, gameRef.gamedata);
       print(gameRef.gamedata.variables);
-
     }
   }
 
