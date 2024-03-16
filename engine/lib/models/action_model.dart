@@ -51,7 +51,7 @@ class Action {
     switch (operation) {
       case '+':
         result = var1!.getValue(gameData) + var2!.getValue(gameData);
-      print("ddition done");
+      print("addition done");
         break;
       case '-':
         result = var1!.getValue(gameData) - var2!.getValue(gameData);

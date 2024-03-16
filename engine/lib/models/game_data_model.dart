@@ -19,7 +19,8 @@ class CharacterInfo {
       required this.position,
       required this.size,
       required this.isMovable,
-      required this.name});
+      required this.name}
+      );
 
   @override
   String toString() {
