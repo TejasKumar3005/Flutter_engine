@@ -90,8 +90,9 @@ flutter:
      - family: arcade
        fonts:
          - asset: assets/fonts/ARCADE_I.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
-  #
+     - family: samuraiblast
+       fonts:
+         - asset: assets/fonts/SamuraiBlast-YznGj.ttf
+  
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
