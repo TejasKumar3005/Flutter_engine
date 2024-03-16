@@ -5,11 +5,23 @@ import 'dart:ui' as ui;
 
 import 'package:provider/provider.dart';
 
+class PuzzleTile {
+  final int originalIndex;
+  final img.Image tile;
+
+  PuzzleTile(this.originalIndex, this.tile);
+}
+
 class ImageSlicer extends ChangeNotifier {
   String gamestatus = "NS";
   int time = 0;
   void setgamestatus(String status) {
     gamestatus = status;
+    notifyListeners();
+  }
+
+  void resetTime() {
+    time = 0;
     notifyListeners();
   }
 
@@ -63,6 +75,7 @@ class _TimerWidgetState extends State<TimerWidget> {
       child: Container(
         padding: EdgeInsets.all(8),
         decoration: BoxDecoration(
+          border: Border.all(color: Colors.white),
           color: Color.fromARGB(255, 209, 12, 192).withOpacity(0.5),
           borderRadius: BorderRadius.circular(10),
         ),
