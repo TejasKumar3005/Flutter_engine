@@ -33,6 +33,8 @@ dependencies:
   flame: ^1.14.0
   flutter_svg: ^2.0.9
   provider: ^6.1.1
+  kafkabr:
+    git: https://github.com/armando-couto/kafkabr.git
   http: ^1.1.0
   image: ^3.0.1
   animated_text_kit: ^4.2.2
