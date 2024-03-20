@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'test.dart';
 import 'engine/engine.dart';
+import 'inputbox.dart';
 
 void main() {
    WidgetsFlutterBinding.ensureInitialized();
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
         
       ),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
-  home: PuzzleGame(imageUrls: ["Back (1).png","Badges (1).png","Check (1).png","Cross (1).png","Down (1).png","DownArrow (1).png","Download (1).png","Exit (1).png","Facebook (1).png"]),
+  home: KafkaMessageWidget(),
       // home: Game(gameJson: {}),
     );
   }
