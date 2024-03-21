@@ -4,6 +4,7 @@ import 'package:image/image.dart' as img;
 import 'dart:ui' as ui;
 
 import 'package:provider/provider.dart';
+import 'package:rive/rive.dart';
 
 class PuzzleTile {
   final int originalIndex;
@@ -90,4 +91,21 @@ class _TimerWidgetState extends State<TimerWidget> {
       ),
     );
   }
+}
+
+Widget riveanimation(BuildContext context) {
+  return SizedBox(
+    height: MediaQuery.of(context).size.height,
+    width:  MediaQuery.of(context).size.width,
+    child: Center(
+      child: SizedBox(
+        height: 600,
+        width: 400,
+        child: RiveAnimation.asset(
+          'assets/finish.riv',
+          fit: BoxFit.cover,
+        ),
+      ),
+    ),
+  );
 }

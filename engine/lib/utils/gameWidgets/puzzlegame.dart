@@ -113,6 +113,7 @@ class _PuzzleGameState extends State<PuzzleGame> {
     super.dispose();
   }
 
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -217,6 +218,11 @@ class _PuzzleGameState extends State<PuzzleGame> {
             Visibility(
                 visible: gameStatus == "ST" || gameStatus == "PS",
                 child: TimerWidget()),
+
+
+                Visibility(
+                  visible: gameStatus=="PS",
+                  child: riveanimation( context))
           ]),
         );
       },

@@ -3,25 +3,22 @@ import 'conditional_model.dart';
 import 'game_data_model.dart';
 import 'variables_model.dart';
 
+
 class Action {
   DataType? var1;
   DataType? var2;
-  Variable? targetvar;
+  // List<DataType> varList;
+  DataType? targetvar;
   String? operation; // +, -, *, inplace+, inplace*, inplace-
 
   factory Action.fromJson(Map<String, dynamic> json) {
-    bool var1_isvariable = json["operand1"]["type"] == "variable" ? true : false;
-    bool var2_isvariable = json["operand2"]["type"] == "variable" ? true : false;
+
 
     return Action.variableOperation(
       // check if var1 and var2 are variables or not
-      var1: var1_isvariable
-          ? Variable(name: json["operand1"]["name"])
-          : DataType(type: json['operand1']['type'], value: json['operand1']['value']),
-      var2: var2_isvariable
-          ? Variable(name: json["operand2"]["name"])
-          : DataType(type: json['operand2']['type'], value: json['operand2']['value']),
-      targetvar: Variable(name: json['target']['name']),
+      var1: initDataType(json["operand1"]),
+      var2: initDataType(json["operand2"]),
+      targetvar: initDataType(json["target"]),
       operation: json['operator'],
     );
   }
@@ -65,18 +62,6 @@ class Action {
       case '=':
         result = var2!.getValue(gameData);  
          break;
-      // case '+=':
-      //   gameData.variables[var1]!.value +=
-      //       gameData.variables[var2]!.value;
-      //   break;
-      // case '-=':
-      //   gameData.variables[var1]!.value -=
-      //       gameData.variables[var2]!.value;
-      //   break;
-      // case '*=':
-      //   gameData.variables[var1]!.value *=
-      //       gameData.variables[var2]!.value;
-      //   break;
       case 'OR':
         result = _toBoolean(var1!, gameData) || _toBoolean(var2!, gameData);
         break;
@@ -86,9 +71,11 @@ class Action {
       case 'NOR':
         result = _toBoolean(var1!, gameData) && !_toBoolean(var2!, gameData);
         break;
-      case 'string':
-        result =
-            '${gameData.variables[var1]!.value}${gameData.variables[var2]!.value}';
+      case 'update_pos':
+        result = var1!.getValue(gameData);
+        break;
+      case 'fix_pos':
+        targetvar!.fixCharac(gameData);
         break;
       case 'replace':
         replaceValues(gameData);
