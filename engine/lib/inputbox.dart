@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:kafkabr/kafka.dart';
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
+
+
 
 class KafkaMessageWidget extends StatefulWidget {
   const KafkaMessageWidget({Key? key}) : super(key: key);
@@ -10,39 +16,69 @@ class KafkaMessageWidget extends StatefulWidget {
 
 class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
   final TextEditingController _controller = TextEditingController();
-  late final KafkaSession _session;
+  // late final KafkaSession _session;
 
   @override
   void initState() {
     super.initState();
-    _session = KafkaSession([ContactPoint('10.184.28.97', 9092)]);
+    // _session = KafkaSession([ContactPoint('35.165.158.80', 9092)]); //65.0.76.10
+    // print(_session);
   }
 
-  Future<void> _sendMessageToKafka(String message) async {
+  // Future<void> _sendMessageToKafka(String message) async {
 
-    print("hello");
-    var producer = Producer(_session, 1, 1000);
-    print("hello2");
-    var result = await producer.produce([
-      ProduceEnvelope('quickstart-events', 0, [Message(message.codeUnits)])
-    ]);
-    print("hello3");
-    print(result.hasErrors);
-    print(result.offsets);
+  //   print("hello");
+  //   var producer = Producer(_session, 1, 1000);
+  //   print("hello2");
+  //   print(message.codeUnits);
+  //   var msg = Message( message.codeUnits, key: [0,1]);
+  //   print("hello3");
+  //   var prod = ProduceEnvelope('prompt', 0, [msg]);
+  //   print("hello4");
+  //   var result = await producer.produce([
+  //     prod
+  //   ]);
+  //   print("hello5");
+  //   print(result.hasErrors);
+  //   print(result.offsets);
 
-    var group = ConsumerGroup(_session, 'consumerGroupName');
-    var topics = {
-      'quickstart-events': {0, 1} // list of partitions to consume from.
-    };
+  //   var group = ConsumerGroup(_session, 'udc');
+  //   var topics = {
+  //     'game': {0} // list of partitions to consume from.
+  //   };
 
-    var consumer = Consumer(_session, group, topics, 100, 1);
-    await for (MessageEnvelope envelope in consumer.consume(limit: 3)) {
-      var value = String.fromCharCodes(envelope.message.value);
-      print('Got message: ${envelope.offset}, ${value}');
-      envelope.commit('metadata'); // Important.
+  //   var consumer = Consumer(_session, group, topics, 50000, 1);
+  //   print("reached here");
+  //   await for (MessageEnvelope envelope in consumer.consume()) {
+  //     print("reached here2");
+  //     var value = String.fromCharCodes(envelope.message.value);
+  //     print('Got message: ${envelope.offset}, ${value}');
+  //     envelope.commit('metadata'); // Important.
+  //   }
+  //   print("hello6");
+  //   _session.close();
+  // }
+
+
+  Future<Map<String, dynamic>> _getJSONData(String message) async {
+    var uri = Uri.parse("http://35.165.158.80:9092/send_data");
+    var request = http.MultipartRequest('POST', uri)
+      ..fields['msg'] = message;
+
+    var response = await request.send();
+
+    if (response.statusCode == 200) {
+      String body = await response.stream.bytesToString();
+      // print(body);
+      Map<String, dynamic> data = json.decode(body);
+      // Assuming the double value is directly returned
+      return data["message"]; // replace 'value' with the appropriate key if needed
+    } else {
+      throw Exception("Failed to send .wav file. Status code: ${response.statusCode}");
     }
-    _session.close();
+
   }
+
 
   @override
   void dispose() {
@@ -73,7 +109,8 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
                 String message = _controller.text.trim(); // Trim whitespace
                 if (message.isNotEmpty) { 
                   // Check if the message is not empty
-                  await _sendMessageToKafka(message);
+                  Map<String, dynamic> data = await _getJSONData(message);
+                  print(data);
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text('Message sent to Kafka: $message')),
                   );
