@@ -26,13 +26,12 @@ class _GameState extends State<Game> {
   @override
   void initState() {
     super.initState();
-    fetchData().then((value) => {
-          setState(() {
-            gameData = GameData.fromJson(value);
-            gameRules = GameRules.fromJson(value['Game Rules']);
-            loading = false;
-          })
-        });
+
+    setState(() {
+      gameData = GameData.fromJson(widget.gameJson);
+      gameRules = GameRules.fromJson(widget.gameJson['Game Rules']);
+      loading = false;
+    });
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeLeft,
@@ -53,16 +52,23 @@ class _GameState extends State<Game> {
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
       color: Color.fromARGB(255, 216, 19, 19),
-      child: loading?Center(child: CircularProgressIndicator(color: Colors.white,),):AspectRatio(
-          aspectRatio: 4 / 3, // Example aspect ratio: width / height
-          child: GameWidget<MyGame>(
-            game: MyGame(gamedata: gameData, gameRules: gameRules,context: context),
-            backgroundBuilder: (context) {
-              // Your custom widget as a background
-              return gameData.background_builder(context);
-            },
-            // You can still use all the other properties like backgroundBuilder, overlayBuilderMap, etc.
-          )),
+      child: loading
+          ? Center(
+              child: CircularProgressIndicator(
+                color: Colors.white,
+              ),
+            )
+          : AspectRatio(
+              aspectRatio: 4 / 3, // Example aspect ratio: width / height
+              child: GameWidget<MyGame>(
+                game: MyGame(
+                    gamedata: gameData, gameRules: gameRules, context: context),
+                backgroundBuilder: (context) {
+                  // Your custom widget as a background
+                  return gameData.background_builder(context);
+                },
+                // You can still use all the other properties like backgroundBuilder, overlayBuilderMap, etc.
+              )),
     );
   }
 
@@ -71,7 +77,6 @@ class _GameState extends State<Game> {
   }
 
   Future<Map<String, dynamic>> fetchData() async {
-    
     try {
       String jsonString =
           await loadJsonFromAssets('assets/final_game_context.json');

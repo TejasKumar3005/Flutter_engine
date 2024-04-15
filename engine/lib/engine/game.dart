@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
@@ -88,9 +89,9 @@ class MyGame extends FlameGame with HasCollisionDetection,TapCallbacks {
     print(gamedata);
     for (var character in gamedata.characters.values) {
       print("loading some image");
-      final response = await http.get(Uri.parse(character.image));
+    Uint8List bytes = base64.decode(character.image);
 
-      final image = await decodeImageFromList(response.bodyBytes);
+      final image = await decodeImageFromList(bytes);
 
       // Store the ui.Image in the generatedImages map
       generatedImages[character.name] = image;
