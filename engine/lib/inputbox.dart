@@ -26,6 +26,9 @@ class RiveAnimationDialog extends StatelessWidget {
   }
 }
 
+
+
+
 class KafkaMessageWidget extends StatefulWidget {
   const KafkaMessageWidget({Key? key}) : super(key: key);
 
