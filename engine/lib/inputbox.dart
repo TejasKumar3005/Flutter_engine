@@ -116,6 +116,7 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
 
   void moveEyeBalls(val) {
     print("hi");
+    print(val.length.toDouble());
     numLook?.change(val.length.toDouble());
   }
 
