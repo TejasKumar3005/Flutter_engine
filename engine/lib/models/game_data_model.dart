@@ -32,6 +32,8 @@ class GameData {
   late VersatileImage backgroundImage;
   late Map<String, Variable> variables;
   late Map<String, CharacterInfo> characters;
+  late bool shouldShowDialog;
+  late String dialogMessage;
   late Map<String, String> b64images;
 
   Widget background_builder(BuildContext context) {
@@ -51,6 +53,8 @@ class GameData {
   GameData({
     required this.variables,
     required this.characters,
+    required this.shouldShowDialog,
+    required this.dialogMessage,
     required this.b64images,
   });
 
@@ -86,6 +90,8 @@ class GameData {
     return GameData(
       variables: variables,
       characters: characters,
+      shouldShowDialog: false,
+      dialogMessage: '',  
       b64images: b64images,
     );
   }

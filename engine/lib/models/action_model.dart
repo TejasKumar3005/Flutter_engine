@@ -46,6 +46,8 @@ class Action {
 
     print("var1: $var1");
     print("weyukdhfh");
+    print(operation);
+    print("----------------------");
     //     gameData.variables.containsKey(var2)) {
     dynamic result;
     switch (operation) {
@@ -79,6 +81,11 @@ class Action {
         break;
       case 'replace':
         replaceValues(gameData);
+        break;
+      case 'Text':
+      print("text");
+        gameData.shouldShowDialog = true;
+        gameData.dialogMessage = var1!.getValue(gameData);
         break;
       default:
         throw Exception('Unsupported variable operation: $operation');

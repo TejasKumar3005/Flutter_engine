@@ -265,19 +265,19 @@
                                 "condition": [],
                                 "action": {
                                     "target": {
-                                        "name": "DiyasPlaced",
+                                        "name": "DecorationComplete",
                                         "type": "variable"
                                     },
-                                    "operator": "+",
                                     "operand1": {
-                                        "name": "DiyasPlaced",
-                                        "type": "variable"
+                                        "name":  "DiyasPlaced",
+                                        "type": "String",
+                                        "value": "This is a dialogbox message"
                                     },
                                     "operand2": {
-                                        "name": "1",
-                                        "value": 1,
-                                        "type": "Integer"
-                                    }
+                                        "name": "true",
+                                        "type": "variable"
+                                    },
+                                    "operator": "Text"
                                 }
                             },
                             {
@@ -315,14 +315,15 @@
                                         "type": "variable"
                                     },
                                     "operand1": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
+                                        "name":  "DiyasPlaced",
+                                        "type": "String",
+                                        "value": "This is a dialogbox message"
                                     },
                                     "operand2": {
                                         "name": "true",
                                         "type": "variable"
                                     },
-                                    "operator": "="
+                                    "operator": "Text"
                                 }
                             }
                         ],
@@ -332,19 +333,19 @@
                                 "condition": [],
                                 "action": {
                                     "target": {
-                                        "name": "DiyasPlaced",
+                                        "name": "DecorationComplete",
                                         "type": "variable"
                                     },
-                                    "operator": "+",
                                     "operand1": {
-                                        "name": "DiyasPlaced",
-                                        "type": "variable"
+                                        "name":  "DiyasPlaced",
+                                        "type": "String",
+                                        "value": " message for diya placeholder 3"
                                     },
                                     "operand2": {
-                                        "name": "1",
-                                        "value": 1,
-                                        "type": "Integer"
-                                    }
+                                        "name": "true",
+                                        "type": "variable"
+                                    },
+                                    "operator": "Text"
                                 }
                             },
                             {
