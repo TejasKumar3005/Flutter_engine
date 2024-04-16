@@ -26,9 +26,6 @@ class RiveAnimationDialog extends StatelessWidget {
   }
 }
 
-
-
-
 class KafkaMessageWidget extends StatefulWidget {
   const KafkaMessageWidget({Key? key}) : super(key: key);
 
@@ -66,17 +63,15 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    animationURL = defaultTargetPlatform == TargetPlatform.android ||
-            defaultTargetPlatform == TargetPlatform.iOS
-        ? 'assets/login.riv'
-        : 'login.riv';
-    rootBundle.load(animationURL).then(
+
+    rootBundle.load("assets/login.riv").then(
       (data) {
         final file = RiveFile.import(data);
         final artboard = file.mainArtboard;
         stateMachineController =
             StateMachineController.fromArtboard(artboard, "Login Machine");
         if (stateMachineController != null) {
+      
           artboard.addController(stateMachineController!);
 
           stateMachineController!.inputs.forEach((e) {
@@ -98,6 +93,7 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
             }
           });
         }
+        
 
         setState(() => _teddyArtboard = artboard);
       },
@@ -105,7 +101,9 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
   }
 
   void handsOnTheEyes() {
+    
     isHandsUp?.change(true);
+  
   }
 
   void lookOnTheTextField() {
@@ -142,8 +140,8 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
                 width: 400,
                 height: 300,
                 child: Rive(
-                  artboard: _teddyArtboard!,
-                  fit: BoxFit.fitWidth,
+                  artboard: _teddyArtboard!.instance(),
+                  fit: BoxFit.fitHeight,
                 ),
               ),
             Container(
@@ -164,7 +162,7 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
                         const SizedBox(height: 15 * 2),
                         TextField(
                           controller: _emailController,
-                          onTap: lookOnTheTextField,
+                          onTap: handsOnTheEyes,
                           onChanged: moveEyeBalls,
                           keyboardType: TextInputType.emailAddress,
                           style: const TextStyle(fontSize: 14),
