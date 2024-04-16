@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:engine/utils/gameWidgets/puzzlegame.dart';
 import 'package:engine/utils/puzzlefunctions.dart';
+// import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
         
       ),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
-  home: KafkaMessageWidget(),
+  home: Game(gameJson: {}),
       // home: Game(gameJson: {}),
     );
   }

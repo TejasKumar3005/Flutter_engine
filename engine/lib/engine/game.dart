@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/painting.dart';
 import '../models/object.dart';
+import "../models/popup.dart";
 
 class MyGame extends FlameGame with HasCollisionDetection,TapCallbacks {
   MyGame({required this.gamedata, required this.gameRules,required this.context})
@@ -75,6 +76,12 @@ class MyGame extends FlameGame with HasCollisionDetection,TapCallbacks {
           name: element.name,
           context: context));
     });
+
+    world.add(Popup(
+      name: "popup",
+      isStatic: false,
+      context: context,
+    ));
   }
 
   @override

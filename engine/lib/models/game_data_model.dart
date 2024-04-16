@@ -32,6 +32,8 @@ class GameData {
   late VersatileImage backgroundImage;
   late Map<String, Variable> variables;
   late Map<String, CharacterInfo> characters;
+  late bool shouldShowDialog;
+  late String dialogMessage;
 
   Widget background_builder(BuildContext context) {
     return 
@@ -50,6 +52,8 @@ class GameData {
   GameData({
     required this.variables,
     required this.characters,
+    required this.shouldShowDialog,
+    required this.dialogMessage,
   });
 
   factory GameData.fromJson(Map<String, dynamic> json) {
@@ -79,6 +83,8 @@ class GameData {
     return GameData(
       variables: variables,
       characters: characters,
+      shouldShowDialog: false,
+      dialogMessage: '',  
     );
   }
 

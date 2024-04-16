@@ -20,7 +20,7 @@ class Game extends StatefulWidget {
 
 class _GameState extends State<Game> {
   bool loading = true;
-  late GameData gameData = GameData(characters: {}, variables: {});
+  late GameData gameData = GameData(characters: {}, variables: {}, shouldShowDialog: false, dialogMessage: "", );
   GameRules gameRules = GameRules(gameRules: {});
 
   @override

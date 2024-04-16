@@ -14,9 +14,10 @@ class DataType {
     // return according to type 
     switch (type) {
       case "Integer":
-        return int.parse(value);
+       print(value);
+        return value;
       case "double":
-        return double.parse(value);
+        return value;
       case "String":
         return value;
       case "bool":
