@@ -25,9 +25,11 @@ class _PuzzleGameState extends State<PuzzleGame> {
   List<String> urls = [];
   late Timer _timer;
   int _seconds = 0;
-  List<img.Image> puzzleTiles = [];
+  List<img.Image> originalTiles = [];
+  List<PuzzleTile> puzzleTiles = [];
   ImageSlicer imageSlicer = ImageSlicer();
   String gameStatus = "NS";
+  List<int> imagePosIngGrid = [];
   Map<int, int> occupied = {};
   void fetchImage() async {
     var res = await http.get(Uri.parse("/url"));
@@ -57,9 +59,16 @@ class _PuzzleGameState extends State<PuzzleGame> {
 
     img.Image originalImage =
         img.decodeImage(File("assets/bg.jpeg").readAsBytesSync())!;
-    puzzleTiles = imageSlicer.sliceImage(originalImage, 3, 3)..shuffle();
+    originalTiles = imageSlicer.sliceImage(originalImage, 3, 3);
+    puzzleTiles = originalTiles
+        .asMap()
+        .entries
+        .map((e) => PuzzleTile(e.key, e.value))
+        .toList()
+      ..shuffle();
     shuffledImageUrls = List.from(widget.imageUrls)..shuffle();
     imagePositions = {};
+    imagePosIngGrid = List.generate(widget.imageUrls.length, (index) => -1);
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       // Initialize randomPos here after the first frame has been drawn
       randomPos = List.generate(widget.imageUrls.length, (index) {
@@ -74,19 +83,52 @@ class _PuzzleGameState extends State<PuzzleGame> {
     });
   }
 
+  void generatePos() {
+    randomPos = List.generate(widget.imageUrls.length, (index) {
+      final screenWidth = MediaQuery.of(context).size.width;
+      final screenHeight = MediaQuery.of(context).size.height;
+      final randomX = Random().nextInt(screenWidth.toInt() - 100).toDouble();
+      final randomY = Random().nextInt(screenHeight.toInt() - 100).toDouble();
+      return Offset(randomX, randomY);
+    });
+    setState(() {});
+  }
+
+  void resetGame() {
+    generatePos();
+    imagePositions = {};
+
+    imagePosIngGrid = List.generate(widget.imageUrls.length, (index) => -1);
+    Provider.of<ImageSlicer>(context, listen: false).resetTime();
+    startTimer();
+
+    setState(() {
+      gameStatus = "ST";
+    });
+  }
+
   @override
   void dispose() {
     _timer.cancel();
     super.dispose();
   }
 
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         double viewportWidth = constraints.maxWidth;
-     
-      
+        for (var i = 0; i < widget.imageUrls.length; i++) {
+          if (imagePosIngGrid[i] != puzzleTiles[i].originalIndex) {
+            break;
+          }
+          if (i == widget.imageUrls.length - 1) {
+           
+            _timer.cancel();
+            gameStatus = "PS";
+          }
+        }
         print("Viewport width: $viewportWidth");
         return Scaffold(
           backgroundColor: Colors.black,
@@ -128,6 +170,7 @@ class _PuzzleGameState extends State<PuzzleGame> {
                       },
                       onAccept: (int data) {
                         setState(() {
+                          imagePosIngGrid[data] = index;
                           imagePositions[data] = Offset(
                             puzzleOffsets(context)[0] + index % 3 * 100.0,
                             puzzleOffsets(context)[1] + index ~/ 3 * 100.0,
@@ -159,10 +202,7 @@ class _PuzzleGameState extends State<PuzzleGame> {
                     angle: 0.4,
                     child: GestureDetector(
                       onTap: () {
-                        startTimer();
-                        setState(() {
-                          gameStatus = "ST";
-                        });
+                        resetGame();
                       },
                       child: Container(
                         height: 100,
@@ -178,6 +218,11 @@ class _PuzzleGameState extends State<PuzzleGame> {
             Visibility(
                 visible: gameStatus == "ST" || gameStatus == "PS",
                 child: TimerWidget()),
+
+
+                Visibility(
+                  visible: gameStatus=="PS",
+                  child: riveanimation( context))
           ]),
         );
       },
@@ -215,6 +260,7 @@ class _PuzzleGameState extends State<PuzzleGame> {
         ? [Container()]
         : List.generate(puzzleTiles.length, (index) {
             final position = imagePositions[index] ?? randomPos[index];
+
             return Positioned(
               key: Key(index.toString()),
               left: position.dx,
@@ -228,7 +274,7 @@ class _PuzzleGameState extends State<PuzzleGame> {
                   decoration: BoxDecoration(
                       border: Border.all(color: Colors.black, width: 0.3)),
                   child: Image.memory(
-                    Uint8List.fromList(img.encodePng(puzzleTiles[index])),
+                    Uint8List.fromList(img.encodePng(puzzleTiles[index].tile)),
                     fit: BoxFit.fill,
                   ),
                 ),
@@ -236,7 +282,7 @@ class _PuzzleGameState extends State<PuzzleGame> {
                   width: 100,
                   height: 100,
                   child: Image.memory(
-                    Uint8List.fromList(img.encodePng(puzzleTiles[index])),
+                    Uint8List.fromList(img.encodePng(puzzleTiles[index].tile)),
                     fit: BoxFit.fill,
                   ),
                 ),

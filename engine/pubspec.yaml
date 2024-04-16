@@ -37,7 +37,9 @@ dependencies:
     git: https://github.com/armando-couto/kafkabr.git
   http: ^1.1.0
   image: ^3.0.1
+  rive: ^0.13.1
   animated_text_kit: ^4.2.2
+  connectivity_plus: ^2.3.8
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2

@@ -23,7 +23,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Svar GameGen AI',
+      
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
         
       ),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
-  home: Game(gameJson: {}),
+  home: const KafkaMessageWidget(),
       // home: Game(gameJson: {}),
     );
   }

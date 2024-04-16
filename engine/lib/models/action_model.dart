@@ -62,7 +62,7 @@ class Action {
         result = var1!.getValue(gameData) * var2!.getValue(gameData);
         break;
       case '=':
-        result = var2!.getValue(gameData);  
+        result = var1!.getValue(gameData);  
          break;
       case 'OR':
         result = _toBoolean(var1!, gameData) || _toBoolean(var2!, gameData);

@@ -34,6 +34,7 @@ class GameData {
   late Map<String, CharacterInfo> characters;
   late bool shouldShowDialog;
   late String dialogMessage;
+  late Map<String, String> b64images;
 
   Widget background_builder(BuildContext context) {
     return 
@@ -54,11 +55,17 @@ class GameData {
     required this.characters,
     required this.shouldShowDialog,
     required this.dialogMessage,
+    required this.b64images,
   });
 
   factory GameData.fromJson(Map<String, dynamic> json) {
     Map<String, Variable> variables = {};
     Map<String, CharacterInfo> characters = {};
+    Map<String, String> b64images = {};
+
+    json['Images'].forEach((key, value) {
+      b64images[key] = value;
+    });
 
     print("game stateeeeeeeeeeeeeeeeeeeeeeeee");
     print(json['Game State']);
@@ -85,6 +92,7 @@ class GameData {
       characters: characters,
       shouldShowDialog: false,
       dialogMessage: '',  
+      b64images: b64images,
     );
   }
 
