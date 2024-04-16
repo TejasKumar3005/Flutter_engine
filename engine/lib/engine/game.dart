@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/painting.dart';
 import '../models/object.dart';
+import "../models/popup.dart";
 
 class MyGame extends FlameGame with HasCollisionDetection,TapCallbacks {
   MyGame({required this.gamedata, required this.gameRules,required this.context})
@@ -76,6 +77,12 @@ class MyGame extends FlameGame with HasCollisionDetection,TapCallbacks {
           name: element.name,
           context: context));
     });
+
+    world.add(Popup(
+      name: "popup",
+      isStatic: false,
+      context: context,
+    ));
   }
 
   @override
@@ -85,16 +92,15 @@ class MyGame extends FlameGame with HasCollisionDetection,TapCallbacks {
 
   Future<void> preloadImages() async {
     print("loading images");
-    print(gamedata.characters.values.length);
-    print(gamedata);
-    for (var character in gamedata.characters.values) {
+    // for each key, value in the b64images map in gamedata loop
+    for (var image_pair in gamedata.b64images.entries) {
       print("loading some image");
-    Uint8List bytes = base64.decode(character.image);
+      Uint8List bytes = base64.decode(image_pair.value);
 
       final image = await decodeImageFromList(bytes);
 
       // Store the ui.Image in the generatedImages map
-      generatedImages[character.name] = image;
+      generatedImages[image_pair.key] = image;
     }
   }
 }

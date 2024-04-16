@@ -32,9 +32,11 @@ class Object extends SpriteComponent
   Vector2? draggedPosition;
   @override
   FutureOr<void> onLoad() async {
-    final image = gameRef.generatedImages[name];
-    if (image != null) {
-      sprite = Sprite(image);
+    if (image != "" && image != null) {
+      final loaded_image = gameRef.generatedImages[image];
+      if (loaded_image != null) {
+        sprite = Sprite(loaded_image);
+      }
     }
     return super.onLoad();
   }
