@@ -62,16 +62,16 @@ class Action {
       case '=':
         result = var1!.getValue(gameData);  
          break;
-      case 'OR':
+      case '||':
         result = _toBoolean(var1!, gameData) || _toBoolean(var2!, gameData);
         break;
-      case 'AND':
+      case '&&':
         result = _toBoolean(var1!, gameData) && _toBoolean(var2!, gameData);
         break;
       case 'NOR':
         result = _toBoolean(var1!, gameData) && !_toBoolean(var2!, gameData);
         break;
-      case 'update_pos':
+      case 'update_position':
         result = var1!.getValue(gameData);
         break;
       case 'fix_pos':

@@ -55,7 +55,8 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
     if (response.statusCode != 200) {
       return {};
     }
-
+    print(response.body);
+    print(jsonDecode(response.body));
     return jsonDecode(response.body)["message"];
   }
 
@@ -142,7 +143,7 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
                 width: 400,
                 height: 300,
                 child: Rive(
-                  artboard: _teddyArtboard!.instance(),
+                  artboard: _teddyArtboard!,
                   fit: BoxFit.fitHeight,
                 ),
               ),
