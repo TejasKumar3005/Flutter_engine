@@ -32,6 +32,7 @@ class GameData {
   late VersatileImage backgroundImage;
   late Map<String, Variable> variables;
   late Map<String, CharacterInfo> characters;
+  late Map<String, String> b64images;
 
   Widget background_builder(BuildContext context) {
     return 
@@ -50,11 +51,17 @@ class GameData {
   GameData({
     required this.variables,
     required this.characters,
+    required this.b64images,
   });
 
   factory GameData.fromJson(Map<String, dynamic> json) {
     Map<String, Variable> variables = {};
     Map<String, CharacterInfo> characters = {};
+    Map<String, String> b64images = {};
+
+    json['Images'].forEach((key, value) {
+      b64images[key] = value;
+    });
 
     print("game stateeeeeeeeeeeeeeeeeeeeeeeee");
     print(json['Game State']);
@@ -79,6 +86,7 @@ class GameData {
     return GameData(
       variables: variables,
       characters: characters,
+      b64images: b64images,
     );
   }
 
