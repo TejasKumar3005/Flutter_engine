@@ -82,7 +82,7 @@ class Action {
       case 'replace':
         replaceValues(gameData);
         break;
-      case 'Text':
+      case 'show_text':
       print("text");
         gameData.shouldShowDialog = true;
         gameData.dialogMessage = var1!.getValue(gameData);
