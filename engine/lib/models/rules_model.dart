@@ -129,8 +129,8 @@ class GameObjectRule {
   });
 
   factory GameObjectRule.fromJson(Map<String?, dynamic> json) {
-    Map<String?, dynamic> collisionRulesJson = json["collision_with"];
-   List<Map<String, dynamic>> tapRulesJson = json["tap_with"] ?? [];
+    Map<String?, dynamic> collisionRulesJson = json["with_collision"] ?? {};
+   List<Map<String, dynamic>> tapRulesJson = json["on_tap"] ?? [];
     List<InteractionRule> tapWith;
     Map<String, List<InteractionRule>> collisionWith = {};
      print("codeishere");
