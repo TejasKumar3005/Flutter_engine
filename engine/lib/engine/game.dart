@@ -97,7 +97,7 @@ class MyGame extends FlameGame with HasCollisionDetection,TapCallbacks {
       print("loading some image");
       Uint8List bytes = base64.decode(image_pair.value);
 
-      final image = await decodeImageFromList(bytes);
+      var image = await decodeImageFromList(bytes);
 
       // Store the ui.Image in the generatedImages map
       generatedImages[image_pair.key] = image;

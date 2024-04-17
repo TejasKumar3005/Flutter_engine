@@ -29,15 +29,15 @@ class ConditionalOp {
 
   dynamic evaluate(GameData gameData) {
     switch (operation) {
-      case 'isEqual':
+      case '=':
         return isEqual(var1, var2, gameData);
-      case 'isGreaterThan':
+      case '>':
         return isGreaterThan(var1, var2, gameData);
-      case 'isLessThan':
+      case '<':
         return isLessThan(var1, var2, gameData);
-      case 'and':
+      case '&&':
         return and(var1, var2, gameData);
-      case 'or':
+      case '||':
         return or(var1, var2, gameData);
       default:
         throw Exception('Unsupported operation: $operation');
@@ -147,6 +147,7 @@ class Conditional {
       continue;
     }
     for (var j = 0; j < json[i]!.length; j++) {
+
       ops.add(ConditionalOp.fromJson(json[i][j]));
     }
     operations.add(ops);

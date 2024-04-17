@@ -16,11 +16,11 @@ class DataType {
       case "Integer":
        print(value);
         return value;
-      case "double":
+      case "Float":
         return value;
       case "String":
         return value;
-      case "bool":
+      case "Boolean":
         return value == "true";
       case "Vector":
         return Vector2(value["x"], value["y"]);
@@ -107,7 +107,11 @@ class CharacPosition extends DataType {
 }
 
 
-DataType initDataType (dynamic json){
+DataType? initDataType (dynamic json){
+  if (json == null) {
+    return null;
+  }
+
   switch (json["type"]){
     case ("variable") :
       return Variable(name: json["name"]);

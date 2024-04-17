@@ -19,7 +19,7 @@ class GameRules {
       print("wertyui");
       print(value[0]);
 
-      gameRules[key] = GameObjectRule.fromJson(value[0]);  // TODO remove 0 in future
+      gameRules[key] = GameObjectRule.fromJson(key, value[0]);  // TODO remove 0 in future
     });
 
     return GameRules(
@@ -89,18 +89,19 @@ class GameRules {
 
 class InteractionRule {
   final Conditional condition;
-  final Action action;
+  final List<Action> actions;
   // final Map<String, ConditionAction> tapWith;
 
   InteractionRule({
     // required this.tapWith,
     required this.condition,
-    required this.action,
+    required this.actions,
   });
 
   void execute(GameData gameData) {
     if (condition.evaluate(gameData)) {
       print("collision");
+      for (var action in actions)
       action.execute(gameData);
     }
   }
@@ -109,7 +110,7 @@ class InteractionRule {
     return InteractionRule(
       // tapWith: tapWith,
       condition: Conditional.fromJson(json['condition']),
-      action: Action.fromJson(json['action']),
+      actions: List<Action>.from(json['action'].map((e) => Action.fromJson(e))),
     );
   }
 }
@@ -128,9 +129,9 @@ class GameObjectRule {
     required this.tapWith,
   });
 
-  factory GameObjectRule.fromJson(Map<String?, dynamic> json) {
+  factory GameObjectRule.fromJson(String key, Map<String?, dynamic> json) {
     Map<String?, dynamic> collisionRulesJson = json["with_collision"] ?? {};
-   List<Map<String, dynamic>> tapRulesJson = json["on_tap"] ?? [];
+   List<dynamic> tapRulesJson = json["on_tap"]?[key] ?? [];
     List<InteractionRule> tapWith;
     Map<String, List<InteractionRule>> collisionWith = {};
      print("codeishere");
