@@ -69,6 +69,8 @@ class MyGame extends FlameGame with HasCollisionDetection,TapCallbacks {
       },
     );
     gamedata.characters.values.forEach((element) {
+      print("jhjgkhfjgxhfgjfghjhugiyfhjk");
+      print(element);
       world.add(Object(
           position: element.position,
           size: element.size,
@@ -92,12 +94,14 @@ class MyGame extends FlameGame with HasCollisionDetection,TapCallbacks {
 
   Future<void> preloadImages() async {
     print("loading images");
-    // for each key, value in the b64images map in gamedata loop
-    for (var image_pair in gamedata.b64images.entries) {
+    for (var image_pair in gamedata.image_links.entries) {
       print("loading some image");
-      Uint8List bytes = base64.decode(image_pair.value);
-
-      var image = await decodeImageFromList(bytes);
+      print(image_pair.key);
+      final response = await http.get(Uri.parse(image_pair.value));
+      final Uint8List bytes = response.bodyBytes;
+      final ui.Codec codec = await ui.instantiateImageCodec(bytes);
+      final ui.FrameInfo frameInfo = await codec.getNextFrame();
+      final ui.Image image = frameInfo.image;
 
       // Store the ui.Image in the generatedImages map
       generatedImages[image_pair.key] = image;

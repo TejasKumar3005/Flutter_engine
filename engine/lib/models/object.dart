@@ -15,7 +15,7 @@ class Object extends SpriteComponent
       {required this.name,
       position,
       size,
-      image,
+      required this.image,
       required this.isStatic,
       required this.context})
       : super(
@@ -28,13 +28,20 @@ class Object extends SpriteComponent
   final String name;
   final bool isStatic;
   final BuildContext context;
-  String? image;
+  String image;
   Vector2? draggedPosition;
   @override
   FutureOr<void> onLoad() async {
+    print("in load");
+    print(image);
+    print(name);
+    print(isStatic);
+    print(position);
     if (image != "" && image != null) {
+      print("in imag");
       final loaded_image = gameRef.generatedImages[image];
       if (loaded_image != null) {
+        print("sprite done");
         sprite = Sprite(loaded_image);
       }
     }

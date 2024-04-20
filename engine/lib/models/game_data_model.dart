@@ -24,7 +24,7 @@ class CharacterInfo {
 
   @override
   String toString() {
-    return 'Name: $name, Position: $position, Size: $size, IsMovable: $isMovable ';
+    return 'Name: $name, Position: $position, Size: $size, IsMovable: $isMovable, Image: $image';
   }
 }
 
@@ -34,7 +34,7 @@ class GameData {
   late Map<String, CharacterInfo> characters;
   late bool shouldShowDialog;
   late String dialogMessage;
-  late Map<String, String> b64images;
+  late Map<String, String> image_links;
 
   Widget background_builder(BuildContext context) {
     return 
@@ -55,16 +55,16 @@ class GameData {
     required this.characters,
     required this.shouldShowDialog,
     required this.dialogMessage,
-    required this.b64images,
+    required this.image_links,
   });
 
   factory GameData.fromJson(Map<String, dynamic> json) {
     Map<String, Variable> variables = {};
     Map<String, CharacterInfo> characters = {};
-    Map<String, String> b64images = {};
+    Map<String, String> image_links = {};
 
     json['Images'].forEach((key, value) {
-      b64images[key] = value;
+      image_links[key] = value;
     });
 
     print("game stateeeeeeeeeeeeeeeeeeeeeeeee");
@@ -79,6 +79,9 @@ class GameData {
     });
     List chrs = json['Character'];
     chrs.forEach((value) {
+      print(value["name"]);
+      print(value["image"]);
+
       characters[value["name"]] = CharacterInfo(
           image: value["image"],
           position: Vector2((value['position']["x"]).toDouble(), value['position']['y'].toDouble()),
@@ -92,7 +95,7 @@ class GameData {
       characters: characters,
       shouldShowDialog: false,
       dialogMessage: '',  
-      b64images: b64images,
+      image_links: image_links,
     );
   }
 
