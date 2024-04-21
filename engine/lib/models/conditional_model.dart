@@ -9,8 +9,8 @@ class ConditionalOp {
   ConditionalOp(this.operation, this.var1, this.var2);
 
     factory ConditionalOp.fromJson(Map<String, dynamic> json){
-    bool var1_isvariable =  json["operand1"]["type"] == "Variable"? true : false;
-    bool var2_isvariable =  json["operand2"]["type"] == "Variable"? true : false;
+    bool var1_isvariable =  json["operand1"]["type"] == "variable"? true : false;
+    bool var2_isvariable =  json["operand2"]["type"] == "variable"? true : false;
     
     return ConditionalOp.variableOperation(
       // check if var1 and var2 are variables or not
@@ -49,9 +49,9 @@ class ConditionalOp {
 
     switch (var1.type) {
       case 'String':
-      case 'int':
-      case 'double':
-      case 'bool':
+      case 'Integer':
+      case 'Float':
+      case 'Boolean':
         return var1.getValue(gameData) == var2.getValue(gameData);
       case 'List':
         return _listEquals(var1.getValue(gameData), var2.getValue(gameData));
@@ -64,8 +64,8 @@ class ConditionalOp {
     if (var1.type != var2.type) return false;
 
     switch (var1.type) {
-      case 'int':
-      case 'double':
+      case 'Integer':
+      case 'Float':
         return var1.getValue(gameData) > var2.getValue(gameData);
       default:
         throw Exception('Comparison not supported for type ${var1.type}');
@@ -76,8 +76,8 @@ class ConditionalOp {
     if (var1.type != var2.type) return false;
 
     switch (var1.type) {
-      case 'int':
-      case 'double':
+      case 'Integer':
+      case 'Float':
         return var1.getValue(gameData) < var2.getValue(gameData);
       default:
         throw Exception('Comparison not supported for type ${var1.type}');
@@ -102,10 +102,10 @@ class ConditionalOp {
 
   bool _toBoolean(DataType variable, GameData gameData) {
     switch (variable.type) {
-      case 'bool':
+      case 'Boolean':
         return variable.getValue(gameData);
-      case 'int':
-      case 'double':
+      case 'Integer':
+      case 'Float':
         return variable.getValue(gameData) != 0;
       case 'String':
         return variable.getValue(gameData).isNotEmpty;
