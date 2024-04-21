@@ -197,6 +197,10 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
                           const SizedBox(height: 15 * 2),
                           TextField(
                             controller: _emailController,
+                            onTapOutside: (event) {
+                              FocusScope.of(context).unfocus();
+                              isChecking?.change(false);
+                            },
                             onTap: () {
                               lookOnTheTextField();
                             },
@@ -206,7 +210,9 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
                             cursorColor: const Color(0xffb04863),
                             decoration: InputDecoration(
                               labelText: "Prompt",
-                              errorText:  _emailController.text.isEmpty?errorText:null,
+                              errorText: _emailController.text.isEmpty
+                                  ? errorText
+                                  : null,
                               hintText: "make game on Holi",
                               filled: true,
                               border: OutlineInputBorder(
@@ -230,10 +236,17 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
                             keyboardType: TextInputType.visiblePassword,
                             style: const TextStyle(fontSize: 14),
                             cursorColor: const Color(0xffb04863),
-                            decoration:  InputDecoration(
+                            onTapOutside: (event) {
+                              FocusScope.of(context).unfocus();
+                              isHandsUp?.change(false);
+                            },
+                            decoration: InputDecoration(
                               labelText: "Api key",
                               hintText: "API key",
-                              errorText: _passwordController.text.isEmpty && errorText!=null?"enter api key":null,
+                              errorText: _passwordController.text.isEmpty &&
+                                      errorText != null
+                                  ? "enter api key"
+                                  : null,
                               filled: true,
                               border: OutlineInputBorder(
                                 borderRadius:
@@ -268,7 +281,8 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
                               // ),
                               ElevatedButton(
                                 onPressed: () {
-                                  if (_emailController.text.isNotEmpty && _passwordController.text.isNotEmpty) {
+                                  if (_emailController.text.isNotEmpty &&
+                                      _passwordController.text.isNotEmpty) {
                                     showDialog(
                                       context: context,
                                       barrierDismissible: false,
