@@ -15,11 +15,13 @@ class ResponsiveWidgetTest extends StatelessWidget {
           appBar: AppBar(
             title: const Text('My demo app'),
           ), //AppBar
-          body: const Center(
-            child: Text(
-              'Hello Geeks',
-              style: TextStyle(fontSize: 24),
-            ), //Text
+          body: Column(
+            children: [
+              
+              const Center(
+                child: Image(image: NetworkImage("https://images.svar.in/Images/cat.png")) //Text
+              ),
+            ],
           ), // center
         ), //Scaffold
         debugShowCheckedModeBanner: false, //Removing Debug Banner

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:js_interop';
 import 'package:engine/engine/engine.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -45,14 +46,14 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
   final TextEditingController _passwordController = TextEditingController();
   Future<Map<String, dynamic>> getJson(BuildContext context) async {
     try {
-      print("---msg    "+_emailController.text.toString());
+      print("---msg    "+_emailController.text.toString()+"-----api"+_passwordController.text.toString());
       http.Response response = await http.post(
-          Uri.parse("http://35.165.158.80:9092/send_data"),
+          Uri.parse("https://gameapi.svar.in/send_data"),
           body: jsonEncode(
-            {"msg": _emailController.text.toString()},
+            {"msg": _emailController.text.toString(),"api_key":_passwordController.text.toString()},
           ),
           headers: <String, String>{
-            'content-Type': 'application/json; charset=UTF-8'
+            'Content-Type': 'application/json; charset=UTF-8'
           });
       if (response.statusCode != 200) {
         Navigator.of(context).pop();

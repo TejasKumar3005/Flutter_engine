@@ -43,7 +43,6 @@ class MyGame extends FlameGame with HasCollisionDetection,TapCallbacks {
           content: Text("This is a custom dialog"),
           actions: <Widget>[
             TextField(
-              
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide()
