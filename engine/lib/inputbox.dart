@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:js_interop';
 import 'package:engine/engine/engine.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -45,14 +46,20 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
   final TextEditingController _passwordController = TextEditingController();
   Future<Map<String, dynamic>> getJson(BuildContext context) async {
     try {
-      print("---msg    "+_emailController.text.toString());
+      print("---msg    " +
+          _emailController.text.toString() +
+          "-----api" +
+          _passwordController.text.toString());
       http.Response response = await http.post(
-          Uri.parse("http://35.165.158.80:9092/send_data"),
+          Uri.parse("https://gameapi.svar.in/send_data"),
           body: jsonEncode(
-            {"msg": _emailController.text.toString()},
+            {
+              "msg": _emailController.text.toString(),
+              "api_key": _passwordController.text.toString()
+            },
           ),
           headers: <String, String>{
-            'content-Type': 'application/json; charset=UTF-8'
+            'Content-Type': 'application/json; charset=UTF-8'
           });
       if (response.statusCode != 200) {
         Navigator.of(context).pop();
@@ -128,6 +135,15 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
 
   void moveEyeBalls(val) {
     print("hi");
+    if (val.isEmpty()) {
+      setState(() {
+        errorText = "enter valid prompt";
+      });
+    } else {
+      setState(() {
+        errorText = null;
+      });
+    }
     print(val.length.toDouble());
     numLook?.change(val.length.toDouble());
   }
@@ -142,6 +158,8 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
       failTrigger?.fire();
     }
   }
+
+  String? errorText;
 
   @override
   Widget build(BuildContext context) {
@@ -179,6 +197,10 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
                           const SizedBox(height: 15 * 2),
                           TextField(
                             controller: _emailController,
+                            onTapOutside: (event) {
+                              FocusScope.of(context).unfocus();
+                              isChecking?.change(false);
+                            },
                             onTap: () {
                               lookOnTheTextField();
                             },
@@ -186,7 +208,11 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
                             keyboardType: TextInputType.emailAddress,
                             style: const TextStyle(fontSize: 14),
                             cursorColor: const Color(0xffb04863),
-                            decoration: const InputDecoration(
+                            decoration: InputDecoration(
+                              labelText: "Prompt",
+                              errorText: _emailController.text.isEmpty
+                                  ? errorText
+                                  : null,
                               hintText: "make game on Holi",
                               filled: true,
                               border: OutlineInputBorder(
@@ -210,8 +236,17 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
                             keyboardType: TextInputType.visiblePassword,
                             style: const TextStyle(fontSize: 14),
                             cursorColor: const Color(0xffb04863),
-                            decoration: const InputDecoration(
+                            onTapOutside: (event) {
+                              FocusScope.of(context).unfocus();
+                              isHandsUp?.change(false);
+                            },
+                            decoration: InputDecoration(
+                              labelText: "Api key",
                               hintText: "API key",
+                              errorText: _passwordController.text.isEmpty &&
+                                      errorText != null
+                                  ? "enter api key"
+                                  : null,
                               filled: true,
                               border: OutlineInputBorder(
                                 borderRadius:
@@ -246,7 +281,8 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
                               // ),
                               ElevatedButton(
                                 onPressed: () {
-                                  if (_emailController.text.isNotEmpty) {
+                                  if (_emailController.text.isNotEmpty &&
+                                      _passwordController.text.isNotEmpty) {
                                     showDialog(
                                       context: context,
                                       barrierDismissible: false,
@@ -267,13 +303,9 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
                                             }
                                         });
                                   } else {
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(SnackBar(
-                                      content: Text(
-                                        "prompt cannot be empty",
-                                      ),
-                                      backgroundColor: Colors.red,
-                                    ));
+                                    setState(() {
+                                      errorText = "enter valid prompt";
+                                    });
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(
