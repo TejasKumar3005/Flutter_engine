@@ -8,13 +8,13 @@ import 'package:rive/rive.dart';
 
 class PuzzleTile {
   final int originalIndex;
-  final img.Image tile;
+  final ui.Image tile;
 
   PuzzleTile(this.originalIndex, this.tile);
 }
 
 class ImageSlicer extends ChangeNotifier {
-  String gamestatus = "NS";
+    String gamestatus = "NS";
   int time = 0;
   void setgamestatus(String status) {
     gamestatus = status;
@@ -31,27 +31,75 @@ class ImageSlicer extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<img.Image> sliceImage(img.Image image, int rows, int columns) {
+  Future<List<ui.Image>> sliceImage(ui.Image image, int rows, int columns) async {
     final int tileWidth = image.width ~/ columns;
     final int tileHeight = image.height ~/ rows;
-    final List<img.Image> tiles = [];
+    final List<ui.Image> tiles = [];
 
     for (int y = 0; y < rows; y++) {
       for (int x = 0; x < columns; x++) {
-        final img.Image tile = img.copyCrop(
-          image,
-          x * tileWidth,
-          y * tileHeight,
-          tileWidth,
-          tileHeight,
-        );
-        tiles.add(tile);
+        final Uint8List bytes = await cropImageToBytes(image, x * tileWidth, y * tileHeight, tileWidth, tileHeight);
+        final ui.Codec codec = await ui.instantiateImageCodec(bytes);
+        final ui.FrameInfo frameInfo = await codec.getNextFrame();
+        tiles.add(frameInfo.image);
       }
     }
 
     return tiles;
   }
+
+  Future<Uint8List> cropImageToBytes(ui.Image image, int x, int y, int width, int height) async {
+    final ui.PictureRecorder recorder = ui.PictureRecorder();
+    final Canvas canvas = Canvas(recorder);
+    final Rect rect = Rect.fromLTWH(0, 0, width.toDouble(), height.toDouble());
+    final Rect cropRect = Rect.fromLTWH(x.toDouble(), y.toDouble(), width.toDouble(), height.toDouble());
+    canvas.drawImageRect(image, cropRect, rect, Paint());
+    final ui.Picture picture = recorder.endRecording();
+    final ui.Image croppedImage = await picture.toImage(width, height);
+    final ByteData? byteData = await croppedImage.toByteData(format: ui.ImageByteFormat.png);
+    return byteData!.buffer.asUint8List();
+  }
 }
+
+// class ImageSlicer extends ChangeNotifier {
+  // String gamestatus = "NS";
+  // int time = 0;
+  // void setgamestatus(String status) {
+  //   gamestatus = status;
+  //   notifyListeners();
+  // }
+
+  // void resetTime() {
+  //   time = 0;
+  //   notifyListeners();
+  // }
+
+  // void changetime() {
+  //   time++;
+  //   notifyListeners();
+  // }
+
+//   List<img.Image> sliceImage(img.Image image, int rows, int columns) {
+//     final int tileWidth = image.width ~/ columns;
+//     final int tileHeight = image.height ~/ rows;
+//     final List<img.Image> tiles = [];
+
+//     for (int y = 0; y < rows; y++) {
+//       for (int x = 0; x < columns; x++) {
+//         final img.Image tile = img.copyCrop(
+//           image,
+//           x * tileWidth,
+//           y * tileHeight,
+//           tileWidth,
+//           tileHeight,
+//         );
+//         tiles.add(tile);
+//       }
+//     }
+
+//     return tiles;
+//   }
+// }
 
 class TimerWidget extends StatefulWidget {
   const TimerWidget({super.key});
