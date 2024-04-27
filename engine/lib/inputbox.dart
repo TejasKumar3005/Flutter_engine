@@ -49,7 +49,7 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
       http.Response response = await http.post(
           Uri.parse("http://35.165.158.80:9092/send_data"),
           body: jsonEncode(
-            {"msg": _emailController.text.toString()},
+            {"msg": _emailController.text.toString() , "api_key" : _passwordController.text.toString()},
           ),
           headers: <String, String>{
             'content-Type': 'application/json; charset=UTF-8'
@@ -69,7 +69,7 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
       return jsonDecode(response.body)["message"];
     } catch (e) {
       Navigator.of(context).pop();
-      print(e.toString());
+      // print(e.toString());
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         action: SnackBarAction(label: "ok", onPressed: () {}),
         content: Text(
@@ -127,8 +127,8 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
   }
 
   void moveEyeBalls(val) {
-    print("hi");
-    print(val.length.toDouble());
+    // print("hi");
+    // print(val.length.toDouble());
     numLook?.change(val.length.toDouble());
   }
 
@@ -255,7 +255,7 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
                                       },
                                     );
                                     getJson(context).then((value) => {
-                                          print(value.toString()),
+                                          // print(value.toString()),
                                           if (value.isNotEmpty)
                                             {
                                               Navigator.push(
