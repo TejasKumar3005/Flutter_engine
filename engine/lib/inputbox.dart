@@ -1,5 +1,6 @@
 import 'dart:convert';
 // import 'dart:js_interop';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:engine/engine/engine.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -63,12 +64,27 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
           });
       if (response.statusCode != 200) {
         Navigator.of(context).pop();
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(
-            jsonDecode(response.body)["message"],
-          ),
-          backgroundColor: Colors.red,
-        ));
+        final materialBanner = MaterialBanner(
+                  /// need to set following properties for best effect of awesome_snackbar_content
+                  elevation: 0,
+                  backgroundColor: Colors.transparent,
+                  forceActionsBelow: true,
+                  content: AwesomeSnackbarContent(
+                    title: 'Oh Snap!!',
+                    message:
+                        "Something went wrng",
+
+                    /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
+                    contentType: ContentType.failure,
+                    // to configure for material banner
+                    inMaterialBanner: true,
+                  ),
+                  actions: const [SizedBox.shrink()],
+                );
+
+                ScaffoldMessenger.of(context)
+                  ..hideCurrentMaterialBanner()
+                  ..showMaterialBanner(materialBanner);
         failTrigger?.fire();
         return {};
       }
@@ -77,13 +93,27 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
     } catch (e) {
       Navigator.of(context).pop();
       print(e.toString());
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        action: SnackBarAction(label: "ok", onPressed: () {}),
-        content: Text(
-          e.toString(),
-        ),
-        backgroundColor: Colors.red,
-      ));
+      final materialBanner = SnackBar(
+                  /// need to set following properties for best effect of awesome_snackbar_content
+                  elevation: 0,
+                  backgroundColor: Colors.transparent,
+                behavior: SnackBarBehavior.floating,
+                  content: AwesomeSnackbarContent(
+                    title: 'Oh Snap!!',
+                    message:
+                        e.toString(),
+
+                    /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
+                    contentType: ContentType.failure,
+                    // to configure for material banner
+                    
+                  ),
+                  
+                );
+
+                ScaffoldMessenger.of(context)
+                  ..hideCurrentMaterialBanner()
+                  ..showSnackBar(materialBanner);
       failTrigger?.fire();
       return {};
     }
@@ -239,6 +269,9 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
                             style: const TextStyle(fontSize: 14),
                             cursorColor: const Color(0xffb04863),
                             onTapOutside: (event) {
+                              setState(() {
+                                errorText = null;
+                              });
                               FocusScope.of(context).unfocus();
                               isHandsUp?.change(false);
                             },
