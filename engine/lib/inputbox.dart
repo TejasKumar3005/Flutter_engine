@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:js_interop';
+// import 'dart:js_interop';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:engine/engine/engine.dart';
 import 'package:flutter/cupertino.dart';
@@ -165,7 +165,9 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
 
   void moveEyeBalls(val) {
     print("hi");
-    if (val.isEmpty()) {
+    print("val$val");
+    // print();
+    if (val.isEmpty) {
       setState(() {
         errorText = "enter valid prompt";
       });
