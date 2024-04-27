@@ -124,7 +124,7 @@ class _PuzzleGameState extends State<PuzzleGame> {
   }
 
   void prepareRive() {
-    rootBundle.load("assets/finish.riv").then(
+    rootBundle.load("assets/complete.riv").then(
       (data) {
         final file = RiveFile.import(data);
         final artboard = file.mainArtboard;
@@ -258,19 +258,20 @@ class _PuzzleGameState extends State<PuzzleGame> {
                 visible: gameStatus == "ST" || gameStatus == "PS",
                 child: TimerWidget()),
             if (_teddyArtboard != null && gameStatus == "PS")
-              Positioned(
-                top: (MediaQuery.of(context).size.height-400)*0.5,
-                left: (MediaQuery.of(context).size.width-600)*0.5,
+               Positioned(
+                top: (MediaQuery.of(context).size.height*0.5)*0.5,
+                left: (MediaQuery.of(context).size.width*0.2)*0.5,
                 child: GestureDetector(
                   onTap: () {
                     successTrigger?.change(true);
                   },
-                  child: SizedBox(
-                    width: 600,
-                    height: 400,
+                  child: 
+                   SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: MediaQuery.of(context).size.height * 0.5,
                     child: Rive(
                       artboard: _teddyArtboard!,
-                      fit: BoxFit.cover,
+                      fit: BoxFit.contain,
                     ),
                   ),
                 ),

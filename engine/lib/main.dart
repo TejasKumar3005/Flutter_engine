@@ -34,7 +34,8 @@ class MyApp extends StatelessWidget {
       ),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
   // home:  ResponsiveWidgetTest(),
-      home:KafkaMessageWidget(),
+  home: PuzzleGame(imageUrls: [],),
+      // home:KafkaMessageWidget(),
     );
   }
 }
