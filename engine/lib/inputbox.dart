@@ -64,11 +64,11 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
           });
       if (response.statusCode != 200) {
         Navigator.of(context).pop();
-        final materialBanner = MaterialBanner(
+        final materialBanner = SnackBar(
                   /// need to set following properties for best effect of awesome_snackbar_content
                   elevation: 0,
                   backgroundColor: Colors.transparent,
-                  forceActionsBelow: true,
+                  behavior: SnackBarBehavior.floating,
                   content: AwesomeSnackbarContent(
                     title: 'Oh Snap!!',
                     message:
@@ -79,12 +79,12 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
                     // to configure for material banner
                     inMaterialBanner: true,
                   ),
-                  actions: const [SizedBox.shrink()],
+                  
                 );
 
                 ScaffoldMessenger.of(context)
                   ..hideCurrentMaterialBanner()
-                  ..showMaterialBanner(materialBanner);
+                  ..showSnackBar(materialBanner);
         failTrigger?.fire();
         return {};
       }
