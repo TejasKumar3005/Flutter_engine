@@ -8,24 +8,31 @@ class ConditionalOp {
 
   ConditionalOp(this.operation, this.var1, this.var2);
 
-    factory ConditionalOp.fromJson(Map<String, dynamic> json){
-    bool var1_isvariable =  json["operand1"]["type"] == "variable"? true : false;
-    bool var2_isvariable =  json["operand2"]["type"] == "variable"? true : false;
-    
+  factory ConditionalOp.fromJson(Map<String, dynamic> json) {
+    bool var1_isvariable =
+        json["operand1"]["type"] == "variable" ? true : false;
+    bool var2_isvariable =
+        json["operand2"]["type"] == "variable" ? true : false;
+
     return ConditionalOp.variableOperation(
       // check if var1 and var2 are variables or not
-      var1: var1_isvariable ? Variable(name : json["operand1"]["name"]) : DataType(type: json['operand1']['type'], value: json['operand1']['value']),
-      var2: var2_isvariable ? Variable(name : json["operand2"]["name"]) : DataType(type: json['operand2']['type'], value: json['operand2']['value']),
+      var1: var1_isvariable
+          ? Variable(name: json["operand1"]["name"])
+          : DataType(
+              type: json['operand1']['type'], value: json['operand1']['value']),
+      var2: var2_isvariable
+          ? Variable(name: json["operand2"]["name"])
+          : DataType(
+              type: json['operand2']['type'], value: json['operand2']['value']),
       operation: json['operator'],
-      );
-    }
+    );
+  }
 
-     ConditionalOp.variableOperation({
+  ConditionalOp.variableOperation({
     required this.var1,
     required this.var2,
     required this.operation,
-     });
-    
+  });
 
   dynamic evaluate(GameData gameData) {
     switch (operation) {
@@ -126,32 +133,33 @@ class Conditional {
     List<bool> result = [];
     bool check = true;
     print(operations.length);
-     for(int i = 0; i < operations.length; i++){
+    for (int i = 0; i < operations.length; i++) {
       result.add(false);
-       for (ConditionalOp op in operations[i]) {
-      result[i] = result[i] || op.evaluate(gameData);
-     }    
-   }
-   for (int i = 0; i < result.length; i++){
+      for (ConditionalOp op in operations[i]) {
+        result[i] = result[i] || op.evaluate(gameData);
+      }
+    }
+    for (int i = 0; i < result.length; i++) {
       check = check && result[i];
     }
     return check;
   }
 
- factory Conditional.fromJson(List<dynamic> json) {
-  List<List<ConditionalOp>> operations = [];
- print(json.length);
-  for (var i = 0; i < json.length; i++) {
-    List<ConditionalOp> ops = [];
-    if (json[i] == null) {
-      continue;
+  factory Conditional.fromJson(List<dynamic> json) {
+    List<List<ConditionalOp>> operations = [];
+    print("con--" + json.toString());
+    print("length" + json.length.toString());
+    for (var i = 0; i < json.length; i++) {
+      List<ConditionalOp> ops = [];
+      print("---json[i]");
+      if (json[i] == null) {
+        continue;
+      }
+      for (var j = 0; j < json[i]!.length; j++) {
+        ops.add(ConditionalOp.fromJson(json[i][j]));
+      }
+      operations.add(ops);
     }
-    for (var j = 0; j < json[i]!.length; j++) {
-
-      ops.add(ConditionalOp.fromJson(json[i][j]));
-    }
-    operations.add(ops);
+    return Conditional(operations);
   }
-  return Conditional(operations);
-}
 }

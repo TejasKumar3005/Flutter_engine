@@ -40,11 +40,7 @@ void update(double dt) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return Scaffold(
-      appBar: AppBar(
-        title: Text('Text Over Image'),
-      ),
-      body: Center(
+        return Center(
         child: Stack(
           children: <Widget>[
             Container(
@@ -64,7 +60,7 @@ void update(double dt) {
                 )),
           ],
         ),
-      ),
+      
     );
         
       },
