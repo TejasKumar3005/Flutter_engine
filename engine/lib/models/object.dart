@@ -51,10 +51,10 @@ class Object extends SpriteComponent
   @override
   void update(double dt) {
     // Your update logic here
-    // if (!isDragged) {
-    //   // Do something when the object is dragged
-    //   position = gameRef.gamedata.characters[name]!.position;
-    // }
+    if (!isDragged) {
+      // Do something when the object is dragged
+      position = gameRef.gamedata.characters[name]!.position;
+    }
   }
 
   // Override TapCallbacks methods

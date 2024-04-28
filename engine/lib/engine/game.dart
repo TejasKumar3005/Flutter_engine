@@ -35,38 +35,38 @@ class MyGame extends FlameGame with HasCollisionDetection,TapCallbacks {
   Future<void> onLoad() async {
     await preloadImages();
     camera.viewfinder.anchor = Anchor.topLeft;
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("Hello"),
-          content: Text("This is a custom dialog"),
-          actions: <Widget>[
-            TextField(
-              decoration: InputDecoration(
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide()
-                ),
-                focusedBorder:OutlineInputBorder(
-                  borderSide: BorderSide()
-                ) ,
+    // showDialog(
+    //   context: context,
+    //   builder: (BuildContext context) {
+    //     return AlertDialog(
+    //       title: Text("Hello"),
+    //       content: Text("This is a custom dialog"),
+    //       actions: <Widget>[
+    //         TextField(
+    //           decoration: InputDecoration(
+    //             enabledBorder: OutlineInputBorder(
+    //               borderSide: BorderSide()
+    //             ),
+    //             focusedBorder:OutlineInputBorder(
+    //               borderSide: BorderSide()
+    //             ) ,
                 
-                prefixIcon: Icon(Icons.person),
-                hintText: "Name",
-                iconColor: Colors.blue
-              ),
-            ),
-            SizedBox(height: 20,),
-            ElevatedButton(
-              child: Text("Close"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
+    //             prefixIcon: Icon(Icons.person),
+    //             hintText: "Name",
+    //             iconColor: Colors.blue
+    //           ),
+    //         ),
+    //         SizedBox(height: 20,),
+    //         ElevatedButton(
+    //           child: Text("Close"),
+    //           onPressed: () {
+    //             Navigator.of(context).pop();
+    //           },
+    //         ),
+    //       ],
+    //     );
+    //   },
+    // );
     gamedata.characters.values.forEach((element) {
       print("jhjgkhfjgxhfgjfghjhugiyfhjk");
       print(element);
