@@ -147,11 +147,11 @@ Widget riveanimation(BuildContext context) {
     width:  MediaQuery.of(context).size.width,
     child: Center(
       child: SizedBox(
-        height: 600,
-        width: 400,
+        height: 300,
+        width: 200,
         child: RiveAnimation.asset(
-          'assets/finish.riv',
-          fit: BoxFit.cover,
+          'assets/complete.riv',
+          fit: BoxFit.contain,
         ),
       ),
     ),

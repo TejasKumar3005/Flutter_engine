@@ -31,8 +31,10 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         
       ),
-      
-      home:KafkaMessageWidget(),
+      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
+  // home:  ResponsiveWidgetTest(),
+  home: PuzzleGame(imageUrls: [],),
+      // home:KafkaMessageWidget(),
     );
   }
 }
