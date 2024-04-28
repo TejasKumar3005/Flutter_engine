@@ -4,6 +4,7 @@ import 'dart:ui' as ui;
 
 import 'package:engine/models/game_data_model.dart';
 import 'package:engine/models/rules_model.dart';
+import 'package:engine/utils/gameWidgets/puzzlegame.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 
@@ -34,34 +35,45 @@ class MyGame extends FlameGame with HasCollisionDetection, TapCallbacks {
   Future<void> onLoad() async {
     await preloadImages();
     camera.viewfinder.anchor = Anchor.topLeft;
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("Hello"),
-          content: Text("This is a custom dialog"),
-          actions: <Widget>[
-            TextField(
-              decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(borderSide: BorderSide()),
-                  focusedBorder: OutlineInputBorder(borderSide: BorderSide()),
-                  prefixIcon: Icon(Icons.person),
-                  hintText: "Name",
-                  iconColor: Colors.blue),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            ElevatedButton(
-              child: Text("Close"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
+    // Navigate to another route using Navigator
+    // if (gamedata.type == "puzzle") {
+    //   Navigator.push(
+    //     context,
+    //     MaterialPageRoute(
+    //         builder: (context) => PuzzleGame(
+    //               imageUrls: [],
+    //             )), // Replace AnotherRoute() with your desired route
+    //   );
+    // }
+
+    // showDialog(
+    //   context: context,
+    //   builder: (BuildContext context) {
+    //     return AlertDialog(
+    //       title: Text("Hello"),
+    //       content: Text("This is a custom dialog"),
+    //       actions: <Widget>[
+    //         TextField(
+    //           decoration: InputDecoration(
+    //               enabledBorder: OutlineInputBorder(borderSide: BorderSide()),
+    //               focusedBorder: OutlineInputBorder(borderSide: BorderSide()),
+    //               prefixIcon: Icon(Icons.person),
+    //               hintText: "Name",
+    //               iconColor: Colors.blue),
+    //         ),
+    //         SizedBox(
+    //           height: 20,
+    //         ),
+    //         ElevatedButton(
+    //           child: Text("Close"),
+    //           onPressed: () {
+    //             Navigator.of(context).pop();
+    //           },
+    //         ),
+    //       ],
+    //     );
+    //   },
+    // );
     gamedata.characters.values.forEach((element) {
       print("jhjgkhfjgxhfgjfghjhugiyfhjk");
       print(element);
