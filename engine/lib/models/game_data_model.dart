@@ -46,7 +46,7 @@ class GameData {
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-          image: DecorationImage(image: NetworkImage("https://svar.in/assets/img/vector3.1.png"),fit: BoxFit.fitHeight)),
+          image: DecorationImage(image: NetworkImage(),fit: BoxFit.fitHeight)),
     )));
   }
 
@@ -94,7 +94,7 @@ class GameData {
       variables: variables,
       characters: characters,
       shouldShowDialog: false,
-      dialogMessage: '',  
+      dialogMessage: json['Objective'],  
       image_links: image_links,
     );
   }

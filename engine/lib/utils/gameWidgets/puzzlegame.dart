@@ -6,9 +6,11 @@ import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:engine/utils/puzzlefunctions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image/image.dart' as img;
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
+import 'package:rive/rive.dart';
 
 class PuzzleGame extends StatefulWidget {
   final List<String> imageUrls;
@@ -20,12 +22,19 @@ class PuzzleGame extends StatefulWidget {
 }
 
 class _PuzzleGameState extends State<PuzzleGame> {
-  List<String> shuffledImageUrls = [];
+  Artboard? _teddyArtboard;
+  late String animationURL;
+  SMITrigger? successTrigger;
+  SMIBool? isHandsUp, isChecking;
+
+  StateMachineController? stateMachineController;
+
+  List<PuzzleTile> shuffledImageUrls = [];
   int? currentIndex;
   List<String> urls = [];
   late Timer _timer;
   int _seconds = 0;
-  List<img.Image> originalTiles = [];
+  List<ui.Image> originalTiles = [];
   List<PuzzleTile> puzzleTiles = [];
   ImageSlicer imageSlicer = ImageSlicer();
   String gameStatus = "NS";
@@ -57,21 +66,28 @@ class _PuzzleGameState extends State<PuzzleGame> {
   void initState() {
     super.initState();
 
-    img.Image originalImage =
-        img.decodeImage(File("assets/bg.jpeg").readAsBytesSync())!;
-    originalTiles = imageSlicer.sliceImage(originalImage, 3, 3);
+    load_images();
+    prepareRive();
+  }
+
+  Future<void> load_images() async {
+    final ByteData data = await rootBundle.load('assets/bg1.jpg');
+    final Uint8List bytes = data.buffer.asUint8List();
+    final ui.Codec codec = await ui.instantiateImageCodec(bytes);
+    final ui.FrameInfo frameInfo = await codec.getNextFrame();
+    originalTiles = await imageSlicer.sliceImage(frameInfo.image, 3, 3);
     puzzleTiles = originalTiles
         .asMap()
         .entries
         .map((e) => PuzzleTile(e.key, e.value))
         .toList()
       ..shuffle();
-    shuffledImageUrls = List.from(widget.imageUrls)..shuffle();
+    shuffledImageUrls = List.from(puzzleTiles)..shuffle();
     imagePositions = {};
-    imagePosIngGrid = List.generate(widget.imageUrls.length, (index) => -1);
+    imagePosIngGrid = List.generate(puzzleTiles.length, (index) => -1);
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       // Initialize randomPos here after the first frame has been drawn
-      randomPos = List.generate(widget.imageUrls.length, (index) {
+      randomPos = List.generate(puzzleTiles.length, (index) {
         final screenWidth = MediaQuery.of(context).size.width;
         final screenHeight = MediaQuery.of(context).size.height;
         final randomX = Random().nextInt(screenWidth.toInt() - 100).toDouble();
@@ -84,7 +100,7 @@ class _PuzzleGameState extends State<PuzzleGame> {
   }
 
   void generatePos() {
-    randomPos = List.generate(widget.imageUrls.length, (index) {
+    randomPos = List.generate(puzzleTiles.length, (index) {
       final screenWidth = MediaQuery.of(context).size.width;
       final screenHeight = MediaQuery.of(context).size.height;
       final randomX = Random().nextInt(screenWidth.toInt() - 100).toDouble();
@@ -98,7 +114,7 @@ class _PuzzleGameState extends State<PuzzleGame> {
     generatePos();
     imagePositions = {};
 
-    imagePosIngGrid = List.generate(widget.imageUrls.length, (index) => -1);
+    imagePosIngGrid = List.generate(originalTiles.length, (index) => -1);
     Provider.of<ImageSlicer>(context, listen: false).resetTime();
     startTimer();
 
@@ -107,38 +123,60 @@ class _PuzzleGameState extends State<PuzzleGame> {
     });
   }
 
+  void prepareRive() {
+    rootBundle.load("assets/complete.riv").then(
+      (data) {
+        final file = RiveFile.import(data);
+        final artboard = file.mainArtboard;
+        stateMachineController =
+            StateMachineController.fromArtboard(artboard, "Login Machine");
+        if (stateMachineController != null) {
+          artboard.addController(stateMachineController!);
+
+          stateMachineController!.inputs.forEach((element) {
+            if (element.name == "click") {
+              successTrigger = element as SMITrigger;
+            }
+          });
+        }
+
+        setState(() => _teddyArtboard = artboard);
+      },
+    );
+  }
+
   @override
   void dispose() {
     _timer.cancel();
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         double viewportWidth = constraints.maxWidth;
-        for (var i = 0; i < widget.imageUrls.length; i++) {
-          if (imagePosIngGrid[i] != puzzleTiles[i].originalIndex) {
+        for (var i = 0; i < originalTiles.length; i++) {
+          if (imagePosIngGrid[i] != i) {
+            print("---break" + i.toString());
             break;
           }
-          if (i == widget.imageUrls.length - 1) {
-           
+          if (i == originalTiles.length - 1) {
             _timer.cancel();
             gameStatus = "PS";
           }
         }
         print("Viewport width: $viewportWidth");
         return Scaffold(
-          backgroundColor: Colors.black,
+          backgroundColor: const Color(0xffd6e2ea),
           body: Stack(children: [
             Center(
               child: Container(
                 height: 300,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage("assets/bg.jpeg"),
+                        image: NetworkImage(
+                            "https://svar.in/assets/img/vector3.1.png"),
                         fit: BoxFit.fill,
                         filterQuality: FilterQuality.low),
                     border: Border.all(color: Colors.white, width: 2)),
@@ -157,20 +195,22 @@ class _PuzzleGameState extends State<PuzzleGame> {
                     crossAxisCount: 3,
                     childAspectRatio: 1.0, // Adjust as per your puzzle size
                   ),
-                  itemCount: widget.imageUrls.length,
+                  itemCount: shuffledImageUrls.length,
                   itemBuilder: (context, index) {
                     return DragTarget<int>(
                       key: Key(index.toString()),
                       onWillAccept: (data) {
-                        print("-----will accept");
-                        return true;
+                        return shuffledImageUrls[data!].originalIndex == index;
                       },
                       onMove: (details) {
                         print("-----moving");
                       },
                       onAccept: (int data) {
+                        print(shuffledImageUrls[data].originalIndex.toString() +
+                            "----");
                         setState(() {
-                          imagePosIngGrid[data] = index;
+                          imagePosIngGrid[
+                              shuffledImageUrls[data].originalIndex] = index;
                           imagePositions[data] = Offset(
                             puzzleOffsets(context)[0] + index % 3 * 100.0,
                             puzzleOffsets(context)[1] + index ~/ 3 * 100.0,
@@ -209,8 +249,8 @@ class _PuzzleGameState extends State<PuzzleGame> {
                         width: 100,
                         decoration: BoxDecoration(
                             image: DecorationImage(
-                                image:
-                                    AssetImage("assets/icons/Play (3).png"))),
+                          image: AssetImage("assets/icons/Play (3).png"),
+                        )),
                       ),
                     ),
                   )),
@@ -218,11 +258,25 @@ class _PuzzleGameState extends State<PuzzleGame> {
             Visibility(
                 visible: gameStatus == "ST" || gameStatus == "PS",
                 child: TimerWidget()),
-
-
-                Visibility(
-                  visible: gameStatus=="PS",
-                  child: riveanimation( context))
+            if (_teddyArtboard != null && gameStatus == "PS")
+               Positioned(
+                top: (MediaQuery.of(context).size.height*0.5)*0.5,
+                left: (MediaQuery.of(context).size.width*0.2)*0.5,
+                child: GestureDetector(
+                  onTap: () {
+                    successTrigger?.change(true);
+                  },
+                  child: 
+                   SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: MediaQuery.of(context).size.height * 0.5,
+                    child: Rive(
+                      artboard: _teddyArtboard!,
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ),
+              ),
           ]),
         );
       },
@@ -268,24 +322,26 @@ class _PuzzleGameState extends State<PuzzleGame> {
               child: Draggable<int>(
                 key: Key(index.toString()),
                 data: index,
-                child: Container(
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black, width: 0.3)),
-                  child: Image.memory(
-                    Uint8List.fromList(img.encodePng(puzzleTiles[index].tile)),
-                    fit: BoxFit.fill,
-                  ),
-                ),
                 feedback: Container(
-                  width: 100,
-                  height: 100,
-                  child: Image.memory(
-                    Uint8List.fromList(img.encodePng(puzzleTiles[index].tile)),
-                    fit: BoxFit.fill,
-                  ),
-                ),
+                    width: 100,
+                    height: 100,
+                    child: FutureBuilder<Uint8List>(
+                      future:
+                          _convertImageToBytes(shuffledImageUrls[index].tile),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return CircularProgressIndicator();
+                        } else if (snapshot.hasError) {
+                          return Text('Error: ${snapshot.error}');
+                        } else {
+                          return Image.memory(
+                            snapshot.data!,
+                            fit: BoxFit.fill,
+                          );
+                        }
+                      },
+                    )),
                 childWhenDragging: Container(),
                 onDragStarted: () {
                   print("---darg started");
@@ -301,12 +357,42 @@ class _PuzzleGameState extends State<PuzzleGame> {
                 onDraggableCanceled: (Velocity velocity, Offset offset) {
                   // Reset the position if the drag operation is canceled
                   setState(() {
-                    imagePositions[index] = offset;
                     currentIndex = null;
                   });
                 },
+                child: Container(
+                    width: 100,
+                    height: 100,
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black, width: 0.3)),
+                    child: FutureBuilder<Uint8List>(
+                      future:
+                          _convertImageToBytes(shuffledImageUrls[index].tile),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return CircularProgressIndicator();
+                        } else if (snapshot.hasError) {
+                          return Text('Error: ${snapshot.error}');
+                        } else {
+                          return Image.memory(
+                            snapshot.data!,
+                            fit: BoxFit.fill,
+                          );
+                        }
+                      },
+                    )),
               ),
             );
           });
+  }
+
+  Future<Uint8List> _convertImageToBytes(ui.Image image) async {
+    final ByteData? byteData =
+        await image.toByteData(format: ui.ImageByteFormat.png);
+    if (byteData == null) {
+      throw Exception('Failed to convert image to bytes');
+    }
+    return byteData.buffer.asUint8List();
   }
 }

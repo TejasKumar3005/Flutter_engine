@@ -19,7 +19,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -33,8 +32,9 @@ class MyApp extends StatelessWidget {
         
       ),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
-  home: const KafkaMessageWidget(),
-      // home: Game(gameJson: {}),
+  // home:  ResponsiveWidgetTest(),
+  // home: PuzzleGame(imageUrls: [],),
+      home:KafkaMessageWidget(),
     );
   }
 }

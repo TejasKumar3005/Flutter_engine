@@ -51,40 +51,42 @@ class Object extends SpriteComponent
   @override
   void update(double dt) {
     // Your update logic here
-    // if (!isDragged) {
-    //   // Do something when the object is dragged
-    //   position = gameRef.gamedata.characters[name]!.position;
-    // }
+    if (!isDragged) {
+      // Do something when the object is dragged
+      position = gameRef.gamedata.characters[name]!.position + (position - gameRef.gamedata.characters[name]!.position) * dt * 5 ;
+    }
   }
 
   // Override TapCallbacks methods
   @override
   void onTapUp(TapUpEvent details) {
-     showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Input Dialog'),
-          content: TextField(
-            decoration: InputDecoration(hintText: "Enter your input here"),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('Cancel'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              child: const Text('Submit'),
-              onPressed: () {
-                // Handle the submit action
-              },
-            ),
-          ],
-        );
-      },
-    );
+    gameRef.gamedata.shouldShowDialog = true;
+
+    //  showDialog(
+    //   context: context,
+    //   builder: (BuildContext context) {
+    //     return AlertDialog(
+    //       title: const Text('Input Dialog'),
+    //       content: TextField(
+    //         decoration: InputDecoration(hintText: "Enter your input here"),
+    //       ),
+    //       actions: <Widget>[
+    //         TextButton(
+    //           child: const Text('Cancel'),
+    //           onPressed: () {
+    //             Navigator.of(context).pop();
+    //           },
+    //         ),
+    //         TextButton(
+    //           child: const Text('Submit'),
+    //           onPressed: () {
+    //             // Handle the submit action
+    //           },
+    //         ),
+    //       ],
+    //     );
+    //   },
+    // );
     gameRef.gameRules.onTap(name!, gameRef.gamedata);
   }
 

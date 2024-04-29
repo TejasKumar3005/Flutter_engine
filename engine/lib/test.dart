@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'utils/dimensions.dart';
 
 class ResponsiveWidgetTest extends StatelessWidget {
@@ -9,22 +10,25 @@ class ResponsiveWidgetTest extends StatelessWidget {
     //     title: Text('Responsive Widget Test'),
     //   ),
     //   body: Center(
-    //     child: 
-      return MaterialApp(
-        home: Scaffold(
-          appBar: AppBar(
-            title: const Text('My demo app'),
-          ), //AppBar
-          body: const Center(
-            child: Text(
-              'Hello Geeks',
-              style: TextStyle(fontSize: 24),
-            ), //Text
-          ), // center
-        ), //Scaffold
-        debugShowCheckedModeBanner: false, //Removing Debug Banner
-      );
-      // ),
+    //     child:
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('My demo app'),
+        ), //AppBar
+        body: Column(
+          children: [
+            const Center(
+                child: Image(
+                    image: NetworkImage(
+                        "https://images.svar.in/Images/cat.png")) //Text
+                ),
+          ],
+        ), // center
+      ), //Scaffold
+      debugShowCheckedModeBanner: false, //Removing Debug Banner
+    );
+    // ),
     // );
   }
 }
@@ -43,7 +47,7 @@ class ResponsiveWidgetTest extends StatelessWidget {
 //     //     title: Text('Responsive Widget Test'),
 //     //   ),
 //     //   body: Center(
-//     //     child: 
+//     //     child:
 //     return Container(
 //           width: getHorizontalSize(200.0),
 //           height: getVerticalSize(0100.0),
@@ -77,3 +81,22 @@ class ResponsiveWidgetTest extends StatelessWidget {
 // //     home: ResponsiveWidgetTest(),
 // //   ));
 // // }
+
+class Aditya extends StatefulWidget {
+  final String t;
+  const Aditya({Key? key,required this.t}) : super(key: key);
+  @override
+  AdityaState createState() => AdityaState();
+}
+
+class AdityaState extends State<Aditya> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold();
+  }
+}

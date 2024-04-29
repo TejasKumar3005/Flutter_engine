@@ -1,4 +1,6 @@
 import 'dart:convert';
+// import 'dart:js_interop';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:engine/engine/engine.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -7,6 +9,8 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:kafkabr/kafka.dart';
 import 'package:rive/rive.dart';
+import 'package:engine/utils/gameWidgets/puzzlegame.dart';
+
 
 class RiveAnimationDialog extends StatelessWidget {
   @override
@@ -45,38 +49,77 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
   final TextEditingController _passwordController = TextEditingController();
   Future<Map<String, dynamic>> getJson(BuildContext context) async {
     try {
-      print("---msg    "+_emailController.text.toString());
+      print("---msg    " +
+          _emailController.text.toString() +
+          "-----api" +
+          _passwordController.text.toString());
       http.Response response = await http.post(
-          Uri.parse("http://35.165.158.80:9092/send_data"),
+          Uri.parse("https://gameapi.svar.in/send_data"),
           body: jsonEncode(
-            {"msg": _emailController.text.toString() , "api_key" : _passwordController.text.toString()},
+            {
+              "msg": _emailController.text.toString(),
+              "api_key": _passwordController.text.toString()
+            },
+
           ),
           headers: <String, String>{
-            'content-Type': 'application/json; charset=UTF-8'
+            'Content-Type': 'application/json; charset=UTF-8'
           });
       if (response.statusCode != 200) {
         Navigator.of(context).pop();
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(
-            jsonDecode(response.body)["message"],
-          ),
-          backgroundColor: Colors.red,
-        ));
+        final materialBanner = SnackBar(
+                  /// need to set following properties for best effect of awesome_snackbar_content
+                  elevation: 0,
+                  backgroundColor: Colors.transparent,
+                  behavior: SnackBarBehavior.floating,
+                  content: AwesomeSnackbarContent(
+                    title: 'Oh Snap!!',
+                    message:
+                        "Something went wrong",
+
+                    /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
+                    contentType: ContentType.failure,
+                    // to configure for material banner
+                    inMaterialBanner: true,
+                  ),
+                  
+                );
+
+                ScaffoldMessenger.of(context)
+                  ..hideCurrentMaterialBanner()
+                  ..showSnackBar(materialBanner);
         failTrigger?.fire();
         return {};
       }
       successTrigger?.fire();
+      // return jsonDecode("{\"Objective\": \"The game educates children about Christmas through an interactive and informative game. Children will learn about the traditions, symbols, and spirit of Christmas while playing the game.\", \"Character\": [{\"name\": \"Santa Claus1\", \"description\": \"Jolly old man with a red suit and white beard who brings gifts.\", \"count\": 1, \"size\": {\"width\": 200, \"height\": 300}, \"isMovable\": true, \"position\": {\"x\": 100, \"y\": 100}, \"image\": \"image1\"}, {\"name\": \"Reindeer1\", \"description\": \"Majestic animals with antlers that pull Santa's sleigh.\", \"count\": 1, \"size\": {\"width\": 250, \"height\": 150}, \"isMovable\": true, \"position\": {\"x\": 400, \"y\": 400}, \"image\": \"image2\"}, {\"name\": \"Christmas Tree1\", \"description\": \"Evergreen tree decorated with lights, ornaments, and a star on top.\", \"count\": 1, \"size\": {\"width\": 300, \"height\": 400}, \"isMovable\": false, \"position\": {\"x\": 800, \"y\": 800}, \"image\": \"image3\"}, {\"name\": \"Snowman1\", \"description\": \"Frosty figure made of snow with a carrot nose and top hat.\", \"count\": 1, \"size\": {\"width\": 150, \"height\": 200}, \"isMovable\": true, \"position\": {\"x\": 600, \"y\": 600}, \"image\": \"image4\"}], \"Background\": \"A winter wonderland setting with snow-covered landscapes, twinkling lights, and festive decorations, creating a magical atmosphere for the Christmas game.\", \"Game State\": [{\"name\": \"GiftsDelivered\", \"type\": \"Integer\", \"value\": 0}, {\"name\": \"SnowballsThrown\", \"type\": \"Integer\", \"value\": 0}, {\"name\": \"GameOver\", \"type\": \"Boolean\", \"value\": false}], \"Game Rules\": {\"Santa Claus1\": [{\"with_collision\": {\"Christmas Tree1\": [{\"condition\": [], \"action\": [{\"target\": {\"name\": \"GiftsDelivered\", \"type\": \"variable\"}, \"operand1\": {\"name\": \"GiftsDelivered\", \"type\": \"variable\"}, \"operand2\": {\"name\": \"1\", \"type\": \"Integer\", \"value\": 1}, \"operator\": \"+\"}, {\"operator\": \"show_text\", \"operand1\": {\"name\": \"name\", \"type\": \"String\", \"value\": \"Gift delivered!\"}}, {\"target\": {\"name\": \"Santa Claus1\", \"type\": \"character\", \"value\": \"Santa Claus1\"}, \"operator\": \"update_position\", \"operand1\": {\"name\": \"Christmas Tree1\", \"type\": \"character\", \"value\": \"Christmas Tree1\"}}]}, {\"condition\": [[{\"operand1\": {\"name\": \"GiftsDelivered\", \"type\": \"variable\"}, \"operand2\": {\"name\": \"3\", \"type\": \"Integer\", \"value\": 3}, \"operator\": \"=\"}]], \"action\": [{\"target\": {\"name\": \"GameOver\", \"type\": \"variable\"}, \"operand1\": {\"name\": \"true\", \"type\": \"Boolean\", \"value\": \"true\"}, \"operator\": \"=\"}, {\"operator\": \"show_text\", \"operand1\": {\"name\": \"name\", \"type\": \"String\", \"value\": \"All gifts delivered! Game Completed\"}}]}]}, \"on_drag\": {\"Reindeer1\": [{\"condition\": [], \"action\": [{\"target\": {\"name\": \"SnowballsThrown\", \"type\": \"variable\"}, \"operand1\": {\"name\": \"SnowballsThrown\", \"type\": \"variable\"}, \"operand2\": {\"name\": \"1\", \"type\": \"Integer\", \"value\": 1}, \"operator\": \"+\"}, {\"operator\": \"show_text\", \"operand1\": {\"name\": \"name\", \"type\": \"String\", \"value\": \"Snowball thrown!\"}}, {\"target\": {\"name\": \"Santa Claus1\", \"type\": \"character\", \"value\": \"Santa Claus1\"}, \"operator\": \"update_position\", \"operand1\": {\"name\": \"Reindeer1\", \"type\": \"character\", \"value\": \"Reindeer1\"}}]}, {\"condition\": [[{\"operand1\": {\"name\": \"SnowballsThrown\", \"type\": \"variable\"}, \"operand2\": {\"name\": \"5\", \"type\": \"Integer\", \"value\": 5}, \"operator\": \"=\"}]], \"action\": [{\"target\": {\"name\": \"GameOver\", \"type\": \"variable\"}, \"operand1\": {\"name\": \"true\", \"type\": \"Boolean\", \"value\": \"true\"}, \"operator\": \"=\"}, {\"operator\": \"show_text\", \"operand1\": {\"name\": \"name\", \"type\": \"String\", \"value\": \"Too many snowballs thrown! Game Over\"}}]}]}}], \"Reindeer1\": [{\"with_collision\": {\"Santa Claus1\": [{\"condition\": [], \"action\": [{\"target\": {\"name\": \"SnowballsThrown\", \"type\": \"variable\"}, \"operand1\": {\"name\": \"SnowballsThrown\", \"type\": \"variable\"}, \"operand2\": {\"name\": \"1\", \"type\": \"Integer\", \"value\": 1}, \"operator\": \"+\"}, {\"operator\": \"show_text\", \"operand1\": {\"name\": \"name\", \"type\": \"String\", \"value\": \"Snowball thrown!\"}}, {\"target\": {\"name\": \"Reindeer1\", \"type\": \"character\", \"value\": \"Reindeer1\"}, \"operator\": \"update_position\", \"operand1\": {\"name\": \"Santa Claus1\", \"type\": \"character\", \"value\": \"Santa Claus1\"}}]}, {\"condition\": [[{\"operand1\": {\"name\": \"SnowballsThrown\", \"type\": \"variable\"}, \"operand2\": {\"name\": \"5\", \"type\": \"Integer\", \"value\": 5}, \"operator\": \"=\"}]], \"action\": [{\"target\": {\"name\": \"GameOver\", \"type\": \"variable\"}, \"operand1\": {\"name\": \"true\", \"type\": \"Boolean\", \"value\": \"true\"}, \"operator\": \"=\"}, {\"operator\": \"show_text\", \"operand1\": {\"name\": \"name\", \"type\": \"String\", \"value\": \"Too many snowballs thrown! Game Over\"}}]}]}}], \"Snowman1\": [{\"with_collision\": {\"Santa Claus1\": [{\"condition\": [], \"action\": [{\"target\": {\"name\": \"GiftsDelivered\", \"type\": \"variable\"}, \"operand1\": {\"name\": \"GiftsDelivered\", \"type\": \"variable\"}, \"operand2\": {\"name\": \"1\", \"type\": \"Integer\", \"value\": 1}, \"operator\": \"+\"}, {\"operator\": \"show_text\", \"operand1\": {\"name\": \"name\", \"type\": \"String\", \"value\": \"Gift delivered!\"}}, {\"target\": {\"name\": \"Snowman1\", \"type\": \"character\", \"value\": \"Snowman1\"}, \"operator\": \"update_position\", \"operand1\": {\"name\": \"Santa Claus1\", \"type\": \"character\", \"value\": \"Santa Claus1\"}}]}, {\"condition\": [[{\"operand1\": {\"name\": \"GiftsDelivered\", \"type\": \"variable\"}, \"operand2\": {\"name\": \"3\", \"type\": \"Integer\", \"value\": 3}, \"operator\": \"=\"}]], \"action\": [{\"target\": {\"name\": \"GameOver\", \"type\": \"variable\"}, \"operand1\": {\"name\": \"true\", \"type\": \"Boolean\", \"value\": \"true\"}, \"operator\": \"=\"}, {\"operator\": \"show_text\", \"operand1\": {\"name\": \"name\", \"type\": \"String\", \"value\": \"All gifts delivered! Game Completed\"}}]}]}}]}, \"Images\": {\"image1\": \"https://images.svar.in/Images/e3965f57-5790-4fb3-8206-5bd065bf4620.png\", \"image2\": \"https://images.svar.in/Images/bd8c378b-3777-4386-a051-c2149d40c4be.png\", \"image3\": \"https://images.svar.in/Images/4197cf2e-2337-40de-abda-a300351042b4.png\", \"image4\": \"https://images.svar.in/Images/0a324035-cc57-4d27-bbf3-ffc2458c8838.png\"}}");
       return jsonDecode(response.body)["message"];
     } catch (e) {
       Navigator.of(context).pop();
-      // print(e.toString());
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        action: SnackBarAction(label: "ok", onPressed: () {}),
-        content: Text(
-          e.toString(),
-        ),
-        backgroundColor: Colors.red,
-      ));
+
+      print(e.toString());
+      final materialBanner = SnackBar(
+                  /// need to set following properties for best effect of awesome_snackbar_content
+                  elevation: 0,
+                  backgroundColor: Colors.transparent,
+                behavior: SnackBarBehavior.floating,
+                  content: AwesomeSnackbarContent(
+                    title: 'Oh Snap!!',
+                    message:
+                        e.toString(),
+
+                    /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
+                    contentType: ContentType.failure,
+                    // to configure for material banner
+                    
+                  ),
+                  
+                );
+
+                ScaffoldMessenger.of(context)
+                  ..hideCurrentMaterialBanner()
+                  ..showSnackBar(materialBanner);
+
       failTrigger?.fire();
       return {};
     }
@@ -127,8 +170,21 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
   }
 
   void moveEyeBalls(val) {
-    // print("hi");
-    // print(val.length.toDouble());
+
+    print("hi");
+    print("val$val");
+    // print();
+    if (val.isEmpty) {
+      setState(() {
+        errorText = "enter valid prompt";
+      });
+    } else {
+      setState(() {
+        errorText = null;
+      });
+    }
+    print(val.length.toDouble());
+
     numLook?.change(val.length.toDouble());
   }
 
@@ -142,6 +198,8 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
       failTrigger?.fire();
     }
   }
+
+  String? errorText;
 
   @override
   Widget build(BuildContext context) {
@@ -179,6 +237,10 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
                           const SizedBox(height: 15 * 2),
                           TextField(
                             controller: _emailController,
+                            onTapOutside: (event) {
+                              FocusScope.of(context).unfocus();
+                              isChecking?.change(false);
+                            },
                             onTap: () {
                               lookOnTheTextField();
                             },
@@ -186,7 +248,11 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
                             keyboardType: TextInputType.emailAddress,
                             style: const TextStyle(fontSize: 14),
                             cursorColor: const Color(0xffb04863),
-                            decoration: const InputDecoration(
+                            decoration: InputDecoration(
+                              labelText: "Prompt",
+                              errorText: _emailController.text.isEmpty
+                                  ? errorText
+                                  : null,
                               hintText: "make game on Holi",
                               filled: true,
                               border: OutlineInputBorder(
@@ -210,8 +276,20 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
                             keyboardType: TextInputType.visiblePassword,
                             style: const TextStyle(fontSize: 14),
                             cursorColor: const Color(0xffb04863),
-                            decoration: const InputDecoration(
+                            onTapOutside: (event) {
+                              setState(() {
+                                errorText = null;
+                              });
+                              FocusScope.of(context).unfocus();
+                              isHandsUp?.change(false);
+                            },
+                            decoration: InputDecoration(
+                              labelText: "Api key",
                               hintText: "API key",
+                              errorText: _passwordController.text.isEmpty &&
+                                      errorText != null
+                                  ? "enter api key"
+                                  : null,
                               filled: true,
                               border: OutlineInputBorder(
                                 borderRadius:
@@ -246,7 +324,8 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
                               // ),
                               ElevatedButton(
                                 onPressed: () {
-                                  if (_emailController.text.isNotEmpty) {
+                                  if (_emailController.text.isNotEmpty &&
+                                      _passwordController.text.isNotEmpty) {
                                     showDialog(
                                       context: context,
                                       barrierDismissible: false,
@@ -255,9 +334,23 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
                                       },
                                     );
                                     getJson(context).then((value) => {
-                                          // print(value.toString()),
+
+                                          Navigator.of(context).pop(),
+                                          login(),
+                                          print(value.toString()),
+
                                           if (value.isNotEmpty)
                                             {
+
+                                              if ( value["type"] == "puzzle") {
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) => PuzzleGame(
+                                                                imageUrls: [],
+                                                              )), // Replace AnotherRoute() with your desired route
+                                                    )
+                                                  } else {
                                               Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
@@ -265,15 +358,12 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
                                                           Game(
                                                               gameJson: value)))
                                             }
+                                            }
                                         });
                                   } else {
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(SnackBar(
-                                      content: Text(
-                                        "prompt cannot be empty",
-                                      ),
-                                      backgroundColor: Colors.red,
-                                    ));
+                                    setState(() {
+                                      errorText = "enter valid prompt";
+                                    });
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(
