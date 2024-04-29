@@ -46,7 +46,7 @@ class GameData {
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-          image: DecorationImage(image: NetworkImage("https://svar.in/assets/img/vector3.1.png"),fit: BoxFit.fitHeight)),
+          image: DecorationImage(image: NetworkImage(),fit: BoxFit.fitHeight)),
     )));
   }
 
