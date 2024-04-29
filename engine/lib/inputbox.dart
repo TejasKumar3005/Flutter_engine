@@ -60,6 +60,7 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
               "msg": _emailController.text.toString(),
               "api_key": _passwordController.text.toString()
             },
+
           ),
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8'
@@ -95,6 +96,7 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
       return jsonDecode(response.body)["message"];
     } catch (e) {
       Navigator.of(context).pop();
+
       print(e.toString());
       final materialBanner = SnackBar(
                   /// need to set following properties for best effect of awesome_snackbar_content
@@ -117,6 +119,7 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
                 ScaffoldMessenger.of(context)
                   ..hideCurrentMaterialBanner()
                   ..showSnackBar(materialBanner);
+
       failTrigger?.fire();
       return {};
     }
@@ -167,6 +170,7 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
   }
 
   void moveEyeBalls(val) {
+
     print("hi");
     print("val$val");
     // print();
@@ -180,6 +184,7 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
       });
     }
     print(val.length.toDouble());
+
     numLook?.change(val.length.toDouble());
   }
 
@@ -329,9 +334,11 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
                                       },
                                     );
                                     getJson(context).then((value) => {
+
                                           Navigator.of(context).pop(),
                                           login(),
                                           print(value.toString()),
+
                                           if (value.isNotEmpty)
                                             {
 
