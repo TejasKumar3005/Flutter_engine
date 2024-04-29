@@ -29,7 +29,7 @@ class CharacterInfo {
 }
 
 class GameData {
-  late VersatileImage backgroundImage;
+  late String backgroundImage;
   late Map<String, Variable> variables;
   late Map<String, CharacterInfo> characters;
   late bool shouldShowDialog;
@@ -46,7 +46,7 @@ class GameData {
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-          image: DecorationImage(image: NetworkImage(),fit: BoxFit.fitHeight)),
+          image: DecorationImage(image: NetworkImage(backgroundImage),fit: BoxFit.fitHeight)),
     )));
   }
 
@@ -56,6 +56,7 @@ class GameData {
     required this.shouldShowDialog,
     required this.dialogMessage,
     required this.image_links,
+    required this.backgroundImage,
   });
 
   factory GameData.fromJson(Map<String, dynamic> json) {
@@ -96,6 +97,7 @@ class GameData {
       shouldShowDialog: false,
       dialogMessage: json['Objective'],  
       image_links: image_links,
+      backgroundImage: json['Background'],
     );
   }
 
