@@ -94,7 +94,7 @@ class GameData {
       variables: variables,
       characters: characters,
       shouldShowDialog: false,
-      dialogMessage: '',  
+      dialogMessage: json['Objective'],  
       image_links: image_links,
     );
   }

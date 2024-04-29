@@ -53,7 +53,7 @@ class Object extends SpriteComponent
     // Your update logic here
     if (!isDragged) {
       // Do something when the object is dragged
-      position = gameRef.gamedata.characters[name]!.position;
+      position = gameRef.gamedata.characters[name]!.position + (position - gameRef.gamedata.characters[name]!.position) * dt * 5 ;
     }
   }
 

@@ -3,8 +3,13 @@ import 'package:engine/models/game_data_model.dart';
 import 'action_model.dart';
 import 'conditional_model.dart';
 import 'variables_model.dart';
+import 'package:audioplayers/audioplayers.dart';
+
 
 class GameRules {
+
+  final player = AudioPlayer();
+
   late Map<String, GameObjectRule> gameRules;
 
   GameRules({
@@ -54,6 +59,8 @@ class GameRules {
 // }
   void onTap(String objectType, GameData gameData) {
     final rules = gameRules[objectType]?.tapWith;
+      // player.play(AssetSource('assets/success.mp3', mimeType: 'audio/mpeg'));
+
     if (rules!= null) {
       for(var rule in rules){
         rule.execute(gameData);
@@ -64,26 +71,43 @@ class GameRules {
   void onCollision(String objectType1, String objectType2, GameData gameData) {
     final rules = gameRules[objectType1]?.collisionWith?[objectType2] ?? null;
 
+    gameRules.forEach((key, value) {
+      print("key: $key");});
+
+    print("objectType1: $objectType1");
+    print("objectType2: $objectType2");
+    print("rules: $rules");
+
+
     if (gameRules[objectType1]?.collisionWith != null &&
         gameRules[objectType1]?.collisionWith?.containsKey(objectType2) ==
             true) {
       // Collision rule exists for objectType2
       // You can use rule here
+      // play sound 
+      print("collision happened");
+      // player.play(AssetSource('assets/success.mp3'));
       for( var rule in rules!){
         rule.execute(gameData);
       }
     }
   }
 
-  void applyRules(
-      List<Action> actions, List<ConditionalOp> conditions, GameData gameData) {
-    trigger(gameData);
+  // void applyRules(
+  //     List<Action> actions, List<ConditionalOp> conditions, GameData gameData) {
+  //   trigger(gameData);
 
-    for (int i = 0; i < actions.length; i++) {
-      if (conditions.length > i && checkCondition(conditions[i], gameData)) {
-        applyRule(actions[i], gameData);
-      }
-    }
+  //   for (int i = 0; i < actions.length; i++) {
+  //     if (conditions.length > i && checkCondition(conditions[i], gameData)) {
+  //       // play sound 
+
+  //       applyRule(actions[i], gameData);
+  //     }
+  //   }
+  // }
+
+  void dispose() {
+    player.dispose();
   }
 }
 

@@ -175,7 +175,8 @@ class _PuzzleGameState extends State<PuzzleGame> {
                 height: 300,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage("assets/bg1.jpg"),
+                        image: NetworkImage(
+                            "https://svar.in/assets/img/vector3.1.png"),
                         fit: BoxFit.fill,
                         filterQuality: FilterQuality.low),
                     border: Border.all(color: Colors.white, width: 2)),

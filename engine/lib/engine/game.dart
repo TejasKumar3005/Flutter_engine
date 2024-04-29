@@ -7,9 +7,10 @@ import 'package:engine/models/rules_model.dart';
 import 'package:engine/utils/gameWidgets/puzzlegame.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
-
+import 'package:rive/rive.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import '../models/object.dart';
 import "../models/popup.dart";
@@ -30,6 +31,9 @@ class MyGame extends FlameGame with HasCollisionDetection, TapCallbacks {
   final BuildContext context;
   final GameRules gameRules;
   double get width => size.x;
+  Artboard? _teddyArtboard;
+  StateMachineController? stateMachineController;
+  SMITrigger? successTrigger;
   double get height => size.y;
   @override
   Future<void> onLoad() async {
@@ -95,6 +99,37 @@ class MyGame extends FlameGame with HasCollisionDetection, TapCallbacks {
 
   @override
   void onTapUp(TapUpEvent details) {}
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+    // if (
+    if (successTrigger != null) {
+      successTrigger!.fire();
+    }
+  }
+
+    void prepareRive() {
+    rootBundle.load("assets/complete.riv").then(
+      (data) {
+        final file = RiveFile.import(data);
+        final artboard = file.mainArtboard;
+        stateMachineController =
+            StateMachineController.fromArtboard(artboard, "Post Session Menu");
+        if (stateMachineController != null) {
+          artboard.addController(stateMachineController!);
+
+          stateMachineController!.inputs.forEach((element) {
+            if (element.name == "click") {
+              successTrigger = element as SMITrigger;
+            }
+          });
+        }
+
+        _teddyArtboard = artboard;
+      },
+    );
+  }
 
   Future<void> preloadImages() async {
     print("loading images");
