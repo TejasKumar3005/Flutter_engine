@@ -100,7 +100,7 @@ class Object extends SpriteComponent
   @override
   void onDragEnd(DragEndEvent event) {
     super.onDragEnd(event);
-    priority = 0;
+    priority = 2;
   }
 
   @override
