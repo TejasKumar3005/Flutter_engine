@@ -105,6 +105,9 @@ class Object extends SpriteComponent
 
   @override
   void onDragUpdate(DragUpdateEvent event) {
+    if (gameRef.gamedata.characters[name]!.isMovable == false) {
+      return;
+    }
     position += event.localDelta;
   }
 
