@@ -90,7 +90,10 @@ class MyGame extends FlameGame with HasCollisionDetection, TapCallbacks {
           context: context));
     });
 
-    world.add(Popup(
+    // wait for all Objects to be added to the world
+    await Future.delayed(Duration(seconds: 1));
+
+    await world.add(Popup(
       name: "popup",
       isStatic: false,
       context: context,

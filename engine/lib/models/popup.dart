@@ -85,6 +85,7 @@ class Popup extends PositionComponent with HasGameRef<MyGame> {
   SMITrigger? successTrigger;
   Artboard? _teddyArtboard;
   Artboard? _compArtboard;
+  bool isLoaded = false;
   @override
   Future<void> onLoad() async {
     prepareRive();
@@ -124,6 +125,8 @@ class Popup extends PositionComponent with HasGameRef<MyGame> {
 
     rootBundle.load("assets/complete.riv").then(
       (data) {
+        print("loading complete");
+        print(data);
         final file = RiveFile.import(data);
         final artboard = file.mainArtboard;
         print("state mach");
@@ -146,11 +149,18 @@ class Popup extends PositionComponent with HasGameRef<MyGame> {
         _compArtboard = artboard;
       },
     );
+  
+    isLoaded = true;
   }
 
 
 @override
 void update(double dt) {
+
+  if (!isLoaded) {
+    return;
+  }
+  
   // Example logic for showing a dialog
   if (gameRef.gamedata.variables["GameOver"]?.value){
       showDialog(context: context,
@@ -167,6 +177,7 @@ void update(double dt) {
     // Navigator.of(context).pop();
     gameRef.gamedata.variables["GameOver"]?.value = false;
   }
+
   
   if (gameRef.gamedata.shouldShowDialog ) {
     final String message = gameRef.gamedata.dialogMessage ?? 'Default message';

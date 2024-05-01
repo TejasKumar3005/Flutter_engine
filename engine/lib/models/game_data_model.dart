@@ -94,7 +94,7 @@ class GameData {
     return GameData(
       variables: variables,
       characters: characters,
-      shouldShowDialog: false,
+      shouldShowDialog: true,
       dialogMessage: json['Objective'],  
       image_links: image_links,
       backgroundImage: json['Background'],
