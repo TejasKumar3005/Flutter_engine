@@ -60,7 +60,7 @@ class Object extends SpriteComponent
   // Override TapCallbacks methods
   @override
   void onTapUp(TapUpEvent details) {
-    gameRef.gamedata.shouldShowDialog = true;
+    // gameRef.gamedata.shouldShowDialog = true;
 
     //  showDialog(
     //   context: context,
@@ -115,6 +115,9 @@ class Object extends SpriteComponent
   void onCollisionStart(
       Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollisionStart(intersectionPoints, other);
+    if (isDragged) {
+      return;
+    }
     if (other is Object) {
       String curr_obj = name!;
       String oth_obj = other.name!;
