@@ -32,12 +32,16 @@ class ConditionalOp {
         return isGreaterThan(var1!, var2!, gameData);
       case '<':
         return isLessThan(var1!, var2!, gameData);
+      case ">=":
+        return isGreaterThan(var1!, var2!, gameData) || isEqual(var1!, var2!, gameData);
+      case "<=":
+        return isLessThan(var1!, var2!, gameData) || isEqual(var1!, var2!, gameData);
       case '&&':
         return and(var1!, var2!, gameData);
       case '||':
         return or(var1!, var2!, gameData);
       default:
-        throw Exception('Unsupported operation: $operation');
+        return true;
     }
   }
 

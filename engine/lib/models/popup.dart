@@ -80,78 +80,83 @@ class Popup extends PositionComponent with HasGameRef<MyGame> {
   final String name;
   final bool isStatic;
   final BuildContext context;
-  StateMachineController? stateMachineController;
-  StateMachineController? compStateMachineController;
+  // StateMachineController? stateMachineController;
+  // StateMachineController? compStateMachineController;
   SMITrigger? successTrigger;
   Artboard? _teddyArtboard;
   Artboard? _compArtboard;
   bool isLoaded = false;
   @override
   Future<void> onLoad() async {
-    prepareRive();
+    // prepareRive();
   //   // Load sprite image from gameRef
   //   final image = gameRef.generatedImages[name];
   //   if (image != null) {
   //     sprite = Sprite(image);
   //   }
   //   return super.onLoad();
+  _compArtboard = gameRef.compArtboard;
+  _teddyArtboard = gameRef.teddyArtboard;
+  successTrigger = gameRef.successTrigger;
+  isLoaded = true;
+
   }
 
-  void prepareRive() {
-    rootBundle.load("assets/text_pop_up.riv").then(
-      (data) {
-        final file = RiveFile.import(data);
-        final artboard = file.mainArtboard;
-        print("state mach");
-        artboard.stateMachines.forEach((element) { print(element.name);});
-        stateMachineController =
-            StateMachineController.fromArtboard(artboard, "Post Session Menu");
-        if (stateMachineController != null) {
-          artboard.addController(stateMachineController!);
+  // void prepareRive() {
+  //   rootBundle.load("assets/text_pop_up.riv").then(
+  //     (data) {
+  //       final file = RiveFile.import(data);
+  //       final artboard = file.mainArtboard;
+  //       print("state mach");
+  //       artboard.stateMachines.forEach((element) { print(element.name);});
+  //       stateMachineController =
+  //           StateMachineController.fromArtboard(artboard, "Post Session Menu");
+  //       if (stateMachineController != null) {
+  //         artboard.addController(stateMachineController!);
 
-          print("length: ${stateMachineController!.inputs.length}");
-          stateMachineController!.inputs.forEach((element) {
-            print(element.name);
-            if (element.name == "click") {
-              print("trigger set");
-              successTrigger = element as SMITrigger;
-            }
-          });
-        }
+  //         print("length: ${stateMachineController!.inputs.length}");
+  //         stateMachineController!.inputs.forEach((element) {
+  //           print(element.name);
+  //           if (element.name == "click") {
+  //             print("trigger set");
+  //             successTrigger = element as SMITrigger;
+  //           }
+  //         });
+  //       }
 
-        _teddyArtboard = artboard;
-      },
-    );
+  //       _teddyArtboard = artboard;
+  //     },
+  //   );
 
-    rootBundle.load("assets/complete.riv").then(
-      (data) {
-        print("loading complete");
-        print(data);
-        final file = RiveFile.import(data);
-        final artboard = file.mainArtboard;
-        print("state mach");
-        artboard.stateMachines.forEach((element) { print(element.name);});
-        compStateMachineController =
-            StateMachineController.fromArtboard(artboard, "Post Session Menu");
-        if (compStateMachineController != null) {
-          artboard.addController(compStateMachineController!);
+  //   rootBundle.load("assets/complete.riv").then(
+  //     (data) {
+  //       print("loading complete");
+  //       print(data);
+  //       final file = RiveFile.import(data);
+  //       final artboard = file.mainArtboard;
+  //       print("state mach");
+  //       artboard.stateMachines.forEach((element) { print(element.name);});
+  //       compStateMachineController =
+  //           StateMachineController.fromArtboard(artboard, "Post Session Menu");
+  //       if (compStateMachineController != null) {
+  //         artboard.addController(compStateMachineController!);
 
-          // print("length: ${compStateMachineController!.inputs.length}");
-          // compStateMachineController!.inputs.forEach((element) {
-          //   print(element.name);
-          //   if (element.name == "click") {
-          //     print("trigger set");
-          //     successTrigger = element as SMITrigger;
-          //   }
-          // });
-        }
+  //         // print("length: ${compStateMachineController!.inputs.length}");
+  //         // compStateMachineController!.inputs.forEach((element) {
+  //         //   print(element.name);
+  //         //   if (element.name == "click") {
+  //         //     print("trigger set");
+  //         //     successTrigger = element as SMITrigger;
+  //         //   }
+  //         // });
+  //       }
 
-        _compArtboard = artboard;
-      },
-    );
+  //       _compArtboard = artboard;
+  //     },
+  //   );
   
-    isLoaded = true;
-  }
+  //   isLoaded = true;
+  // }
 
 
 @override

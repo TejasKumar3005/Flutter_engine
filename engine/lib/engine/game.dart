@@ -31,13 +31,17 @@ class MyGame extends FlameGame with HasCollisionDetection, TapCallbacks {
   final BuildContext context;
   final GameRules gameRules;
   double get width => size.x;
-  Artboard? _teddyArtboard;
+  Artboard? teddyArtboard;
   StateMachineController? stateMachineController;
+  Artboard? compArtboard;
+  StateMachineController? compStateMachineController;
+  bool isLoaded = false;
   SMITrigger? successTrigger;
   double get height => size.y;
   @override
   Future<void> onLoad() async {
     await preloadImages();
+    prepareRive();
     camera.viewfinder.anchor = Anchor.topLeft;
     // Navigate to another route using Navigator
     // if (gamedata.type == "puzzle") {
@@ -112,26 +116,61 @@ class MyGame extends FlameGame with HasCollisionDetection, TapCallbacks {
     }
   }
 
-    void prepareRive() {
-    rootBundle.load("assets/complete.riv").then(
+
+  void prepareRive() {
+    rootBundle.load("assets/text_pop_up.riv").then(
       (data) {
         final file = RiveFile.import(data);
         final artboard = file.mainArtboard;
+        print("state mach");
+        artboard.stateMachines.forEach((element) { print(element.name);});
         stateMachineController =
             StateMachineController.fromArtboard(artboard, "Post Session Menu");
         if (stateMachineController != null) {
           artboard.addController(stateMachineController!);
 
+          print("length: ${stateMachineController!.inputs.length}");
           stateMachineController!.inputs.forEach((element) {
+            print(element.name);
             if (element.name == "click") {
+              print("trigger set");
               successTrigger = element as SMITrigger;
             }
           });
         }
 
-        _teddyArtboard = artboard;
+        teddyArtboard = artboard;
       },
     );
+
+    rootBundle.load("assets/complete.riv").then(
+      (data) {
+        print("loading complete");
+        print(data);
+        final file = RiveFile.import(data);
+        final artboard = file.mainArtboard;
+        print("state mach");
+        artboard.stateMachines.forEach((element) { print(element.name);});
+        compStateMachineController =
+            StateMachineController.fromArtboard(artboard, "Post Session Menu");
+        if (compStateMachineController != null) {
+          artboard.addController(compStateMachineController!);
+
+          // print("length: ${compStateMachineController!.inputs.length}");
+          // compStateMachineController!.inputs.forEach((element) {
+          //   print(element.name);
+          //   if (element.name == "click") {
+          //     print("trigger set");
+          //     successTrigger = element as SMITrigger;
+          //   }
+          // });
+        }
+
+        compArtboard = artboard;
+      },
+    );
+  
+    isLoaded = true;
   }
 
   Future<void> preloadImages() async {
