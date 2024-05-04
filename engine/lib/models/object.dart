@@ -114,10 +114,10 @@ class Object extends SpriteComponent
   @override
   void onCollisionStart(
       Set<Vector2> intersectionPoints, PositionComponent other) {
-    super.onCollisionStart(intersectionPoints, other);
-    if (isDragged) {
+    if (!isDragged) {
       return;
     }
+    super.onCollisionStart(intersectionPoints, other);
     if (other is Object) {
       String curr_obj = name!;
       String oth_obj = other.name!;

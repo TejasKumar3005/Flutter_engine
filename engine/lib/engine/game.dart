@@ -20,7 +20,7 @@ class MyGame extends FlameGame with HasCollisionDetection, TapCallbacks {
       {required this.gamedata, required this.gameRules, required this.context})
       : super(
           camera: CameraComponent.withFixedResolution(
-            width: 1200,
+            width: 900,
             height: 900,
           ),
         );

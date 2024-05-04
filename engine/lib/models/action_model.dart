@@ -75,7 +75,7 @@ class Action {
         break;
       case 'update_position':
         result = var1!.getValue(gameData);
-        targetvar!.fixCharac(gameData);
+        // targetvar!.fixCharac(gameData);
         break;
       case 'fix_pos':
         targetvar!.fixCharac(gameData);

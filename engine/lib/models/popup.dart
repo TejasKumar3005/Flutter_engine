@@ -37,7 +37,9 @@ class _CustomDialogState extends State<CustomDialog> {
                     Navigator.of(context).pop();
                   }
                 },
-                child: Rive(
+                child: 
+                widget.teddyArtboard == null ? Text('') :
+                Rive(
                   fit: BoxFit.contain,
                   enablePointerEvents: true,
                   artboard: widget.teddyArtboard!,
