@@ -95,7 +95,7 @@ class GameData {
       variables: variables,
       characters: characters,
       shouldShowDialog: true,
-      dialogMessage: json['Objective'],  
+      dialogMessage: json['Objective'] + "\nTap on the Objects to know more about them",  
       image_links: image_links,
       backgroundImage: json['Background'],
     );
