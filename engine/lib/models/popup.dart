@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../engine/game.dart'; // Assuming this is where MyGame is defined
 import 'package:rive/rive.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CustomDialog extends StatefulWidget {
   String? message;
@@ -50,10 +51,14 @@ class _CustomDialogState extends State<CustomDialog> {
           Center(
             child: Container(
               alignment: Alignment.center,
-              width: MediaQuery.of(context).size.width * 0.5,
+              width: MediaQuery.of(context).size.width * 0.45,
               child: Text(
                 widget.message!,
-                style: TextStyle(color: Color.fromARGB(255, 155, 233, 30), fontWeight: FontWeight.bold, fontSize: 22.0),
+                style: GoogleFonts.irishGrover(
+                  color: Color.fromARGB(255, 165, 120, 104),
+                  fontSize: 40.0,
+                  decoration: TextDecoration.none
+                ),
               ),
             ),
           ),

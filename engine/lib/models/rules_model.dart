@@ -60,7 +60,7 @@ class GameRules {
   void onTap(String objectType, GameData gameData) {
     final rules = gameRules[objectType]?.tapWith;
       // player.play(AssetSource('assets/success.mp3', mimeType: 'audio/mpeg'));
-
+    print(rules);
     if (rules!= null) {
       for(var rule in rules){
         rule.execute(gameData);
@@ -154,19 +154,21 @@ class GameObjectRule {
   });
 
   factory GameObjectRule.fromJson(String key, Map<String?, dynamic> json) {
-    Map<String?, dynamic> collisionRulesJson = json["with_collision"] ?? {};
-   List<dynamic> tapRulesJson = json["on_tap"]?[key] ?? [];
+    Map<String?, dynamic> collisionRulesJson = json["collision_with"] ?? {};
+   Map<String, dynamic>? tapRulesJson = json["on_tap"] ?? null;
     List<InteractionRule> tapWith;
     Map<String, List<InteractionRule>> collisionWith = {};
      print("codeishere");
     collisionRulesJson.forEach((key, value) {
+      print("key: $key");
+      print("value: $value");
       collisionWith[key!] = 
           (value as List).map((e) => InteractionRule.fromJson(e)).toList();
     });
     print("collisionWith: $collisionWith");
     
-    tapWith = (tapRulesJson).map((e) => InteractionRule.fromJson(e)).toList();
-
+    // tapWith = (tapRulesJson).map((e) => InteractionRule.fromJson(e)).toList();
+    tapWith = tapRulesJson == null? [] : [InteractionRule.fromJson(tapRulesJson)];
     print("tapWith: $tapWith");
     return GameObjectRule(
       collisionWith: collisionWith,
