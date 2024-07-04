@@ -1,0 +1,563 @@
+[
+    {
+        "Objective": "Child has to match circles with the circle basket, squares with the square basket, and triangles with the triangle basket. If the child matches all the shapes correctly, they win the game; otherwise, encourage them to correct it.\n",
+        "Character": [
+            {
+                "name": "Circle1",
+                "description": "A blue circle shape.",
+                "count": 1,
+                "size": {
+                    "width": 180,
+                    "height": 180
+                },
+                "isMovable": true,
+                "position": {
+                    "x": 300,
+                    "y": 100
+                },
+                "image": "image1"
+            },
+            {
+                "name": "Circle2",
+                "description": "A blue circle shape.",
+                "count": 1,
+                "size": {
+                    "width": 180,
+                    "height": 180
+                },
+                "isMovable": true,
+                "position": {
+                    "x": 300,
+                    "y": 300
+                },
+                "image": "image1"
+            },
+            {
+                "name": "Circle3",
+                "description": "A blue circle shape.",
+                "count": 1,
+                "size": {
+                    "width": 180,
+                    "height": 180
+                },
+                "isMovable": true,
+                "position": {
+                    "x": 300,
+                    "y": 500
+                },
+                "image": "image1"
+            },
+            {
+                "name": "Square1",
+                "description": "A green square shape.",
+                "count": 1,
+                "size": {
+                    "width": 180,
+                    "height": 180
+                },
+                "isMovable": true,
+                "position": {
+                    "x": 400,
+                    "y": 150
+                },
+                "image": "image2"
+            },
+            {
+                "name": "Square2",
+                "description": "A green square shape.",
+                "count": 1,
+                "size": {
+                    "width": 180,
+                    "height": 180
+                },
+                "isMovable": true,
+                "position": {
+                    "x": 400,
+                    "y": 350
+                },
+                "image": "image2"
+            },
+            {
+                "name": "Square3",
+                "description": "A green square shape.",
+                "count": 1,
+                "size": {
+                    "width": 180,
+                    "height": 180
+                },
+                "isMovable": true,
+                "position": {
+                    "x": 400,
+                    "y": 550
+                },
+                "image": "image2"
+            },
+            {
+                "name": "Triangle1",
+                "description": "A red triangle shape.",
+                "count": 1,
+                "size": {
+                    "width": 180,
+                    "height": 180
+                },
+                "isMovable": true,
+                "position": {
+                    "x": 500,
+                    "y": 200
+                },
+                "image": "image3"
+            },
+            {
+                "name": "Triangle2",
+                "description": "A red triangle shape.",
+                "count": 1,
+                "size": {
+                    "width": 180,
+                    "height": 180
+                },
+                "isMovable": true,
+                "position": {
+                    "x": 500,
+                    "y": 400
+                },
+                "image": "image3"
+            },
+            {
+                "name": "Triangle3",
+                "description": "A red triangle shape.",
+                "count": 1,
+                "size": {
+                    "width": 180,
+                    "height": 180
+                },
+                "isMovable": true,
+                "position": {
+                    "x": 500,
+                    "y": 600
+                },
+                "image": "image3"
+            },
+            {
+                "name": "Circle Basket1",
+                "description": "A basket with a circle symbol.",
+                "count": 1,
+                "size": {
+                    "width": 500,
+                    "height": 500
+                },
+                "isMovable": false,
+                "position": {
+                    "x": 800,
+                    "y": 200
+                },
+                "image": "image4"
+            },
+            {
+                "name": "Square Basket1",
+                "description": "A basket with a square symbol.",
+                "count": 1,
+                "size": {
+                    "width": 500,
+                    "height": 500
+                },
+                "isMovable": false,
+                "position": {
+                    "x": 800,
+                    "y": 400
+                },
+                "image": "image5"
+            },
+            {
+                "name": "Triangle Basket1",
+                "description": "A basket with a triangle symbol.",
+                "count": 1,
+                "size": {
+                    "width": 500,
+                    "height": 500
+                },
+                "isMovable": false,
+                "position": {
+                    "x": 800,
+                    "y": 600
+                },
+                "image": "image6"
+            }
+        ],
+        "Background": "https://images.svar.in/Images/3cf1e04a-0ea8-48ae-bd46-716f06105c7e.png",
+        "Game State": [
+            {
+                "name": "CirclesMatched",
+                "type": "Integer",
+                "value": 0
+            },
+            {
+                "name": "SquaresMatched",
+                "type": "Integer",
+                "value": 0
+            },
+            {
+                "name": "TrianglesMatched",
+                "type": "Integer",
+                "value": 0
+            },
+            {
+                "name": "TotalPoints",
+                "type": "Integer",
+                "value": 0
+            },
+            {
+                "name": "GameOver",
+                "type": "Boolean",
+                "value": false
+            }
+        ],
+        "Game Rules": {
+            "Circle1": [
+                {
+                    "on_tap": {
+                        "condition": [],
+                        "action": [
+                            {
+                                "operator": "show_text",
+                                "operand1": {
+                                    "name": "name",
+                                    "type": "String",
+                                    "value": "\"Drag the circles to the circle basket.\""
+                                }
+                            }
+                        ]
+                    }
+                }
+            ],
+            "Circle2": [
+                {
+                    "on_tap": {
+                        "condition": [],
+                        "action": [
+                            {
+                                "operator": "show_text",
+                                "operand1": {
+                                    "name": "name",
+                                    "type": "String",
+                                    "value": "\"Drag the circles to the circle basket.\""
+                                }
+                            }
+                        ]
+                    }
+                }
+            ],
+            "Circle3": [
+                {
+                    "on_tap": {
+                        "condition": [],
+                        "action": [
+                            {
+                                "operator": "show_text",
+                                "operand1": {
+                                    "name": "name",
+                                    "type": "String",
+                                    "value": "\"Drag the circles to the circle basket.\""
+                                }
+                            }
+                        ]
+                    }
+                }
+            ],
+            "Square1": [
+                {
+                    "on_tap": {
+                        "condition": [],
+                        "action": [
+                            {
+                                "operator": "show_text",
+                                "operand1": {
+                                    "name": "name",
+                                    "type": "String",
+                                    "value": "\"Drag the squares to the square basket.\""
+                                }
+                            }
+                        ]
+                    }
+                }
+            ],
+            "Square2": [
+                {
+                    "on_tap": {
+                        "condition": [],
+                        "action": [
+                            {
+                                "operator": "show_text",
+                                "operand1": {
+                                    "name": "name",
+                                    "type": "String",
+                                    "value": "\"Drag the squares to the square basket.\""
+                                }
+                            }
+                        ]
+                    }
+                }
+            ],
+            "Square3": [
+                {
+                    "on_tap": {
+                        "condition": [],
+                        "action": [
+                            {
+                                "operator": "show_text",
+                                "operand1": {
+                                    "name": "name",
+                                    "type": "String",
+                                    "value": "\"Drag the squares to the square basket.\""
+                                }
+                            }
+                        ]
+                    }
+                }
+            ],
+            "Triangle1": [
+                {
+                    "on_tap": {
+                        "condition": [],
+                        "action": [
+                            {
+                                "operator": "show_text",
+                                "operand1": {
+                                    "name": "name",
+                                    "type": "String",
+                                    "value": "\"Drag the triangles to the triangle basket.\""
+                                }
+                            }
+                        ]
+                    }
+                }
+            ],
+            "Triangle2": [
+                {
+                    "on_tap": {
+                        "condition": [],
+                        "action": [
+                            {
+                                "operator": "show_text",
+                                "operand1": {
+                                    "name": "name",
+                                    "type": "String",
+                                    "value": "\"Drag the triangles to the triangle basket.\""
+                                }
+                            }
+                        ]
+                    }
+                }
+            ],
+            "Triangle3": [
+                {
+                    "on_tap": {
+                        "condition": [],
+                        "action": [
+                            {
+                                "operator": "show_text",
+                                "operand1": {
+                                    "name": "name",
+                                    "type": "String",
+                                    "value": "\"Drag the triangles to the triangle basket.\""
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "Images": {
+            "image1": "https://images.svar.in/Images/628294fd-0f8a-4ee8-99fc-aea5c79d33b2.png",
+            "image2": "https://images.svar.in/Images/f81e3241-3445-4031-bcc9-ec1b88060b92.png",
+            "image3": "https://images.svar.in/Images/21c467a8-7b1c-471d-8246-58d1b290b318.png",
+            "image4": "https://images.svar.in/Images/fbc990fa-7e3b-4347-8536-3139549b44ba.png",
+            "image5": "https://images.svar.in/Images/7b5b3808-f9c4-4157-a2ee-dbf8372a6ebb.png",
+            "image6": "https://images.svar.in/Images/dd4c5e6e-62a5-4ad4-a8a9-1fa02596a3c2.png"
+        }
+    } ,
+
+    {
+        "Objective": "Child has to match forest animals with the forest habitat, ocean animals with the ocean habitat, and desert animals with the desert habitat. If the child matches all the animals correctly, they win the game; otherwise, encourage them to correct it.\n",
+        "Character": [
+            {
+                "name": "Deer1",
+                "description": "A forest animal.",
+                "count": 1,
+                "size": {
+                    "width": 150,
+                    "height": 150
+                },
+                "isMovable": true,
+                "position": {
+                    "x": 300,
+                    "y": 100
+                },
+                "image": "image1"
+            },
+            {
+                "name": "Fish1",
+                "description": "An ocean animal.",
+                "count": 1,
+                "size": {
+                    "width": 150,
+                    "height": 150
+                },
+                "isMovable": true,
+                "position": {
+                    "x": 400,
+                    "y": 150
+                },
+                "image": "image2"
+            },
+            {
+                "name": "Camel1",
+                "description": "A desert animal.",
+                "count": 1,
+                "size": {
+                    "width": 150,
+                    "height": 150
+                },
+                "isMovable": true,
+                "position": {
+                    "x": 500,
+                    "y": 200
+                },
+                "image": "image3"
+            },
+            {
+                "name": "Forest Habitat1",
+                "description": "A forest habitat.",
+                "count": 1,
+                "size": {
+                    "width": 500,
+                    "height": 500
+                },
+                "isMovable": false,
+                "position": {
+                    "x": 800,
+                    "y": 200
+                },
+                "image": "image4"
+            },
+            {
+                "name": "Ocean Habitat1",
+                "description": "An ocean habitat.",
+                "count": 1,
+                "size": {
+                    "width": 500,
+                    "height": 500
+                },
+                "isMovable": false,
+                "position": {
+                    "x": 800,
+                    "y": 400
+                },
+                "image": "image5"
+            },
+            {
+                "name": "Desert Habitat1",
+                "description": "A desert habitat.",
+                "count": 1,
+                "size": {
+                    "width": 500,
+                    "height": 500
+                },
+                "isMovable": false,
+                "position": {
+                    "x": 800,
+                    "y": 600
+                },
+                "image": "image6"
+            }
+        ],
+        "Background": "https://images.svar.in/Images/93a000eb-9367-4018-9241-272054410a2d.png",
+        "Game State": [
+            {
+                "name": "ForestAnimalsMatched",
+                "type": "Integer",
+                "value": 0
+            },
+            {
+                "name": "OceanAnimalsMatched",
+                "type": "Integer",
+                "value": 0
+            },
+            {
+                "name": "DesertAnimalsMatched",
+                "type": "Integer",
+                "value": 0
+            },
+            {
+                "name": "TotalPoints",
+                "type": "Integer",
+                "value": 0
+            },
+            {
+                "name": "GameOver",
+                "type": "Boolean",
+                "value": false
+            }
+        ],
+        "Game Rules": {
+            "Deer1": [
+                {
+                    "on_tap": {
+                        "condition": [],
+                        "action": [
+                            {
+                                "operator": "show_text",
+                                "operand1": {
+                                    "name": "name",
+                                    "type": "String",
+                                    "value": "\"Drag the deer to the forest habitat.\""
+                                }
+                            }
+                        ]
+                    }
+                }
+            ],
+            "Fish1": [
+                {
+                    "on_tap": {
+                        "condition": [],
+                        "action": [
+                            {
+                                "operator": "show_text",
+                                "operand1": {
+                                    "name": "name",
+                                    "type": "String",
+                                    "value": "\"Drag the fish to the ocean habitat.\""
+                                }
+                            }
+                        ]
+                    }
+                }
+            ],
+            "Camel1": [
+                {
+                    "on_tap": {
+                        "condition": [],
+                        "action": [
+                            {
+                                "operator": "show_text",
+                                "operand1": {
+                                    "name": "name",
+                                    "type": "String",
+                                    "value": "\"Drag the camel to the desert habitat.\""
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "Images": {
+            "image1": "https://images.svar.in/Images/acf621a1-fc2b-414a-b3f8-6a15ae07c258.png",
+            "image2": "https://images.svar.in/Images/51879a38-18b9-446c-af20-7f0240a9520d.png",
+            "image3": "https://images.svar.in/Images/9e693937-0c70-4212-8313-5593dad7cac3.png",
+            "image4": "https://images.svar.in/Images/fd75f9ab-7681-4192-9ac4-04f5df3b0390.png",
+            "image5": "https://images.svar.in/Images/20b55e3f-a434-4375-ab49-05d9e2eaf998.png",
+            "image6": "https://images.svar.in/Images/5ed0cdaf-b004-40b1-9319-d279256a6a1b.png"
+        }
+    }
+]

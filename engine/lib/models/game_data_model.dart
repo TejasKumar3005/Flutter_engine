@@ -5,8 +5,6 @@ import 'package:vector_math/vector_math_64.dart';
 
 import 'variables_model.dart'; // Import Vector2 from the vector_math library for 2D vectors
 
-
-
 class CharacterInfo {
   String image;
   Vector2 position;
@@ -14,13 +12,13 @@ class CharacterInfo {
   bool isMovable;
   String name;
 
-  CharacterInfo(
-      {required this.image,
-      required this.position,
-      required this.size,
-      required this.isMovable,
-      required this.name}
-      );
+  CharacterInfo({
+    required this.image,
+    required this.position,
+    required this.size,
+    required this.isMovable,
+    required this.name,
+  });
 
   @override
   String toString() {
@@ -35,19 +33,20 @@ class GameData {
   late bool shouldShowDialog;
   late String dialogMessage;
   late Map<String, String> image_links;
+  late Map<String, dynamic> currentSceneJson; // New variable for current scene JSON
 
   Widget background_builder(BuildContext context) {
-    return 
-    Center(
-      child:
-    AspectRatio(aspectRatio: 4 / 3, 
-    child: 
-    Container(
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(
-          image: DecorationImage(image: NetworkImage(backgroundImage),fit: BoxFit.fitHeight)),
-    )));
+    return Center(
+        child: AspectRatio(
+            aspectRatio: 4 / 3,
+            child: Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: NetworkImage(backgroundImage),
+                      fit: BoxFit.fitHeight)),
+            )));
   }
 
   GameData({
@@ -57,12 +56,14 @@ class GameData {
     required this.dialogMessage,
     required this.image_links,
     required this.backgroundImage,
+    required this.currentSceneJson, // Include currentSceneJson in the constructor
   });
 
   factory GameData.fromJson(Map<String, dynamic> json) {
     Map<String, Variable> variables = {};
     Map<String, CharacterInfo> characters = {};
     Map<String, String> image_links = {};
+    Map<String, dynamic> currentSceneJson = json; // Initialize with the entire JSON
 
     json['Images'].forEach((key, value) {
       image_links[key] = value;
@@ -70,7 +71,7 @@ class GameData {
 
     print("game stateeeeeeeeeeeeeeeeeeeeeeeee");
     print(json['Game State']);
-    json['Game State'].forEach( (value) {
+    json['Game State'].forEach((value) {
       print("hfweiufhuwehfiuwehifuhwief");
       variables[value['name']] = Variable(
         name: value['name'],
@@ -85,19 +86,23 @@ class GameData {
 
       characters[value["name"]] = CharacterInfo(
           image: value["image"],
-          position: Vector2((value['position']["x"]).toDouble(), value['position']['y'].toDouble()),
-          size: Vector2(value['size']["width"].toDouble(), value['size']["height"].toDouble()),
+          position: Vector2((value['position']["x"]).toDouble(),
+              value['position']['y'].toDouble()),
+          size: Vector2(value['size']["width"].toDouble(),
+              value['size']["height"].toDouble()),
           isMovable: value['isMovable'],
           name: value["name"]);
     });
-   
+
     return GameData(
       variables: variables,
       characters: characters,
       shouldShowDialog: true,
-      dialogMessage: json['Objective'] + "\nTap on the Objects to know more about them",  
+      dialogMessage:
+          json['Objective'] + "\nTap on the Objects to know more about them",
       image_links: image_links,
       backgroundImage: json['Background'],
+      currentSceneJson: currentSceneJson, // Set currentSceneJson in the factory method
     );
   }
 

@@ -1,0 +1,184 @@
+{
+    "Objective": "Child has to match forest animals with the forest habitat, ocean animals with the ocean habitat, and desert animals with the desert habitat. If the child matches all the animals correctly, they win the game; otherwise, encourage them to correct it.\n",
+    "Character": [
+        {
+            "name": "Deer1",
+            "description": "A forest animal.",
+            "count": 1,
+            "size": {
+                "width": 150,
+                "height": 150
+            },
+            "isMovable": true,
+            "position": {
+                "x": 300,
+                "y": 100
+            },
+            "image": "image1"
+        },
+        {
+            "name": "Fish1",
+            "description": "An ocean animal.",
+            "count": 1,
+            "size": {
+                "width": 150,
+                "height": 150
+            },
+            "isMovable": true,
+            "position": {
+                "x": 400,
+                "y": 150
+            },
+            "image": "image2"
+        },
+        {
+            "name": "Camel1",
+            "description": "A desert animal.",
+            "count": 1,
+            "size": {
+                "width": 150,
+                "height": 150
+            },
+            "isMovable": true,
+            "position": {
+                "x": 500,
+                "y": 200
+            },
+            "image": "image3"
+        },
+        {
+            "name": "Forest Habitat1",
+            "description": "A forest habitat.",
+            "count": 1,
+            "size": {
+                "width": 500,
+                "height": 500
+            },
+            "isMovable": false,
+            "position": {
+                "x": 800,
+                "y": 200
+            },
+            "image": "image4"
+        },
+        {
+            "name": "Ocean Habitat1",
+            "description": "An ocean habitat.",
+            "count": 1,
+            "size": {
+                "width": 500,
+                "height": 500
+            },
+            "isMovable": false,
+            "position": {
+                "x": 800,
+                "y": 400
+            },
+            "image": "image5"
+        },
+        {
+            "name": "Desert Habitat1",
+            "description": "A desert habitat.",
+            "count": 1,
+            "size": {
+                "width": 500,
+                "height": 500
+            },
+            "isMovable": false,
+            "position": {
+                "x": 800,
+                "y": 600
+            },
+            "image": "image6"
+        }
+    ],
+    "Background": "https://images.svar.in/Images/93a000eb-9367-4018-9241-272054410a2d.png",
+    "Game State": [
+        {
+            "name": "ForestAnimalsMatched",
+            "type": "Integer",
+            "value": 0
+        },
+        {
+            "name": "OceanAnimalsMatched",
+            "type": "Integer",
+            "value": 0
+        },
+        {
+            "name": "DesertAnimalsMatched",
+            "type": "Integer",
+            "value": 0
+        },
+        {
+            "name": "TotalPoints",
+            "type": "Integer",
+            "value": 0
+        },
+        {
+            "name": "GameOver",
+            "type": "Boolean",
+            "value": false
+        }
+    ],
+    "Game Rules": {
+        "Deer1": [
+            {
+                "on_tap": {
+                    "condition": [],
+                    "action": [
+                        {
+                            "operator": "show_text",
+                            "operand1": {
+                                "name": "name",
+                                "type": "String",
+                                "value": "\"Drag the deer to the forest habitat.\""
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "Fish1": [
+            {
+                "on_tap": {
+                    "condition": [],
+                    "action": [
+                        {
+                            "operator": "show_text",
+                            "operand1": {
+                                "name": "name",
+                                "type": "String",
+                                "value": "\"Drag the fish to the ocean habitat.\""
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "Camel1": [
+            {
+                "on_tap": {
+                    "condition": [],
+                    "action": [
+                        {
+                            "operator": "show_text",
+                            "operand1": {
+                                "name": "name",
+                                "type": "String",
+                                "value": "\"Drag the camel to the desert habitat.\""
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "Images": {
+        "image1": "https://images.svar.in/Images/acf621a1-fc2b-414a-b3f8-6a15ae07c258.png",
+        "image2": "https://images.svar.in/Images/51879a38-18b9-446c-af20-7f0240a9520d.png",
+        "image3": "https://images.svar.in/Images/9e693937-0c70-4212-8313-5593dad7cac3.png",
+        "image4": "https://images.svar.in/Images/fd75f9ab-7681-4192-9ac4-04f5df3b0390.png",
+        "image5": "https://images.svar.in/Images/20b55e3f-a434-4375-ab49-05d9e2eaf998.png",
+        "image6": "https://images.svar.in/Images/5ed0cdaf-b004-40b1-9319-d279256a6a1b.png"
+    }
+}
