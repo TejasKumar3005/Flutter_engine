@@ -119,8 +119,7 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
   StateMachineController? stateMachineController;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
-  Future<Map<String, dynamic>> fetchScenes(BuildContext context) async {
+  Future<void> fetchScenes(BuildContext context) async {
     try {
       String jsonData = await rootBundle.loadString('assets/main.json');
       List<dynamic> responseJson = jsonDecode(jsonData);
@@ -129,11 +128,13 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
         currentSceneIndex = 0;
       });
       startSceneChangeTimer();
-      return scenes[currentSceneIndex];
+      setState(() {
+        
+      });
     } catch (e) {
       showSnackBar(context, e.toString(), ContentType.failure);
       failTrigger?.fire();
-      return {};
+      
     }
   }
 
