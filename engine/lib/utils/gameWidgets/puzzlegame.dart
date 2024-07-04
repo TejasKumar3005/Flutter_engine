@@ -12,6 +12,20 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:rive/rive.dart';
 
+class ImageView extends StatelessWidget {
+  final Uint8List imageData;
+
+  const ImageView({Key? key, required this.imageData}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Image.memory(
+      imageData,
+      fit: BoxFit.fill,
+    );
+  }
+}
+
 class PuzzleGame extends StatefulWidget {
   final List<String> imageUrls;
 
@@ -259,15 +273,14 @@ class _PuzzleGameState extends State<PuzzleGame> {
                 visible: gameStatus == "ST" || gameStatus == "PS",
                 child: TimerWidget()),
             if (_teddyArtboard != null && gameStatus == "PS")
-               Positioned(
-                top: (MediaQuery.of(context).size.height*0.5)*0.5,
-                left: (MediaQuery.of(context).size.width*0.2)*0.5,
+              Positioned(
+                top: (MediaQuery.of(context).size.height * 0.5) * 0.5,
+                left: (MediaQuery.of(context).size.width * 0.2) * 0.5,
                 child: GestureDetector(
                   onTap: () {
                     successTrigger?.change(true);
                   },
-                  child: 
-                   SizedBox(
+                  child: SizedBox(
                     width: MediaQuery.of(context).size.width * 0.8,
                     height: MediaQuery.of(context).size.height * 0.5,
                     child: Rive(
@@ -335,10 +348,7 @@ class _PuzzleGameState extends State<PuzzleGame> {
                         } else if (snapshot.hasError) {
                           return Text('Error: ${snapshot.error}');
                         } else {
-                          return Image.memory(
-                            snapshot.data!,
-                            fit: BoxFit.fill,
-                          );
+                          return ImageView(imageData: snapshot.data!);
                         }
                       },
                     )),
@@ -375,10 +385,7 @@ class _PuzzleGameState extends State<PuzzleGame> {
                         } else if (snapshot.hasError) {
                           return Text('Error: ${snapshot.error}');
                         } else {
-                          return Image.memory(
-                            snapshot.data!,
-                            fit: BoxFit.fill,
-                          );
+                          return ImageView(imageData: snapshot.data!);
                         }
                       },
                     )),
