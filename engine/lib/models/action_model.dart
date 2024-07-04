@@ -36,7 +36,7 @@ class Action {
     print(var1);
     print(var2);
     print(operation);
-    if (var1 != null && var2 != null && operation != null) {
+    if ( operation != null) {
       performVariableOperation(gameData);
     }
   }
@@ -75,6 +75,7 @@ class Action {
         break;
       case 'update_position':
         result = var1!.getValue(gameData);
+        // targetvar!.fixCharac(gameData);
         break;
       case 'fix_pos':
         targetvar!.fixCharac(gameData);

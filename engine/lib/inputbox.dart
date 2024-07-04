@@ -1,14 +1,17 @@
+import 'dart:async';
 import 'dart:convert';
-// import 'dart:js_interop';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
-import 'package:engine/engine/engine.dart';
+import 'package:flame/components.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:engine/engine/engine.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:kafkabr/kafka.dart';
 import 'package:rive/rive.dart';
+import 'package:engine/utils/gameWidgets/puzzlegame.dart';
+import '../engine/game.dart'; // Assuming this is where MyGame is defined
+import 'package:google_fonts/google_fonts.dart';
+import 'package:quiver/async.dart';
 
 class RiveAnimationDialog extends StatelessWidget {
   @override
@@ -28,6 +31,73 @@ class RiveAnimationDialog extends StatelessWidget {
   }
 }
 
+class CustomDialog extends StatefulWidget {
+  final String message;
+  final Artboard teddyArtboard;
+  final SMITrigger successTrigger;
+  final bool isCompleted;
+
+  CustomDialog({
+    Key? key,
+    required this.message,
+    required this.teddyArtboard,
+    required this.successTrigger,
+    required this.isCompleted,
+  }) : super(key: key);
+
+  @override
+  _CustomDialogState createState() => _CustomDialogState();
+}
+
+class _CustomDialogState extends State<CustomDialog> {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Stack(
+        children: <Widget>[
+          Center(
+            child: Container(
+              alignment: Alignment.center,
+              width: MediaQuery.of(context).size.width * 0.6,
+              height: MediaQuery.of(context).size.height * 0.8,
+              child: GestureDetector(
+                onTap: () {
+                  widget.successTrigger.fire();
+                  print('Tapped');
+                  Navigator.of(context).pop();
+                  if (widget.isCompleted) {
+                    Navigator.of(context).pop();
+                  }
+                },
+                child: widget.teddyArtboard == null
+                    ? Text('')
+                    : Rive(
+                        fit: BoxFit.contain,
+                        enablePointerEvents: true,
+                        artboard: widget.teddyArtboard,
+                      ),
+              ),
+            ),
+          ),
+          Center(
+            child: Container(
+              alignment: Alignment.center,
+              width: MediaQuery.of(context).size.width * 0.45,
+              child: Text(
+                widget.message,
+                style: GoogleFonts.irishGrover(
+                    color: Color.fromARGB(255, 165, 120, 104),
+                    fontSize: 40.0,
+                    decoration: TextDecoration.none),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class KafkaMessageWidget extends StatefulWidget {
   const KafkaMessageWidget({Key? key}) : super(key: key);
 
@@ -41,89 +111,89 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
   SMITrigger? successTrigger, failTrigger;
   SMIBool? isHandsUp, isChecking;
   SMINumber? numLook;
+  List<Map<String, dynamic>> scenes = [];
+  int currentSceneIndex = 0;
+  CountdownTimer? sceneChangeTimer;
+  StreamSubscription<CountdownTimer>? sceneChangeSubscription;
 
   StateMachineController? stateMachineController;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  Future<Map<String, dynamic>> getJson(BuildContext context) async {
+
+  Future<Map<String, dynamic>> fetchScenes(BuildContext context) async {
     try {
-      print("---msg    " +
-          _emailController.text.toString() +
-          "-----api" +
-          _passwordController.text.toString());
-      http.Response response = await http.post(
-          Uri.parse("https://gameapi.svar.in/send_data"),
-          body: jsonEncode(
-            {
-              "msg": _emailController.text.toString(),
-              "api_key": _passwordController.text.toString()
-            },
-          ),
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8'
-          });
-      if (response.statusCode != 200) {
-        Navigator.of(context).pop();
-        final materialBanner = SnackBar(
-                  /// need to set following properties for best effect of awesome_snackbar_content
-                  elevation: 0,
-                  backgroundColor: Colors.transparent,
-                  behavior: SnackBarBehavior.floating,
-                  content: AwesomeSnackbarContent(
-                    title: 'Oh Snap!!',
-                    message:
-                        "Something went wrng",
-
-                    /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
-                    contentType: ContentType.failure,
-                    // to configure for material banner
-                    inMaterialBanner: true,
-                  ),
-                  
-                );
-
-                ScaffoldMessenger.of(context)
-                  ..hideCurrentMaterialBanner()
-                  ..showSnackBar(materialBanner);
-        failTrigger?.fire();
-        return {};
-      }
-      successTrigger?.fire();
-      return jsonDecode(response.body)["message"];
+      String jsonData = await rootBundle.loadString('assets/main.json');
+      List<dynamic> responseJson = jsonDecode(jsonData);
+      setState(() {
+        scenes = responseJson.map((scene) => scene as Map<String, dynamic>).toList();
+        currentSceneIndex = 0;
+      });
+      startSceneChangeTimer();
+      return scenes[currentSceneIndex];
     } catch (e) {
-      Navigator.of(context).pop();
-      print(e.toString());
-      final materialBanner = SnackBar(
-                  /// need to set following properties for best effect of awesome_snackbar_content
-                  elevation: 0,
-                  backgroundColor: Colors.transparent,
-                behavior: SnackBarBehavior.floating,
-                  content: AwesomeSnackbarContent(
-                    title: 'Oh Snap!!',
-                    message:
-                        e.toString(),
-
-                    /// change contentType to ContentType.success, ContentType.warning or ContentType.help for variants
-                    contentType: ContentType.failure,
-                    // to configure for material banner
-                    
-                  ),
-                  
-                );
-
-                ScaffoldMessenger.of(context)
-                  ..hideCurrentMaterialBanner()
-                  ..showSnackBar(materialBanner);
+      showSnackBar(context, e.toString(), ContentType.failure);
       failTrigger?.fire();
       return {};
     }
   }
 
+  void startSceneChangeTimer() {
+    sceneChangeSubscription?.cancel(); // Cancel any existing timer
+    sceneChangeTimer = CountdownTimer(
+      Duration(seconds: 10),
+      Duration(seconds: 1),
+    );
+
+    sceneChangeSubscription = sceneChangeTimer!.listen((event) {
+      final timeLeft = 20 - event.elapsed.inSeconds;
+      print('Time left: $timeLeft seconds');
+      print(currentSceneIndex);
+    }, onDone: () {
+      setState(() {
+        if (currentSceneIndex < 1) {
+          currentSceneIndex++;
+        } 
+      });
+      startSceneChangeTimer(); // Restart the timer
+    });
+  }
+
+  void showSnackBar(BuildContext context, String message, ContentType contentType) {
+    final materialBanner = SnackBar(
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      behavior: SnackBarBehavior.floating,
+      content: AwesomeSnackbarContent(
+        title: 'Oh Snap!!',
+        message: message,
+        contentType: contentType,
+        inMaterialBanner: true,
+      ),
+    );
+
+    ScaffoldMessenger.of(context)
+      ..hideCurrentMaterialBanner()
+      ..showSnackBar(materialBanner);
+  }
+
+  void showCompletionAnimation(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return CustomDialog(
+          message: "Congratulations!",
+          teddyArtboard: _teddyArtboard!,
+          successTrigger: successTrigger!,
+          isCompleted: true,
+        );
+      },
+    );
+  }
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-
     rootBundle.load("assets/login.riv").then(
       (data) {
         final file = RiveFile.import(data);
@@ -132,7 +202,6 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
             StateMachineController.fromArtboard(artboard, "Login Machine");
         if (stateMachineController != null) {
           artboard.addController(stateMachineController!);
-
           stateMachineController!.inputs.forEach((element) {
             if (element.name == "trigSuccess") {
               successTrigger = element as SMITrigger;
@@ -153,6 +222,12 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
     );
   }
 
+  @override
+  void dispose() {
+    sceneChangeSubscription?.cancel(); // Stop the timer when the widget is disposed
+    super.dispose();
+  }
+
   void handsOnTheEyes() {
     isHandsUp?.change(true);
   }
@@ -164,9 +239,6 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
   }
 
   void moveEyeBalls(val) {
-    print("hi");
-    print("val$val");
-    // print();
     if (val.isEmpty) {
       setState(() {
         errorText = "enter valid prompt";
@@ -176,16 +248,15 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
         errorText = null;
       });
     }
-    print(val.length.toDouble());
     numLook?.change(val.length.toDouble());
   }
 
   void login() {
     isChecking?.change(false);
     isHandsUp?.change(false);
-    if (_emailController.text == "admin" &&
-        _passwordController.text == "admin") {
+    if (_emailController.text == "admin" && _passwordController.text == "admin") {
       successTrigger?.fire();
+      // changeScene();
     } else {
       failTrigger?.fire();
     }
@@ -245,7 +316,7 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
                               errorText: _emailController.text.isEmpty
                                   ? errorText
                                   : null,
-                              hintText: "make game on Holi",
+                              hintText: "make game on Water",
                               filled: true,
                               border: OutlineInputBorder(
                                 borderRadius:
@@ -304,16 +375,6 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              //remember me checkbox
-                              // Row(
-                              //   children: [
-                              //     Checkbox(
-                              //       value: false,
-                              //       onChanged: (value) {},
-                              //     ),
-                              //     const Text("Remember me"),
-                              //   ],
-                              // ),
                               ElevatedButton(
                                 onPressed: () {
                                   if (_emailController.text.isNotEmpty &&
@@ -325,17 +386,32 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
                                         return RiveAnimationDialog();
                                       },
                                     );
-                                    getJson(context).then((value) => {
+                                    fetchScenes(context).then((value) => {
+                                          Navigator.of(context).pop(),
+                                          login(),
                                           print(value.toString()),
                                           if (value.isNotEmpty)
-                                            {
-                                              Navigator.push(
+                                            if (value["type"] == "puzzle")
+                                              {
+                                                Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          Game(
-                                                              gameJson: value)))
-                                            }
+                                                          PuzzleGame(
+                                                            imageUrls: [],
+                                                          )), // Replace AnotherRoute() with your desired route
+                                                )
+                                              }
+                                            else
+                                              {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            Game(
+                                                                gameJson:
+                                                                    value)))
+                                              }
                                         });
                                   } else {
                                     setState(() {

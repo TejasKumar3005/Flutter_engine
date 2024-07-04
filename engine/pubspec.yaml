@@ -32,8 +32,11 @@ dependencies:
     sdk: flutter
   flame: ^1.14.0
   flutter_svg: ^2.0.9
+  google_fonts: ^6.2.1
   web: ^0.5.0
+  quiver: ^3.0.1
   provider: ^6.1.1
+  audioplayers: ^6.0.0
   kafkabr:
     git: https://github.com/armando-couto/kafkabr.git
   http: ^1.1.0

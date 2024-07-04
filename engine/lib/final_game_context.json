@@ -1,2153 +1,2153 @@
 {
-    "Objective": "The game educates children about the Diwali festival through interactive decoration of a scene. Children interact by placing diyas, rangolis, fireworks, and sweets. Each placement teaches them a fact about Diwali, aiming to complete the decoration.\n",
-    "Character": [
-        {
-            "name": "Diya1",
-            "image": "https://svar.in/assets/img/vector3.1.png",
-            "count": 1,
-            "size": {
-                "width": 50,
-                "height": 50
-            },
-            "isMovable": true,
-            "position": {
-                "x": 0,
-                "y": 0
-            }
-        },
-        {
-            "name": "Diya2",
-            "image": "https://svar.in/assets/img/vector3.1.png",
-            "count": 1,
-            "size": {
-                "width": 1200,
-                "height": 900
-            },
-            "isMovable": true,
-            "position": {
-                "x": 200,
-                "y": 500
-            }
-        },
-        {
-            "name": "Diya3",
-            "image": "https://svar.in/assets/img/vector3.1.png",
-            "count": 1,
-            "size": {
-                "width": 50,
-                "height": 50
-            },
-            "isMovable": true,
-            "position": {
-                "x": 300,
-                "y": 500
-            }
-        },
-        {
-            "name": "Diya4",
-            "image": "https://svar.in/assets/img/vector3.1.png",
-            "count": 1,
-            "size": {
-                "width": 50,
-                "height": 50
-            },
-            "isMovable": true,
-            "position": {
-                "x": 400,
-                "y": 500
-            }
-        },
-        {
-            "name": "Diya5",
-            "image": "https://svar.in/assets/img/vector3.1.png",
-            "count": 1,
-            "size": {
-                "width": 50,
-                "height": 50
-            },
-            "isMovable": true,
-            "position": {
-                "x": 500,
-                "y": 500
-            }
-        },
-        {
-            "name": "Rangoli1",
-            "image": "https://www.google.com/logos/doodles/2024/international-womens-day-2024-6753651837110196.4-s.png",
-            "count": 1,
-            "size": {
-                "width": 150,
-                "height": 150
-            },
-            "isMovable": true,
-            "position": {
-                "x": 300,
-                "y": 500
-            }
-        },
-        {
-            "name": "Rangoli-placeholder1",
-            "image": "https://w7.pngwing.com/pngs/409/302/png-transparent-free-download-icon-cloud-down-computer-system-blue-computer-blue-laptop.png",
-            "count": 1,
-            "size": {
-                "width": 20,
-                "height": 20
-            },
-            "isMovable": false,
-            "position": {
-                "x": 300,
-                "y": 300
-            }
-        },
-        {
-            "name": "Diya-placeholder1",
-            "image": "https://w7.pngwing.com/pngs/409/302/png-transparent-free-download-icon-cloud-down-computer-system-blue-computer-blue-laptop.png",
-            "count": 1,
-            "size": {
-                "width": 20,
-                "height": 20
-            },
-            "isMovable": false,
-            "position": {
-                "x": 100,
-                "y": 100
-            }
-        },
-        {
-            "name": "Diya-placeholder2",
-            "image": "https://w7.pngwing.com/pngs/409/302/png-transparent-free-download-icon-cloud-down-computer-system-blue-computer-blue-laptop.png",
-            "count": 1,
-            "size": {
-                "width": 20,
-                "height": 20
-            },
-            "isMovable": false,
-            "position": {
-                "x": 200,
-                "y": 100
-            }
-        },
-        {
-            "name": "Diya-placeholder3",
-            "image": "https://w7.pngwing.com/pngs/409/302/png-transparent-free-download-icon-cloud-down-computer-system-blue-computer-blue-laptop.png",
-            "count": 1,
-            "size": {
-                "width": 20,
-                "height": 20
-            },
-            "isMovable": false,
-            "position": {
-                "x": 300,
-                "y": 100
-            }
-        },
-        {
-            "name": "Diya-placeholder4",
-            "image": "https://w7.pngwing.com/pngs/409/302/png-transparent-free-download-icon-cloud-down-computer-system-blue-computer-blue-laptop.png",
-            "count": 1,
-            "size": {
-                "width": 20,
-                "height": 20
-            },
-            "isMovable": false,
-            "position": {
-                "x": 400,
-                "y": 100
-            }
-        },
-        {
-            "name": "Diya-placeholder5",
-            "image": "https://w7.pngwing.com/pngs/409/302/png-transparent-free-download-icon-cloud-down-computer-system-blue-computer-blue-laptop.png",
-            "count": 1,
-            "size": {
-                "width": 20,
-                "height": 20
-            },
-            "isMovable": false,
-            "position": {
-                "x": 500,
-                "y": 100
-            }
-        }
-    ],
-    "Background": "A night-time village scene with simple houses, a starry sky, and an open area for decorations, setting the stage for Diwali celebrations.\n",
-    "Game State": [
-        {
-            "name": "DiyasPlaced",
-            "type": "Integer",
-            "value": 0
-        },
-        {
-            "name": "RangolisPlaced",
-            "type": "Integer",
-            "value": 0
-        },
-        {
-            "name": "DecorationComplete",
-            "type": "Boolean",
-            "value": false
-        }
-    ],
-    "Game Rules": {
-        "Diya1": [
-            {
-                "collision_with": [
-                    {
-                        "Diya-placeholder1": [
-                            {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
-                                "action": {
-                                    "target": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operator": "+",
-                                    "operand1": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "1",
-                                        "value": 1,
-                                        "type": "Integer"
-                                    }
-                                }
-                            },
-                            {
-                                "condition": [
-                                    [
-                                        {
-                                            "operand1": {
-                                                "name": "Diyaplaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "5",
-                                                "value": 5,
-                                                "type": "Integer"
-                                            }
-                                        },
-                                        {
-                                            "operand1": {
-                                                "name": "RangoliPlaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "1",
-                                                "value": 1,
-                                                "type": "Integer"
-                                            }
-                                        }
-                                    ]
-                                ],
-                                "action": {
-                                    "target": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand1": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "true",
-                                        "type": "variable"
-                                    },
-                                    "operator": "="
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        "Diya-placeholder2": [
-                            {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
-                                "action": {
-                                    "target": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operator": "+",
-                                    "operand1": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "1",
-                                        "value": 1,
-                                        "type": "Integer"
-                                    }
-                                }
-                            },
-                            {
-                                "condition": [
-                                    [
-                                        {
-                                            "operand1": {
-                                                "name": "Diyaplaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "5",
-                                                "value": 5,
-                                                "type": "Integer"
-                                            }
-                                        },
-                                        {
-                                            "operand1": {
-                                                "name": "RangoliPlaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "1",
-                                                "value": 1,
-                                                "type": "Integer"
-                                            }
-                                        }
-                                    ]
-                                ],
-                                "action": {
-                                    "target": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand1": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "true",
-                                        "type": "variable"
-                                    },
-                                    "operator": "="
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        "Diya-placeholder3": [
-                            {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
-                                "action": {
-                                    "target": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operator": "+",
-                                    "operand1": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "1",
-                                        "value": 1,
-                                        "type": "Integer"
-                                    }
-                                }
-                            },
-                            {
-                                "condition": [
-                                    [
-                                        {
-                                            "operand1": {
-                                                "name": "Diyaplaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "5",
-                                                "value": 5,
-                                                "type": "Integer"
-                                            }
-                                        },
-                                        {
-                                            "operand1": {
-                                                "name": "RangoliPlaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "1",
-                                                "value": 1,
-                                                "type": "Integer"
-                                            }
-                                        }
-                                    ]
-                                ],
-                                "action": {
-                                    "target": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand1": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "true",
-                                        "type": "variable"
-                                    },
-                                    "operator": "="
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        "Diya-placeholder4": [
-                            {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
-                                "action": {
-                                    "target": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operator": "+",
-                                    "operand1": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "1",
-                                        "value": 1,
-                                        "type": "Integer"
-                                    }
-                                }
-                            },
-                            {
-                                "condition": [
-                                    [
-                                        {
-                                            "operand1": {
-                                                "name": "Diyaplaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "5",
-                                                "value": 5,
-                                                "type": "Integer"
-                                            }
-                                        },
-                                        {
-                                            "operand1": {
-                                                "name": "RangoliPlaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "1",
-                                                "value": 1,
-                                                "type": "Integer"
-                                            }
-                                        }
-                                    ]
-                                ],
-                                "action": {
-                                    "target": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand1": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "true",
-                                        "type": "variable"
-                                    },
-                                    "operator": "="
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        "Diya-placeholder5": [
-                            {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
-                                "action": {
-                                    "target": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operator": "+",
-                                    "operand1": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "1",
-                                        "value": 1,
-                                        "type": "Integer"
-                                    }
-                                }
-                            },
-                            {
-                                "condition": [
-                                    [
-                                        {
-                                            "operand1": {
-                                                "name": "Diyaplaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "5",
-                                                "value": 5,
-                                                "type": "Integer"
-                                            }
-                                        },
-                                        {
-                                            "operand1": {
-                                                "name": "RangoliPlaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "1",
-                                                "value": 1,
-                                                "type": "Integer"
-                                            }
-                                        }
-                                    ]
-                                ],
-                                "action": {
-                                    "target": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand1": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "true",
-                                        "type": "variable"
-                                    },
-                                    "operator": "="
-                                }
-                            }
-                        ]
-                    }
-                ]
-            }
-        ],
-        "Diya2": [
-            {
-                "collision_with": [
-                    {
-                        "Diya-placeholder1": [
-                            {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
-                                "action": {
-                                    "target": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operator": "+",
-                                    "operand1": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "1",
-                                        "value": 1,
-                                        "type": "Integer"
-                                    }
-                                }
-                            },
-                            {
-                                "condition": [
-                                    [
-                                        {
-                                            "operand1": {
-                                                "name": "Diyaplaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "5",
-                                                "value": 5,
-                                                "type": "Integer"
-                                            }
-                                        },
-                                        {
-                                            "operand1": {
-                                                "name": "RangoliPlaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "1",
-                                                "value": 1,
-                                                "type": "Integer"
-                                            }
-                                        }
-                                    ]
-                                ],
-                                "action": {
-                                    "target": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand1": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "true",
-                                        "type": "variable"
-                                    },
-                                    "operator": "="
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        "Diya-placeholder2": [
-                            {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
-                                "action": {
-                                    "target": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operator": "+",
-                                    "operand1": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "1",
-                                        "value": 1,
-                                        "type": "Integer"
-                                    }
-                                }
-                            },
-                            {
-                                "condition": [
-                                    [
-                                        {
-                                            "operand1": {
-                                                "name": "Diyaplaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "5",
-                                                "value": 5,
-                                                "type": "Integer"
-                                            }
-                                        },
-                                        {
-                                            "operand1": {
-                                                "name": "RangoliPlaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "1",
-                                                "value": 1,
-                                                "type": "Integer"
-                                            }
-                                        }
-                                    ]
-                                ],
-                                "action": {
-                                    "target": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand1": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "true",
-                                        "type": "variable"
-                                    },
-                                    "operator": "="
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        "Diya-placeholder3": [
-                            {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
-                                "action": {
-                                    "target": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operator": "+",
-                                    "operand1": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "1",
-                                        "value": 1,
-                                        "type": "Integer"
-                                    }
-                                }
-                            },
-                            {
-                                "condition": [
-                                    [
-                                        {
-                                            "operand1": {
-                                                "name": "Diyaplaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "5",
-                                                "value": 5,
-                                                "type": "Integer"
-                                            }
-                                        },
-                                        {
-                                            "operand1": {
-                                                "name": "RangoliPlaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "1",
-                                                "value": 1,
-                                                "type": "Integer"
-                                            }
-                                        }
-                                    ]
-                                ],
-                                "action": {
-                                    "target": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand1": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "true",
-                                        "type": "variable"
-                                    },
-                                    "operator": "="
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        "Diya-placeholder4": [
-                            {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
-                                "action": {
-                                    "target": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operator": "+",
-                                    "operand1": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "1",
-                                        "value": 1,
-                                        "type": "Integer"
-                                    }
-                                }
-                            },
-                            {
-                                "condition": [
-                                    [
-                                        {
-                                            "operand1": {
-                                                "name": "Diyaplaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "5",
-                                                "value": 5,
-                                                "type": "Integer"
-                                            }
-                                        },
-                                        {
-                                            "operand1": {
-                                                "name": "RangoliPlaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "1",
-                                                "value": 1,
-                                                "type": "Integer"
-                                            }
-                                        }
-                                    ]
-                                ],
-                                "action": {
-                                    "target": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand1": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "true",
-                                        "type": "variable"
-                                    },
-                                    "operator": "="
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        "Diya-placeholder5": [
-                            {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
-                                "action": {
-                                    "target": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operator": "+",
-                                    "operand1": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "1",
-                                        "value": 1,
-                                        "type": "Integer"
-                                    }
-                                }
-                            },
-                            {
-                                "condition": [
-                                    [
-                                        {
-                                            "operand1": {
-                                                "name": "Diyaplaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "5",
-                                                "value": 5,
-                                                "type": "Integer"
-                                            }
-                                        },
-                                        {
-                                            "operand1": {
-                                                "name": "RangoliPlaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "1",
-                                                "value": 1,
-                                                "type": "Integer"
-                                            }
-                                        }
-                                    ]
-                                ],
-                                "action": {
-                                    "target": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand1": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "true",
-                                        "type": "variable"
-                                    },
-                                    "operator": "="
-                                }
-                            }
-                        ]
-                    }
-                ]
-            }
-        ],
-        "Diya3": [
-            {
-                "collision_with": [
-                    {
-                        "Diya-placeholder1": [
-                            {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
-                                "action": {
-                                    "target": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operator": "+",
-                                    "operand1": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "1",
-                                        "value": 1,
-                                        "type": "Integer"
-                                    }
-                                }
-                            },
-                            {
-                                "condition": [
-                                    [
-                                        {
-                                            "operand1": {
-                                                "name": "Diyaplaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "5",
-                                                "value": 5,
-                                                "type": "Integer"
-                                            }
-                                        },
-                                        {
-                                            "operand1": {
-                                                "name": "RangoliPlaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "1",
-                                                "value": 1,
-                                                "type": "Integer"
-                                            }
-                                        }
-                                    ]
-                                ],
-                                "action": {
-                                    "target": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand1": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "true",
-                                        "type": "variable"
-                                    },
-                                    "operator": "="
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        "Diya-placeholder2": [
-                            {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
-                                "action": {
-                                    "target": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operator": "+",
-                                    "operand1": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "1",
-                                        "value": 1,
-                                        "type": "Integer"
-                                    }
-                                }
-                            },
-                            {
-                                "condition": [
-                                    [
-                                        {
-                                            "operand1": {
-                                                "name": "Diyaplaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "5",
-                                                "value": 5,
-                                                "type": "Integer"
-                                            }
-                                        },
-                                        {
-                                            "operand1": {
-                                                "name": "RangoliPlaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "1",
-                                                "value": 1,
-                                                "type": "Integer"
-                                            }
-                                        }
-                                    ]
-                                ],
-                                "action": {
-                                    "target": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand1": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "true",
-                                        "type": "variable"
-                                    },
-                                    "operator": "="
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        "Diya-placeholder3": [
-                            {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
-                                "action": {
-                                    "target": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operator": "+",
-                                    "operand1": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "1",
-                                        "value": 1,
-                                        "type": "Integer"
-                                    }
-                                }
-                            },
-                            {
-                                "condition": [
-                                    [
-                                        {
-                                            "operand1": {
-                                                "name": "Diyaplaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "5",
-                                                "value": 5,
-                                                "type": "Integer"
-                                            }
-                                        },
-                                        {
-                                            "operand1": {
-                                                "name": "RangoliPlaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "1",
-                                                "value": 1,
-                                                "type": "Integer"
-                                            }
-                                        }
-                                    ]
-                                ],
-                                "action": {
-                                    "target": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand1": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "true",
-                                        "type": "variable"
-                                    },
-                                    "operator": "="
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        "Diya-placeholder4": [
-                            {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
-                                "action": {
-                                    "target": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operator": "+",
-                                    "operand1": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "1",
-                                        "value": 1,
-                                        "type": "Integer"
-                                    }
-                                }
-                            },
-                            {
-                                "condition": [
-                                    [
-                                        {
-                                            "operand1": {
-                                                "name": "Diyaplaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "5",
-                                                "value": 5,
-                                                "type": "Integer"
-                                            }
-                                        },
-                                        {
-                                            "operand1": {
-                                                "name": "RangoliPlaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "1",
-                                                "value": 1,
-                                                "type": "Integer"
-                                            }
-                                        }
-                                    ]
-                                ],
-                                "action": {
-                                    "target": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand1": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "true",
-                                        "type": "variable"
-                                    },
-                                    "operator": "="
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        "Diya-placeholder5": [
-                            {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
-                                "action": {
-                                    "target": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operator": "+",
-                                    "operand1": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "1",
-                                        "value": 1,
-                                        "type": "Integer"
-                                    }
-                                }
-                            },
-                            {
-                                "condition": [
-                                    [
-                                        {
-                                            "operand1": {
-                                                "name": "Diyaplaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "5",
-                                                "value": 5,
-                                                "type": "Integer"
-                                            }
-                                        },
-                                        {
-                                            "operand1": {
-                                                "name": "RangoliPlaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "1",
-                                                "value": 1,
-                                                "type": "Integer"
-                                            }
-                                        }
-                                    ]
-                                ],
-                                "action": {
-                                    "target": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand1": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "true",
-                                        "type": "variable"
-                                    },
-                                    "operator": "="
-                                }
-                            }
-                        ]
-                    }
-                ]
-            }
-        ],
-        "Diya4": [
-            {
-                "collision_with": [
-                    {
-                        "Diya-placeholder1": [
-                            {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
-                                "action": {
-                                    "target": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operator": "+",
-                                    "operand1": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "1",
-                                        "value": 1,
-                                        "type": "Integer"
-                                    }
-                                }
-                            },
-                            {
-                                "condition": [
-                                    [
-                                        {
-                                            "operand1": {
-                                                "name": "Diyaplaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "5",
-                                                "value": 5,
-                                                "type": "Integer"
-                                            }
-                                        },
-                                        {
-                                            "operand1": {
-                                                "name": "RangoliPlaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "1",
-                                                "value": 1,
-                                                "type": "Integer"
-                                            }
-                                        }
-                                    ]
-                                ],
-                                "action": {
-                                    "target": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand1": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "true",
-                                        "type": "variable"
-                                    },
-                                    "operator": "="
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        "Diya-placeholder2": [
-                            {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
-                                "action": {
-                                    "target": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operator": "+",
-                                    "operand1": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "1",
-                                        "value": 1,
-                                        "type": "Integer"
-                                    }
-                                }
-                            },
-                            {
-                                "condition": [
-                                    [
-                                        {
-                                            "operand1": {
-                                                "name": "Diyaplaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "5",
-                                                "value": 5,
-                                                "type": "Integer"
-                                            }
-                                        },
-                                        {
-                                            "operand1": {
-                                                "name": "RangoliPlaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "1",
-                                                "value": 1,
-                                                "type": "Integer"
-                                            }
-                                        }
-                                    ]
-                                ],
-                                "action": {
-                                    "target": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand1": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "true",
-                                        "type": "variable"
-                                    },
-                                    "operator": "="
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        "Diya-placeholder3": [
-                            {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
-                                "action": {
-                                    "target": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operator": "+",
-                                    "operand1": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "1",
-                                        "value": 1,
-                                        "type": "Integer"
-                                    }
-                                }
-                            },
-                            {
-                                "condition": [
-                                    [
-                                        {
-                                            "operand1": {
-                                                "name": "Diyaplaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "5",
-                                                "value": 5,
-                                                "type": "Integer"
-                                            }
-                                        },
-                                        {
-                                            "operand1": {
-                                                "name": "RangoliPlaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "1",
-                                                "value": 1,
-                                                "type": "Integer"
-                                            }
-                                        }
-                                    ]
-                                ],
-                                "action": {
-                                    "target": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand1": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "true",
-                                        "type": "variable"
-                                    },
-                                    "operator": "="
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        "Diya-placeholder4": [
-                            {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
-                                "action": {
-                                    "target": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operator": "+",
-                                    "operand1": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "1",
-                                        "value": 1,
-                                        "type": "Integer"
-                                    }
-                                }
-                            },
-                            {
-                                "condition": [
-                                    [
-                                        {
-                                            "operand1": {
-                                                "name": "Diyaplaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "5",
-                                                "value": 5,
-                                                "type": "Integer"
-                                            }
-                                        },
-                                        {
-                                            "operand1": {
-                                                "name": "RangoliPlaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "1",
-                                                "value": 1,
-                                                "type": "Integer"
-                                            }
-                                        }
-                                    ]
-                                ],
-                                "action": {
-                                    "target": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand1": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "true",
-                                        "type": "variable"
-                                    },
-                                    "operator": "="
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        "Diya-placeholder5": [
-                            {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
-                                "action": {
-                                    "target": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operator": "+",
-                                    "operand1": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "1",
-                                        "value": 1,
-                                        "type": "Integer"
-                                    }
-                                }
-                            },
-                            {
-                                "condition": [
-                                    [
-                                        {
-                                            "operand1": {
-                                                "name": "Diyaplaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "5",
-                                                "value": 5,
-                                                "type": "Integer"
-                                            }
-                                        },
-                                        {
-                                            "operand1": {
-                                                "name": "RangoliPlaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "1",
-                                                "value": 1,
-                                                "type": "Integer"
-                                            }
-                                        }
-                                    ]
-                                ],
-                                "action": {
-                                    "target": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand1": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "true",
-                                        "type": "variable"
-                                    },
-                                    "operator": "="
-                                }
-                            }
-                        ]
-                    }
-                ]
-            }
-        ],
-        "Diya5": [
-            {
-                "collision_with": [
-                    {
-                        "Diya-placeholder1": [
-                            {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
-                                "action": {
-                                    "target": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operator": "+",
-                                    "operand1": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "1",
-                                        "value": 1,
-                                        "type": "Integer"
-                                    }
-                                }
-                            },
-                            {
-                                "condition": [
-                                    [
-                                        {
-                                            "operand1": {
-                                                "name": "Diyaplaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "5",
-                                                "value": 5,
-                                                "type": "Integer"
-                                            }
-                                        },
-                                        {
-                                            "operand1": {
-                                                "name": "RangoliPlaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "1",
-                                                "value": 1,
-                                                "type": "Integer"
-                                            }
-                                        }
-                                    ]
-                                ],
-                                "action": {
-                                    "target": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand1": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "true",
-                                        "type": "variable"
-                                    },
-                                    "operator": "="
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        "Diya-placeholder2": [
-                            {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
-                                "action": {
-                                    "target": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operator": "+",
-                                    "operand1": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "1",
-                                        "value": 1,
-                                        "type": "Integer"
-                                    }
-                                }
-                            },
-                            {
-                                "condition": [
-                                    [
-                                        {
-                                            "operand1": {
-                                                "name": "Diyaplaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "5",
-                                                "value": 5,
-                                                "type": "Integer"
-                                            }
-                                        },
-                                        {
-                                            "operand1": {
-                                                "name": "RangoliPlaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "1",
-                                                "value": 1,
-                                                "type": "Integer"
-                                            }
-                                        }
-                                    ]
-                                ],
-                                "action": {
-                                    "target": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand1": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "true",
-                                        "type": "variable"
-                                    },
-                                    "operator": "="
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        "Diya-placeholder3": [
-                            {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
-                                "action": {
-                                    "target": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operator": "+",
-                                    "operand1": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "1",
-                                        "value": 1,
-                                        "type": "Integer"
-                                    }
-                                }
-                            },
-                            {
-                                "condition": [
-                                    [
-                                        {
-                                            "operand1": {
-                                                "name": "Diyaplaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "5",
-                                                "value": 5,
-                                                "type": "Integer"
-                                            }
-                                        },
-                                        {
-                                            "operand1": {
-                                                "name": "RangoliPlaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "1",
-                                                "value": 1,
-                                                "type": "Integer"
-                                            }
-                                        }
-                                    ]
-                                ],
-                                "action": {
-                                    "target": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand1": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "true",
-                                        "type": "variable"
-                                    },
-                                    "operator": "="
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        "Diya-placeholder4": [
-                            {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
-                                "action": {
-                                    "target": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operator": "+",
-                                    "operand1": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "1",
-                                        "value": 1,
-                                        "type": "Integer"
-                                    }
-                                }
-                            },
-                            {
-                                "condition": [
-                                    [
-                                        {
-                                            "operand1": {
-                                                "name": "Diyaplaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "5",
-                                                "value": 5,
-                                                "type": "Integer"
-                                            }
-                                        },
-                                        {
-                                            "operand1": {
-                                                "name": "RangoliPlaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "1",
-                                                "value": 1,
-                                                "type": "Integer"
-                                            }
-                                        }
-                                    ]
-                                ],
-                                "action": {
-                                    "target": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand1": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "true",
-                                        "type": "variable"
-                                    },
-                                    "operator": "="
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        "Diya-placeholder5": [
-                            {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
-                                "action": {
-                                    "target": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operator": "+",
-                                    "operand1": {
-                                        "name": "Diyaplaced",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "1",
-                                        "value": 1,
-                                        "type": "Integer"
-                                    }
-                                }
-                            },
-                            {
-                                "condition": [
-                                    [
-                                        {
-                                            "operand1": {
-                                                "name": "Diyaplaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "5",
-                                                "value": 5,
-                                                "type": "Integer"
-                                            }
-                                        },
-                                        {
-                                            "operand1": {
-                                                "name": "RangoliPlaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "1",
-                                                "value": 1,
-                                                "type": "Integer"
-                                            }
-                                        }
-                                    ]
-                                ],
-                                "action": {
-                                    "target": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand1": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "true",
-                                        "type": "variable"
-                                    },
-                                    "operator": "="
-                                }
-                            }
-                        ]
-                    }
-                ]
-            }
-        ],
-        "Rangoli1": [
-            {
-                "collision_with": [
-                    {
-                        "Rangoli-placeholder1": [
-                            {
-                                "condition": {
-                                    "operand1": {
-                                        "name": "True",
-                                        "type": "Boolean",
-                                        "value": true
-                                    }
-                                },
-                                "action": {
-                                    "target": {
-                                        "name": "Rangoliplaced",
-                                        "type": "variable"
-                                    },
-                                    "operator": "+",
-                                    "operand1": {
-                                        "name": "Rangoliplaced",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "1",
-                                        "value": 1,
-                                        "type": "Integer"
-                                    }
-                                }
-                            },
-                            {
-                                "condition": [
-                                    [
-                                        {
-                                            "operand1": {
-                                                "name": "Rangoliplaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "1",
-                                                "value": 1,
-                                                "type": "Integer"
-                                            }
-                                        },
-                                        {
-                                            "operand1": {
-                                                "name": "DiyasPlaced",
-                                                "type": "Variable"
-                                            },
-                                            "operator": "equal",
-                                            "operand2": {
-                                                "name": "5",
-                                                "value": 5,
-                                                "type": "Integer"
-                                            }
-                                        }
-                                    ]
-                                ],
-                                "action": {
-                                    "target": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand1": {
-                                        "name": "DecorationComplete",
-                                        "type": "variable"
-                                    },
-                                    "operand2": {
-                                        "name": "true",
-                                        "type": "variable"
-                                    },
-                                    "operator": "="
-                                }
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
+  "Objective": "The game educates children about the Diwali festival through interactive decoration of a scene. Children interact by placing diyas, rangolis, fireworks, and sweets. Each placement teaches them a fact about Diwali, aiming to complete the decoration.\n",
+  "Character": [
+    {
+      "name": "Diya1",
+      "image": "https://svar.in/assets/img/vector3.1.png",
+      "count": 1,
+      "size": {
+        "width": 50,
+        "height": 50
+      },
+      "isMovable": true,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "name": "Diya2",
+      "image": "https://svar.in/assets/img/vector3.1.png",
+      "count": 1,
+      "size": {
+        "width": 1200,
+        "height": 900
+      },
+      "isMovable": true,
+      "position": {
+        "x": 200,
+        "y": 500
+      }
+    },
+    {
+      "name": "Diya3",
+      "image": "https://svar.in/assets/img/vector3.1.png",
+      "count": 1,
+      "size": {
+        "width": 50,
+        "height": 50
+      },
+      "isMovable": true,
+      "position": {
+        "x": 300,
+        "y": 500
+      }
+    },
+    {
+      "name": "Diya4",
+      "image": "https://svar.in/assets/img/vector3.1.png",
+      "count": 1,
+      "size": {
+        "width": 50,
+        "height": 50
+      },
+      "isMovable": true,
+      "position": {
+        "x": 400,
+        "y": 500
+      }
+    },
+    {
+      "name": "Diya5",
+      "image": "https://svar.in/assets/img/vector3.1.png",
+      "count": 1,
+      "size": {
+        "width": 50,
+        "height": 50
+      },
+      "isMovable": true,
+      "position": {
+        "x": 500,
+        "y": 500
+      }
+    },
+    {
+      "name": "Rangoli1",
+      "image": "https://www.google.com/logos/doodles/2024/international-womens-day-2024-6753651837110196.4-s.png",
+      "count": 1,
+      "size": {
+        "width": 150,
+        "height": 150
+      },
+      "isMovable": true,
+      "position": {
+        "x": 300,
+        "y": 500
+      }
+    },
+    {
+      "name": "Rangoli-placeholder1",
+      "image": "https://w7.pngwing.com/pngs/409/302/png-transparent-free-download-icon-cloud-down-computer-system-blue-computer-blue-laptop.png",
+      "count": 1,
+      "size": {
+        "width": 20,
+        "height": 20
+      },
+      "isMovable": false,
+      "position": {
+        "x": 300,
+        "y": 300
+      }
+    },
+    {
+      "name": "Diya-placeholder1",
+      "image": "https://w7.pngwing.com/pngs/409/302/png-transparent-free-download-icon-cloud-down-computer-system-blue-computer-blue-laptop.png",
+      "count": 1,
+      "size": {
+        "width": 20,
+        "height": 20
+      },
+      "isMovable": false,
+      "position": {
+        "x": 100,
+        "y": 100
+      }
+    },
+    {
+      "name": "Diya-placeholder2",
+      "image": "https://w7.pngwing.com/pngs/409/302/png-transparent-free-download-icon-cloud-down-computer-system-blue-computer-blue-laptop.png",
+      "count": 1,
+      "size": {
+        "width": 20,
+        "height": 20
+      },
+      "isMovable": false,
+      "position": {
+        "x": 200,
+        "y": 100
+      }
+    },
+    {
+      "name": "Diya-placeholder3",
+      "image": "https://w7.pngwing.com/pngs/409/302/png-transparent-free-download-icon-cloud-down-computer-system-blue-computer-blue-laptop.png",
+      "count": 1,
+      "size": {
+        "width": 20,
+        "height": 20
+      },
+      "isMovable": false,
+      "position": {
+        "x": 300,
+        "y": 100
+      }
+    },
+    {
+      "name": "Diya-placeholder4",
+      "image": "https://w7.pngwing.com/pngs/409/302/png-transparent-free-download-icon-cloud-down-computer-system-blue-computer-blue-laptop.png",
+      "count": 1,
+      "size": {
+        "width": 20,
+        "height": 20
+      },
+      "isMovable": false,
+      "position": {
+        "x": 400,
+        "y": 100
+      }
+    },
+    {
+      "name": "Diya-placeholder5",
+      "image": "https://w7.pngwing.com/pngs/409/302/png-transparent-free-download-icon-cloud-down-computer-system-blue-computer-blue-laptop.png",
+      "count": 1,
+      "size": {
+        "width": 20,
+        "height": 20
+      },
+      "isMovable": false,
+      "position": {
+        "x": 500,
+        "y": 100
+      }
     }
+  ],
+  "Background": "A night-time village scene with simple houses, a starry sky, and an open area for decorations, setting the stage for Diwali celebrations.\n",
+  "Game State": [
+    {
+      "name": "DiyasPlaced",
+      "type": "Integer",
+      "value": 0
+    },
+    {
+      "name": "RangolisPlaced",
+      "type": "Integer",
+      "value": 0
+    },
+    {
+      "name": "DecorationComplete",
+      "type": "Boolean",
+      "value": false
+    }
+  ],
+  "Game Rules": {
+    "Diya1": [
+      {
+        "collision_with": [
+          {
+            "Diya-placeholder1": [
+              {
+                "condition": {
+                  "operand1": {
+                    "name": "True",
+                    "type": "Boolean",
+                    "value": true
+                  }
+                },
+                "action": {
+                  "target": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operator": "+",
+                  "operand1": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "1",
+                    "value": 1,
+                    "type": "Integer"
+                  }
+                }
+              },
+              {
+                "condition": [
+                  [
+                    {
+                      "operand1": {
+                        "name": "Diyaplaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "5",
+                        "value": 5,
+                        "type": "Integer"
+                      }
+                    },
+                    {
+                      "operand1": {
+                        "name": "RangoliPlaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "1",
+                        "value": 1,
+                        "type": "Integer"
+                      }
+                    }
+                  ]
+                ],
+                "action": {
+                  "target": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand1": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "true",
+                    "type": "variable"
+                  },
+                  "operator": "="
+                }
+              }
+            ]
+          },
+          {
+            "Diya-placeholder2": [
+              {
+                "condition": {
+                  "operand1": {
+                    "name": "True",
+                    "type": "Boolean",
+                    "value": true
+                  }
+                },
+                "action": {
+                  "target": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operator": "+",
+                  "operand1": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "1",
+                    "value": 1,
+                    "type": "Integer"
+                  }
+                }
+              },
+              {
+                "condition": [
+                  [
+                    {
+                      "operand1": {
+                        "name": "Diyaplaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "5",
+                        "value": 5,
+                        "type": "Integer"
+                      }
+                    },
+                    {
+                      "operand1": {
+                        "name": "RangoliPlaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "1",
+                        "value": 1,
+                        "type": "Integer"
+                      }
+                    }
+                  ]
+                ],
+                "action": {
+                  "target": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand1": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "true",
+                    "type": "variable"
+                  },
+                  "operator": "="
+                }
+              }
+            ]
+          },
+          {
+            "Diya-placeholder3": [
+              {
+                "condition": {
+                  "operand1": {
+                    "name": "True",
+                    "type": "Boolean",
+                    "value": true
+                  }
+                },
+                "action": {
+                  "target": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operator": "+",
+                  "operand1": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "1",
+                    "value": 1,
+                    "type": "Integer"
+                  }
+                }
+              },
+              {
+                "condition": [
+                  [
+                    {
+                      "operand1": {
+                        "name": "Diyaplaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "5",
+                        "value": 5,
+                        "type": "Integer"
+                      }
+                    },
+                    {
+                      "operand1": {
+                        "name": "RangoliPlaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "1",
+                        "value": 1,
+                        "type": "Integer"
+                      }
+                    }
+                  ]
+                ],
+                "action": {
+                  "target": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand1": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "true",
+                    "type": "variable"
+                  },
+                  "operator": "="
+                }
+              }
+            ]
+          },
+          {
+            "Diya-placeholder4": [
+              {
+                "condition": {
+                  "operand1": {
+                    "name": "True",
+                    "type": "Boolean",
+                    "value": true
+                  }
+                },
+                "action": {
+                  "target": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operator": "+",
+                  "operand1": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "1",
+                    "value": 1,
+                    "type": "Integer"
+                  }
+                }
+              },
+              {
+                "condition": [
+                  [
+                    {
+                      "operand1": {
+                        "name": "Diyaplaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "5",
+                        "value": 5,
+                        "type": "Integer"
+                      }
+                    },
+                    {
+                      "operand1": {
+                        "name": "RangoliPlaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "1",
+                        "value": 1,
+                        "type": "Integer"
+                      }
+                    }
+                  ]
+                ],
+                "action": {
+                  "target": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand1": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "true",
+                    "type": "variable"
+                  },
+                  "operator": "="
+                }
+              }
+            ]
+          },
+          {
+            "Diya-placeholder5": [
+              {
+                "condition": {
+                  "operand1": {
+                    "name": "True",
+                    "type": "Boolean",
+                    "value": true
+                  }
+                },
+                "action": {
+                  "target": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operator": "+",
+                  "operand1": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "1",
+                    "value": 1,
+                    "type": "Integer"
+                  }
+                }
+              },
+              {
+                "condition": [
+                  [
+                    {
+                      "operand1": {
+                        "name": "Diyaplaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "5",
+                        "value": 5,
+                        "type": "Integer"
+                      }
+                    },
+                    {
+                      "operand1": {
+                        "name": "RangoliPlaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "1",
+                        "value": 1,
+                        "type": "Integer"
+                      }
+                    }
+                  ]
+                ],
+                "action": {
+                  "target": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand1": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "true",
+                    "type": "variable"
+                  },
+                  "operator": "="
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "Diya2": [
+      {
+        "collision_with": [
+          {
+            "Diya-placeholder1": [
+              {
+                "condition": {
+                  "operand1": {
+                    "name": "True",
+                    "type": "Boolean",
+                    "value": true
+                  }
+                },
+                "action": {
+                  "target": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operator": "+",
+                  "operand1": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "1",
+                    "value": 1,
+                    "type": "Integer"
+                  }
+                }
+              },
+              {
+                "condition": [
+                  [
+                    {
+                      "operand1": {
+                        "name": "Diyaplaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "5",
+                        "value": 5,
+                        "type": "Integer"
+                      }
+                    },
+                    {
+                      "operand1": {
+                        "name": "RangoliPlaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "1",
+                        "value": 1,
+                        "type": "Integer"
+                      }
+                    }
+                  ]
+                ],
+                "action": {
+                  "target": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand1": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "true",
+                    "type": "variable"
+                  },
+                  "operator": "="
+                }
+              }
+            ]
+          },
+          {
+            "Diya-placeholder2": [
+              {
+                "condition": {
+                  "operand1": {
+                    "name": "True",
+                    "type": "Boolean",
+                    "value": true
+                  }
+                },
+                "action": {
+                  "target": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operator": "+",
+                  "operand1": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "1",
+                    "value": 1,
+                    "type": "Integer"
+                  }
+                }
+              },
+              {
+                "condition": [
+                  [
+                    {
+                      "operand1": {
+                        "name": "Diyaplaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "5",
+                        "value": 5,
+                        "type": "Integer"
+                      }
+                    },
+                    {
+                      "operand1": {
+                        "name": "RangoliPlaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "1",
+                        "value": 1,
+                        "type": "Integer"
+                      }
+                    }
+                  ]
+                ],
+                "action": {
+                  "target": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand1": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "true",
+                    "type": "variable"
+                  },
+                  "operator": "="
+                }
+              }
+            ]
+          },
+          {
+            "Diya-placeholder3": [
+              {
+                "condition": {
+                  "operand1": {
+                    "name": "True",
+                    "type": "Boolean",
+                    "value": true
+                  }
+                },
+                "action": {
+                  "target": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operator": "+",
+                  "operand1": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "1",
+                    "value": 1,
+                    "type": "Integer"
+                  }
+                }
+              },
+              {
+                "condition": [
+                  [
+                    {
+                      "operand1": {
+                        "name": "Diyaplaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "5",
+                        "value": 5,
+                        "type": "Integer"
+                      }
+                    },
+                    {
+                      "operand1": {
+                        "name": "RangoliPlaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "1",
+                        "value": 1,
+                        "type": "Integer"
+                      }
+                    }
+                  ]
+                ],
+                "action": {
+                  "target": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand1": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "true",
+                    "type": "variable"
+                  },
+                  "operator": "="
+                }
+              }
+            ]
+          },
+          {
+            "Diya-placeholder4": [
+              {
+                "condition": {
+                  "operand1": {
+                    "name": "True",
+                    "type": "Boolean",
+                    "value": true
+                  }
+                },
+                "action": {
+                  "target": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operator": "+",
+                  "operand1": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "1",
+                    "value": 1,
+                    "type": "Integer"
+                  }
+                }
+              },
+              {
+                "condition": [
+                  [
+                    {
+                      "operand1": {
+                        "name": "Diyaplaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "5",
+                        "value": 5,
+                        "type": "Integer"
+                      }
+                    },
+                    {
+                      "operand1": {
+                        "name": "RangoliPlaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "1",
+                        "value": 1,
+                        "type": "Integer"
+                      }
+                    }
+                  ]
+                ],
+                "action": {
+                  "target": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand1": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "true",
+                    "type": "variable"
+                  },
+                  "operator": "="
+                }
+              }
+            ]
+          },
+          {
+            "Diya-placeholder5": [
+              {
+                "condition": {
+                  "operand1": {
+                    "name": "True",
+                    "type": "Boolean",
+                    "value": true
+                  }
+                },
+                "action": {
+                  "target": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operator": "+",
+                  "operand1": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "1",
+                    "value": 1,
+                    "type": "Integer"
+                  }
+                }
+              },
+              {
+                "condition": [
+                  [
+                    {
+                      "operand1": {
+                        "name": "Diyaplaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "5",
+                        "value": 5,
+                        "type": "Integer"
+                      }
+                    },
+                    {
+                      "operand1": {
+                        "name": "RangoliPlaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "1",
+                        "value": 1,
+                        "type": "Integer"
+                      }
+                    }
+                  ]
+                ],
+                "action": {
+                  "target": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand1": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "true",
+                    "type": "variable"
+                  },
+                  "operator": "="
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "Diya3": [
+      {
+        "collision_with": [
+          {
+            "Diya-placeholder1": [
+              {
+                "condition": {
+                  "operand1": {
+                    "name": "True",
+                    "type": "Boolean",
+                    "value": true
+                  }
+                },
+                "action": {
+                  "target": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operator": "+",
+                  "operand1": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "1",
+                    "value": 1,
+                    "type": "Integer"
+                  }
+                }
+              },
+              {
+                "condition": [
+                  [
+                    {
+                      "operand1": {
+                        "name": "Diyaplaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "5",
+                        "value": 5,
+                        "type": "Integer"
+                      }
+                    },
+                    {
+                      "operand1": {
+                        "name": "RangoliPlaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "1",
+                        "value": 1,
+                        "type": "Integer"
+                      }
+                    }
+                  ]
+                ],
+                "action": {
+                  "target": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand1": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "true",
+                    "type": "variable"
+                  },
+                  "operator": "="
+                }
+              }
+            ]
+          },
+          {
+            "Diya-placeholder2": [
+              {
+                "condition": {
+                  "operand1": {
+                    "name": "True",
+                    "type": "Boolean",
+                    "value": true
+                  }
+                },
+                "action": {
+                  "target": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operator": "+",
+                  "operand1": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "1",
+                    "value": 1,
+                    "type": "Integer"
+                  }
+                }
+              },
+              {
+                "condition": [
+                  [
+                    {
+                      "operand1": {
+                        "name": "Diyaplaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "5",
+                        "value": 5,
+                        "type": "Integer"
+                      }
+                    },
+                    {
+                      "operand1": {
+                        "name": "RangoliPlaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "1",
+                        "value": 1,
+                        "type": "Integer"
+                      }
+                    }
+                  ]
+                ],
+                "action": {
+                  "target": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand1": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "true",
+                    "type": "variable"
+                  },
+                  "operator": "="
+                }
+              }
+            ]
+          },
+          {
+            "Diya-placeholder3": [
+              {
+                "condition": {
+                  "operand1": {
+                    "name": "True",
+                    "type": "Boolean",
+                    "value": true
+                  }
+                },
+                "action": {
+                  "target": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operator": "+",
+                  "operand1": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "1",
+                    "value": 1,
+                    "type": "Integer"
+                  }
+                }
+              },
+              {
+                "condition": [
+                  [
+                    {
+                      "operand1": {
+                        "name": "Diyaplaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "5",
+                        "value": 5,
+                        "type": "Integer"
+                      }
+                    },
+                    {
+                      "operand1": {
+                        "name": "RangoliPlaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "1",
+                        "value": 1,
+                        "type": "Integer"
+                      }
+                    }
+                  ]
+                ],
+                "action": {
+                  "target": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand1": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "true",
+                    "type": "variable"
+                  },
+                  "operator": "="
+                }
+              }
+            ]
+          },
+          {
+            "Diya-placeholder4": [
+              {
+                "condition": {
+                  "operand1": {
+                    "name": "True",
+                    "type": "Boolean",
+                    "value": true
+                  }
+                },
+                "action": {
+                  "target": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operator": "+",
+                  "operand1": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "1",
+                    "value": 1,
+                    "type": "Integer"
+                  }
+                }
+              },
+              {
+                "condition": [
+                  [
+                    {
+                      "operand1": {
+                        "name": "Diyaplaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "5",
+                        "value": 5,
+                        "type": "Integer"
+                      }
+                    },
+                    {
+                      "operand1": {
+                        "name": "RangoliPlaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "1",
+                        "value": 1,
+                        "type": "Integer"
+                      }
+                    }
+                  ]
+                ],
+                "action": {
+                  "target": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand1": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "true",
+                    "type": "variable"
+                  },
+                  "operator": "="
+                }
+              }
+            ]
+          },
+          {
+            "Diya-placeholder5": [
+              {
+                "condition": {
+                  "operand1": {
+                    "name": "True",
+                    "type": "Boolean",
+                    "value": true
+                  }
+                },
+                "action": {
+                  "target": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operator": "+",
+                  "operand1": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "1",
+                    "value": 1,
+                    "type": "Integer"
+                  }
+                }
+              },
+              {
+                "condition": [
+                  [
+                    {
+                      "operand1": {
+                        "name": "Diyaplaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "5",
+                        "value": 5,
+                        "type": "Integer"
+                      }
+                    },
+                    {
+                      "operand1": {
+                        "name": "RangoliPlaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "1",
+                        "value": 1,
+                        "type": "Integer"
+                      }
+                    }
+                  ]
+                ],
+                "action": {
+                  "target": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand1": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "true",
+                    "type": "variable"
+                  },
+                  "operator": "="
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "Diya4": [
+      {
+        "collision_with": [
+          {
+            "Diya-placeholder1": [
+              {
+                "condition": {
+                  "operand1": {
+                    "name": "True",
+                    "type": "Boolean",
+                    "value": true
+                  }
+                },
+                "action": {
+                  "target": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operator": "+",
+                  "operand1": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "1",
+                    "value": 1,
+                    "type": "Integer"
+                  }
+                }
+              },
+              {
+                "condition": [
+                  [
+                    {
+                      "operand1": {
+                        "name": "Diyaplaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "5",
+                        "value": 5,
+                        "type": "Integer"
+                      }
+                    },
+                    {
+                      "operand1": {
+                        "name": "RangoliPlaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "1",
+                        "value": 1,
+                        "type": "Integer"
+                      }
+                    }
+                  ]
+                ],
+                "action": {
+                  "target": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand1": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "true",
+                    "type": "variable"
+                  },
+                  "operator": "="
+                }
+              }
+            ]
+          },
+          {
+            "Diya-placeholder2": [
+              {
+                "condition": {
+                  "operand1": {
+                    "name": "True",
+                    "type": "Boolean",
+                    "value": true
+                  }
+                },
+                "action": {
+                  "target": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operator": "+",
+                  "operand1": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "1",
+                    "value": 1,
+                    "type": "Integer"
+                  }
+                }
+              },
+              {
+                "condition": [
+                  [
+                    {
+                      "operand1": {
+                        "name": "Diyaplaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "5",
+                        "value": 5,
+                        "type": "Integer"
+                      }
+                    },
+                    {
+                      "operand1": {
+                        "name": "RangoliPlaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "1",
+                        "value": 1,
+                        "type": "Integer"
+                      }
+                    }
+                  ]
+                ],
+                "action": {
+                  "target": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand1": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "true",
+                    "type": "variable"
+                  },
+                  "operator": "="
+                }
+              }
+            ]
+          },
+          {
+            "Diya-placeholder3": [
+              {
+                "condition": {
+                  "operand1": {
+                    "name": "True",
+                    "type": "Boolean",
+                    "value": true
+                  }
+                },
+                "action": {
+                  "target": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operator": "+",
+                  "operand1": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "1",
+                    "value": 1,
+                    "type": "Integer"
+                  }
+                }
+              },
+              {
+                "condition": [
+                  [
+                    {
+                      "operand1": {
+                        "name": "Diyaplaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "5",
+                        "value": 5,
+                        "type": "Integer"
+                      }
+                    },
+                    {
+                      "operand1": {
+                        "name": "RangoliPlaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "1",
+                        "value": 1,
+                        "type": "Integer"
+                      }
+                    }
+                  ]
+                ],
+                "action": {
+                  "target": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand1": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "true",
+                    "type": "variable"
+                  },
+                  "operator": "="
+                }
+              }
+            ]
+          },
+          {
+            "Diya-placeholder4": [
+              {
+                "condition": {
+                  "operand1": {
+                    "name": "True",
+                    "type": "Boolean",
+                    "value": true
+                  }
+                },
+                "action": {
+                  "target": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operator": "+",
+                  "operand1": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "1",
+                    "value": 1,
+                    "type": "Integer"
+                  }
+                }
+              },
+              {
+                "condition": [
+                  [
+                    {
+                      "operand1": {
+                        "name": "Diyaplaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "5",
+                        "value": 5,
+                        "type": "Integer"
+                      }
+                    },
+                    {
+                      "operand1": {
+                        "name": "RangoliPlaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "1",
+                        "value": 1,
+                        "type": "Integer"
+                      }
+                    }
+                  ]
+                ],
+                "action": {
+                  "target": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand1": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "true",
+                    "type": "variable"
+                  },
+                  "operator": "="
+                }
+              }
+            ]
+          },
+          {
+            "Diya-placeholder5": [
+              {
+                "condition": {
+                  "operand1": {
+                    "name": "True",
+                    "type": "Boolean",
+                    "value": true
+                  }
+                },
+                "action": {
+                  "target": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operator": "+",
+                  "operand1": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "1",
+                    "value": 1,
+                    "type": "Integer"
+                  }
+                }
+              },
+              {
+                "condition": [
+                  [
+                    {
+                      "operand1": {
+                        "name": "Diyaplaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "5",
+                        "value": 5,
+                        "type": "Integer"
+                      }
+                    },
+                    {
+                      "operand1": {
+                        "name": "RangoliPlaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "1",
+                        "value": 1,
+                        "type": "Integer"
+                      }
+                    }
+                  ]
+                ],
+                "action": {
+                  "target": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand1": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "true",
+                    "type": "variable"
+                  },
+                  "operator": "="
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "Diya5": [
+      {
+        "collision_with": [
+          {
+            "Diya-placeholder1": [
+              {
+                "condition": {
+                  "operand1": {
+                    "name": "True",
+                    "type": "Boolean",
+                    "value": true
+                  }
+                },
+                "action": {
+                  "target": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operator": "+",
+                  "operand1": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "1",
+                    "value": 1,
+                    "type": "Integer"
+                  }
+                }
+              },
+              {
+                "condition": [
+                  [
+                    {
+                      "operand1": {
+                        "name": "Diyaplaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "5",
+                        "value": 5,
+                        "type": "Integer"
+                      }
+                    },
+                    {
+                      "operand1": {
+                        "name": "RangoliPlaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "1",
+                        "value": 1,
+                        "type": "Integer"
+                      }
+                    }
+                  ]
+                ],
+                "action": {
+                  "target": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand1": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "true",
+                    "type": "variable"
+                  },
+                  "operator": "="
+                }
+              }
+            ]
+          },
+          {
+            "Diya-placeholder2": [
+              {
+                "condition": {
+                  "operand1": {
+                    "name": "True",
+                    "type": "Boolean",
+                    "value": true
+                  }
+                },
+                "action": {
+                  "target": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operator": "+",
+                  "operand1": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "1",
+                    "value": 1,
+                    "type": "Integer"
+                  }
+                }
+              },
+              {
+                "condition": [
+                  [
+                    {
+                      "operand1": {
+                        "name": "Diyaplaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "5",
+                        "value": 5,
+                        "type": "Integer"
+                      }
+                    },
+                    {
+                      "operand1": {
+                        "name": "RangoliPlaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "1",
+                        "value": 1,
+                        "type": "Integer"
+                      }
+                    }
+                  ]
+                ],
+                "action": {
+                  "target": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand1": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "true",
+                    "type": "variable"
+                  },
+                  "operator": "="
+                }
+              }
+            ]
+          },
+          {
+            "Diya-placeholder3": [
+              {
+                "condition": {
+                  "operand1": {
+                    "name": "True",
+                    "type": "Boolean",
+                    "value": true
+                  }
+                },
+                "action": {
+                  "target": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operator": "+",
+                  "operand1": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "1",
+                    "value": 1,
+                    "type": "Integer"
+                  }
+                }
+              },
+              {
+                "condition": [
+                  [
+                    {
+                      "operand1": {
+                        "name": "Diyaplaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "5",
+                        "value": 5,
+                        "type": "Integer"
+                      }
+                    },
+                    {
+                      "operand1": {
+                        "name": "RangoliPlaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "1",
+                        "value": 1,
+                        "type": "Integer"
+                      }
+                    }
+                  ]
+                ],
+                "action": {
+                  "target": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand1": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "true",
+                    "type": "variable"
+                  },
+                  "operator": "="
+                }
+              }
+            ]
+          },
+          {
+            "Diya-placeholder4": [
+              {
+                "condition": {
+                  "operand1": {
+                    "name": "True",
+                    "type": "Boolean",
+                    "value": true
+                  }
+                },
+                "action": {
+                  "target": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operator": "+",
+                  "operand1": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "1",
+                    "value": 1,
+                    "type": "Integer"
+                  }
+                }
+              },
+              {
+                "condition": [
+                  [
+                    {
+                      "operand1": {
+                        "name": "Diyaplaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "5",
+                        "value": 5,
+                        "type": "Integer"
+                      }
+                    },
+                    {
+                      "operand1": {
+                        "name": "RangoliPlaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "1",
+                        "value": 1,
+                        "type": "Integer"
+                      }
+                    }
+                  ]
+                ],
+                "action": {
+                  "target": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand1": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "true",
+                    "type": "variable"
+                  },
+                  "operator": "="
+                }
+              }
+            ]
+          },
+          {
+            "Diya-placeholder5": [
+              {
+                "condition": {
+                  "operand1": {
+                    "name": "True",
+                    "type": "Boolean",
+                    "value": true
+                  }
+                },
+                "action": {
+                  "target": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operator": "+",
+                  "operand1": {
+                    "name": "Diyaplaced",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "1",
+                    "value": 1,
+                    "type": "Integer"
+                  }
+                }
+              },
+              {
+                "condition": [
+                  [
+                    {
+                      "operand1": {
+                        "name": "Diyaplaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "5",
+                        "value": 5,
+                        "type": "Integer"
+                      }
+                    },
+                    {
+                      "operand1": {
+                        "name": "RangoliPlaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "1",
+                        "value": 1,
+                        "type": "Integer"
+                      }
+                    }
+                  ]
+                ],
+                "action": {
+                  "target": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand1": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "true",
+                    "type": "variable"
+                  },
+                  "operator": "="
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "Rangoli1": [
+      {
+        "collision_with": [
+          {
+            "Rangoli-placeholder1": [
+              {
+                "condition": {
+                  "operand1": {
+                    "name": "True",
+                    "type": "Boolean",
+                    "value": true
+                  }
+                },
+                "action": {
+                  "target": {
+                    "name": "Rangoliplaced",
+                    "type": "variable"
+                  },
+                  "operator": "+",
+                  "operand1": {
+                    "name": "Rangoliplaced",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "1",
+                    "value": 1,
+                    "type": "Integer"
+                  }
+                }
+              },
+              {
+                "condition": [
+                  [
+                    {
+                      "operand1": {
+                        "name": "Rangoliplaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "1",
+                        "value": 1,
+                        "type": "Integer"
+                      }
+                    },
+                    {
+                      "operand1": {
+                        "name": "DiyasPlaced",
+                        "type": "Variable"
+                      },
+                      "operator": "equal",
+                      "operand2": {
+                        "name": "5",
+                        "value": 5,
+                        "type": "Integer"
+                      }
+                    }
+                  ]
+                ],
+                "action": {
+                  "target": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand1": {
+                    "name": "DecorationComplete",
+                    "type": "variable"
+                  },
+                  "operand2": {
+                    "name": "true",
+                    "type": "variable"
+                  },
+                  "operator": "="
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
 }

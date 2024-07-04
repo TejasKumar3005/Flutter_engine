@@ -51,16 +51,16 @@ class Object extends SpriteComponent
   @override
   void update(double dt) {
     // Your update logic here
-    // if (!isDragged) {
-    //   // Do something when the object is dragged
-    //   position = gameRef.gamedata.characters[name]!.position;
-    // }
+    if (!isDragged) {
+      // Do something when the object is dragged
+      position = gameRef.gamedata.characters[name]!.position + (position - gameRef.gamedata.characters[name]!.position) * dt * 5 ;
+    }
   }
 
   // Override TapCallbacks methods
   @override
   void onTapUp(TapUpEvent details) {
-    gameRef.gamedata.shouldShowDialog = true;
+    // gameRef.gamedata.shouldShowDialog = true;
 
     //  showDialog(
     //   context: context,
@@ -100,17 +100,23 @@ class Object extends SpriteComponent
   @override
   void onDragEnd(DragEndEvent event) {
     super.onDragEnd(event);
-    priority = 0;
+    priority = 2;
   }
 
   @override
   void onDragUpdate(DragUpdateEvent event) {
+    if (gameRef.gamedata.characters[name]!.isMovable == false) {
+      return;
+    }
     position += event.localDelta;
   }
 
   @override
   void onCollisionStart(
       Set<Vector2> intersectionPoints, PositionComponent other) {
+    if (!isDragged) {
+      return;
+    }
     super.onCollisionStart(intersectionPoints, other);
     if (other is Object) {
       String curr_obj = name!;

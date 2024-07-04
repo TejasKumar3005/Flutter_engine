@@ -7,9 +7,10 @@ import 'package:engine/models/rules_model.dart';
 import 'package:engine/utils/gameWidgets/puzzlegame.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
-
+import 'package:rive/rive.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import '../models/object.dart';
 import "../models/popup.dart";
@@ -19,7 +20,7 @@ class MyGame extends FlameGame with HasCollisionDetection, TapCallbacks {
       {required this.gamedata, required this.gameRules, required this.context})
       : super(
           camera: CameraComponent.withFixedResolution(
-            width: 1200,
+            width: 900,
             height: 900,
           ),
         );
@@ -30,10 +31,17 @@ class MyGame extends FlameGame with HasCollisionDetection, TapCallbacks {
   final BuildContext context;
   final GameRules gameRules;
   double get width => size.x;
+  Artboard? teddyArtboard;
+  StateMachineController? stateMachineController;
+  Artboard? compArtboard;
+  StateMachineController? compStateMachineController;
+  bool isLoaded = false;
+  SMITrigger? successTrigger;
   double get height => size.y;
   @override
   Future<void> onLoad() async {
     await preloadImages();
+    prepareRive();
     camera.viewfinder.anchor = Anchor.topLeft;
     // Navigate to another route using Navigator
     // if (gamedata.type == "puzzle") {
@@ -86,7 +94,10 @@ class MyGame extends FlameGame with HasCollisionDetection, TapCallbacks {
           context: context));
     });
 
-    world.add(Popup(
+    // wait for all Objects to be added to the world
+    await Future.delayed(Duration(seconds: 1));
+
+    await world.add(Popup(
       name: "popup",
       isStatic: false,
       context: context,
@@ -95,6 +106,72 @@ class MyGame extends FlameGame with HasCollisionDetection, TapCallbacks {
 
   @override
   void onTapUp(TapUpEvent details) {}
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+    // if (
+    if (successTrigger != null) {
+      successTrigger!.fire();
+    }
+  }
+
+
+  void prepareRive() {
+    rootBundle.load("assets/text_pop_up.riv").then(
+      (data) {
+        final file = RiveFile.import(data);
+        final artboard = file.mainArtboard;
+        print("state mach");
+        artboard.stateMachines.forEach((element) { print(element.name);});
+        stateMachineController =
+            StateMachineController.fromArtboard(artboard, "Post Session Menu");
+        if (stateMachineController != null) {
+          artboard.addController(stateMachineController!);
+
+          print("length: ${stateMachineController!.inputs.length}");
+          stateMachineController!.inputs.forEach((element) {
+            print(element.name);
+            if (element.name == "click") {
+              print("trigger set");
+              successTrigger = element as SMITrigger;
+            }
+          });
+        }
+
+        teddyArtboard = artboard;
+      },
+    );
+
+    rootBundle.load("assets/complete.riv").then(
+      (data) {
+        print("loading complete");
+        print(data);
+        final file = RiveFile.import(data);
+        final artboard = file.mainArtboard;
+        print("state mach");
+        artboard.stateMachines.forEach((element) { print(element.name);});
+        compStateMachineController =
+            StateMachineController.fromArtboard(artboard, "Post Session Menu");
+        if (compStateMachineController != null) {
+          artboard.addController(compStateMachineController!);
+
+          // print("length: ${compStateMachineController!.inputs.length}");
+          // compStateMachineController!.inputs.forEach((element) {
+          //   print(element.name);
+          //   if (element.name == "click") {
+          //     print("trigger set");
+          //     successTrigger = element as SMITrigger;
+          //   }
+          // });
+        }
+
+        compArtboard = artboard;
+      },
+    );
+  
+    isLoaded = true;
+  }
 
   Future<void> preloadImages() async {
     print("loading images");

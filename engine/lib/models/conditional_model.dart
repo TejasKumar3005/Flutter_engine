@@ -3,27 +3,17 @@ import 'variables_model.dart';
 
 class ConditionalOp {
   String operation;
-  DataType var1;
-  DataType var2;
+  DataType? var1;
+  DataType? var2;
 
   ConditionalOp(this.operation, this.var1, this.var2);
 
   factory ConditionalOp.fromJson(Map<String, dynamic> json) {
-    bool var1_isvariable =
-        json["operand1"]["type"] == "variable" ? true : false;
-    bool var2_isvariable =
-        json["operand2"]["type"] == "variable" ? true : false;
 
     return ConditionalOp.variableOperation(
       // check if var1 and var2 are variables or not
-      var1: var1_isvariable
-          ? Variable(name: json["operand1"]["name"])
-          : DataType(
-              type: json['operand1']['type'], value: json['operand1']['value']),
-      var2: var2_isvariable
-          ? Variable(name: json["operand2"]["name"])
-          : DataType(
-              type: json['operand2']['type'], value: json['operand2']['value']),
+      var1: initDataType(json["operand1"]),
+      var2: initDataType(json["operand2"]),
       operation: json['operator'],
     );
   }
@@ -37,42 +27,51 @@ class ConditionalOp {
   dynamic evaluate(GameData gameData) {
     switch (operation) {
       case '=':
-        return isEqual(var1, var2, gameData);
+        return isEqual(var1!, var2!, gameData);
       case '>':
-        return isGreaterThan(var1, var2, gameData);
+        return isGreaterThan(var1!, var2!, gameData);
       case '<':
-        return isLessThan(var1, var2, gameData);
+        return isLessThan(var1!, var2!, gameData);
+      case ">=":
+        return isGreaterThan(var1!, var2!, gameData) || isEqual(var1!, var2!, gameData);
+      case "<=":
+        return isLessThan(var1!, var2!, gameData) || isEqual(var1!, var2!, gameData);
       case '&&':
-        return and(var1, var2, gameData);
+        return and(var1!, var2!, gameData);
       case '||':
-        return or(var1, var2, gameData);
+        return or(var1!, var2!, gameData);
       default:
-        throw Exception('Unsupported operation: $operation');
+        return true;
     }
   }
 
   bool isEqual(DataType var1, DataType var2, GameData gameData) {
-    if (var1.type != var2.type) return false;
-
+    // if (var1.type != var2.type) return false;
+    print("in equal");
+    print("var1: $var1");
+    print("var2: $var2");
     switch (var1.type) {
       case 'String':
       case 'Integer':
       case 'Float':
       case 'Boolean':
+      case 'variable':
         return var1.getValue(gameData) == var2.getValue(gameData);
       case 'List':
         return _listEquals(var1.getValue(gameData), var2.getValue(gameData));
       default:
-        return false;
+        return var1.getValue(gameData) == var2.getValue(gameData);
     }
   }
 
   bool isGreaterThan(DataType var1, DataType var2, GameData gameData) {
-    if (var1.type != var2.type) return false;
+    // if (var1.type != var2.type) return false;
 
     switch (var1.type) {
       case 'Integer':
       case 'Float':
+      case null:
+      case 'variable':
         return var1.getValue(gameData) > var2.getValue(gameData);
       default:
         throw Exception('Comparison not supported for type ${var1.type}');
@@ -80,11 +79,13 @@ class ConditionalOp {
   }
 
   bool isLessThan(DataType var1, DataType var2, GameData gameData) {
-    if (var1.type != var2.type) return false;
+    // if (var1.type != var2.type) return false;
 
     switch (var1.type) {
       case 'Integer':
       case 'Float':
+      case 'variable':
+      case null:
         return var1.getValue(gameData) < var2.getValue(gameData);
       default:
         throw Exception('Comparison not supported for type ${var1.type}');

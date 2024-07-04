@@ -1,7 +1,77 @@
 import 'dart:ui';
 import 'package:flame/components.dart';
-import 'package:flutter/material.dart';
-import '../engine/game.dart'; // Assuming this is where MyGame is defined
+import 'package:flutter/material.dart';// Assuming this is where MyGame is defined
+import 'package:rive/rive.dart';
+import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
+import '../engine/game.dart';
+
+class CustomDialog extends StatefulWidget {
+  String? message;
+  Artboard? teddyArtboard;
+  SMITrigger? successTrigger;
+  bool? isCompleted = false;
+
+  CustomDialog(
+      {Key? key,
+      required this.message,
+      this.teddyArtboard,
+      this.successTrigger,
+      this.isCompleted})
+      : super(key: key);
+
+  @override
+  _CustomDialogState createState() => _CustomDialogState();
+}
+
+class _CustomDialogState extends State<CustomDialog> {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Stack(
+        children: <Widget>[
+          Center(
+            child: Container(
+              alignment: Alignment.center,
+              width: MediaQuery.of(context).size.width * 0.6,
+              height: MediaQuery.of(context).size.height * 0.8,
+              child: GestureDetector(
+                onTap: () {
+                  widget.successTrigger?.fire();
+                  print('Tapped');
+                  Navigator.of(context).pop();
+                  if (widget.isCompleted!) {
+                    Navigator.of(context).pop();
+                  }
+                },
+                child: widget.teddyArtboard == null
+                    ? Text('')
+                    : Rive(
+                        fit: BoxFit.contain,
+                        enablePointerEvents: true,
+                        artboard: widget.teddyArtboard!,
+                      ),
+              ),
+            ),
+          ),
+          Center(
+            child: Container(
+              alignment: Alignment.center,
+              width: MediaQuery.of(context).size.width * 0.45,
+              child: Text(
+                widget.message!,
+                style: GoogleFonts.irishGrover(
+                    color: Color.fromARGB(255, 165, 120, 104),
+                    fontSize: 40.0,
+                    decoration: TextDecoration.none),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
 
 class Popup extends PositionComponent with HasGameRef<MyGame> {
   Popup({
@@ -9,64 +79,72 @@ class Popup extends PositionComponent with HasGameRef<MyGame> {
     required this.isStatic,
     required this.context,
   }) : super(
-          // Pass proper values or variables for position and size
           position: Vector2(0, 0), // Example position
           size: Vector2(100, 100), // Example size
-          children: [], // No children initially
-          // paint: Paint()
-          //   ..color = Color.fromARGB(255, 6, 180, 76)
-          //   ..style = PaintingStyle.fill,
         );
 
   final String name;
   final bool isStatic;
   final BuildContext context;
+  SMITrigger? successTrigger;
+  Artboard? _teddyArtboard;
+  Artboard? _compArtboard;
+  bool isLoaded = false;
 
-  // @override
-  // Future<void> onLoad() async {
-  //   // Load sprite image from gameRef
-  //   final image = gameRef.generatedImages[name];
-  //   if (image != null) {
-  //     sprite = Sprite(image);
-  //   }
-  //   return super.onLoad();
-  // }
+  @override
+  Future<void> onLoad() async {
+    _compArtboard = gameRef.compArtboard;
+    _teddyArtboard = gameRef.teddyArtboard;
+    successTrigger = gameRef.successTrigger;
+    isLoaded = true;
+  }
 
-@override
-void update(double dt) {
-  // Example logic for showing a dialog
-  if (gameRef.gamedata.shouldShowDialog) {
-    final String message = gameRef.gamedata.dialogMessage ?? 'Default message';
+ 
+
+
+  void showCompletionAnimation() {
     showDialog(
       context: context,
+      barrierDismissible: false,
       builder: (BuildContext context) {
-        return Center(
-        child: Stack(
-          children: <Widget>[
-            Container(
-              alignment: Alignment.center,
-              child: Image.asset(
-              'assets/—Pngtree—old paper scroll manuscript_8794609.png',
-                height: 250,
-                width: double.infinity,
-                fit: BoxFit.cover,
-              ),
-            ),
-            Container(
-                alignment: Alignment.center,
-                child: Text(
-                  message,
-                  style: TextStyle(color: Color.fromARGB(255, 81, 30, 233), fontWeight: FontWeight.bold, fontSize: 22.0),
-                )),
-          ],
-        ),
-      
-    );
-        
+        return CustomDialog(
+          message: "Congratulations!",
+          teddyArtboard: _compArtboard,
+          successTrigger: successTrigger,
+          isCompleted: true,
+        );
       },
     );
-    gameRef.gamedata.shouldShowDialog = false; // Prevent showing the dialog repeatedly
   }
-  super.update(dt); // Call super update method
-}
+
+  @override
+  void update(double dt) {
+    if (!isLoaded) {
+      return;
+    }
+
+    if (gameRef.gamedata.variables["GameOver"]?.value) {
+
+      gameRef.gamedata.variables["GameOver"]?.value = false;
+    }
+
+    if (gameRef.gamedata.shouldShowDialog) {
+      final String message = gameRef.gamedata.dialogMessage ?? 'Default message';
+      successTrigger?.fire();
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CustomDialog(
+            message: message,
+            teddyArtboard: _teddyArtboard,
+            successTrigger: successTrigger,
+            isCompleted: false,
+          );
+        },
+      );
+      gameRef.gamedata.shouldShowDialog = false;
+    }
+
+    super.update(dt);
+  }
 }

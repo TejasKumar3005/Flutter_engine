@@ -86,7 +86,7 @@ class CharacPosition extends DataType {
 
   @override
   dynamic getValue(GameData gameData) {
-    return gameData.characters[name]!.position;
+    return gameData.characters[name]!.position + Vector2(gameData.characters[name]!.size.x,0) ;
   }
 
   @override

@@ -3,8 +3,13 @@ import 'package:engine/models/game_data_model.dart';
 import 'action_model.dart';
 import 'conditional_model.dart';
 import 'variables_model.dart';
+import 'package:audioplayers/audioplayers.dart';
+
 
 class GameRules {
+
+  final player = AudioPlayer();
+
   late Map<String, GameObjectRule> gameRules;
 
   GameRules({
@@ -54,6 +59,8 @@ class GameRules {
 // }
   void onTap(String objectType, GameData gameData) {
     final rules = gameRules[objectType]?.tapWith;
+      // player.play(AssetSource('assets/success.mp3', mimeType: 'audio/mpeg'));
+    print(rules);
     if (rules!= null) {
       for(var rule in rules){
         rule.execute(gameData);
@@ -64,26 +71,43 @@ class GameRules {
   void onCollision(String objectType1, String objectType2, GameData gameData) {
     final rules = gameRules[objectType1]?.collisionWith?[objectType2] ?? null;
 
+    gameRules.forEach((key, value) {
+      print("key: $key");});
+
+    print("objectType1: $objectType1");
+    print("objectType2: $objectType2");
+    print("rules: $rules");
+
+
     if (gameRules[objectType1]?.collisionWith != null &&
         gameRules[objectType1]?.collisionWith?.containsKey(objectType2) ==
             true) {
       // Collision rule exists for objectType2
       // You can use rule here
+      // play sound 
+      print("collision happened");
+      // player.play(AssetSource('assets/success.mp3'));
       for( var rule in rules!){
         rule.execute(gameData);
       }
     }
   }
 
-  void applyRules(
-      List<Action> actions, List<ConditionalOp> conditions, GameData gameData) {
-    trigger(gameData);
+  // void applyRules(
+  //     List<Action> actions, List<ConditionalOp> conditions, GameData gameData) {
+  //   trigger(gameData);
 
-    for (int i = 0; i < actions.length; i++) {
-      if (conditions.length > i && checkCondition(conditions[i], gameData)) {
-        applyRule(actions[i], gameData);
-      }
-    }
+  //   for (int i = 0; i < actions.length; i++) {
+  //     if (conditions.length > i && checkCondition(conditions[i], gameData)) {
+  //       // play sound 
+
+  //       applyRule(actions[i], gameData);
+  //     }
+  //   }
+  // }
+
+  void dispose() {
+    player.dispose();
   }
 }
 
@@ -130,19 +154,21 @@ class GameObjectRule {
   });
 
   factory GameObjectRule.fromJson(String key, Map<String?, dynamic> json) {
-    Map<String?, dynamic> collisionRulesJson = json["with_collision"] ?? {};
-   List<dynamic> tapRulesJson = json["on_tap"]?[key] ?? [];
+    Map<String?, dynamic> collisionRulesJson = json["collision_with"] ?? {};
+   Map<String, dynamic>? tapRulesJson = json["on_tap"] ?? null;
     List<InteractionRule> tapWith;
     Map<String, List<InteractionRule>> collisionWith = {};
      print("codeishere");
     collisionRulesJson.forEach((key, value) {
+      print("key: $key");
+      print("value: $value");
       collisionWith[key!] = 
           (value as List).map((e) => InteractionRule.fromJson(e)).toList();
     });
     print("collisionWith: $collisionWith");
     
-    tapWith = (tapRulesJson).map((e) => InteractionRule.fromJson(e)).toList();
-
+    // tapWith = (tapRulesJson).map((e) => InteractionRule.fromJson(e)).toList();
+    tapWith = tapRulesJson == null? [] : [InteractionRule.fromJson(tapRulesJson)];
     print("tapWith: $tapWith");
     return GameObjectRule(
       collisionWith: collisionWith,
