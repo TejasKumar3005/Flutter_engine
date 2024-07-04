@@ -120,16 +120,61 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  Future<Map<String, dynamic>> fetchScenes(BuildContext context) async {
+  @override
+  void initState() {
+    super.initState();
+    startSceneChangeTimer();
+    rootBundle.load("assets/login.riv").then(
+      (data) {
+        final file = RiveFile.import(data);
+        final artboard = file.mainArtboard;
+        stateMachineController =
+            StateMachineController.fromArtboard(artboard, "Login Machine");
+        if (stateMachineController != null) {
+          artboard.addController(stateMachineController!);
+          stateMachineController!.inputs.forEach((element) {
+            if (element.name == "trigSuccess") {
+              successTrigger = element as SMITrigger;
+            } else if (element.name == "trigFail") {
+              failTrigger = element as SMITrigger;
+            } else if (element.name == "isHandsUp") {
+              isHandsUp = element as SMIBool;
+            } else if (element.name == "isChecking") {
+              isChecking = element as SMIBool;
+            } else if (element.name == "numLook") {
+              numLook = element as SMINumber;
+            }
+          });
+        }
+
+        setState(() => _teddyArtboard = artboard);
+      },
+    );
+
+    // Load the initial JSON data and start the timer
+    fetchScenes(context, currentSceneIndex)
+        .then((_) => startSceneChangeTimer());
+  }
+
+  @override
+  void dispose() {
+    sceneChangeSubscription
+        ?.cancel(); // Stop the timer when the widget is disposed
+    super.dispose();
+  }
+
+  Future<Map<String, dynamic>> fetchScenes(
+      BuildContext context, int currentIndex) async {
     try {
       String jsonData = await rootBundle.loadString('assets/main.json');
       List<dynamic> responseJson = jsonDecode(jsonData);
-      setState(() {
-        scenes = responseJson.map((scene) => scene as Map<String, dynamic>).toList();
-        currentSceneIndex = 0;
-      });
       startSceneChangeTimer();
-      return scenes[currentSceneIndex];
+      setState(() {
+        scenes =
+            responseJson.map((scene) => scene as Map<String, dynamic>).toList();
+        print("fetch scenes");
+      });
+      return scenes[currentIndex];
     } catch (e) {
       showSnackBar(context, e.toString(), ContentType.failure);
       failTrigger?.fire();
@@ -140,25 +185,25 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
   void startSceneChangeTimer() {
     sceneChangeSubscription?.cancel(); // Cancel any existing timer
     sceneChangeTimer = CountdownTimer(
-      Duration(seconds: 10),
+      Duration(seconds: 15),
       Duration(seconds: 1),
     );
 
     sceneChangeSubscription = sceneChangeTimer!.listen((event) {
-      final timeLeft = 20 - event.elapsed.inSeconds;
+      final timeLeft = 15 - event.elapsed.inSeconds;
       print('Time left: $timeLeft seconds');
       print(currentSceneIndex);
     }, onDone: () {
       setState(() {
-        if (currentSceneIndex < 1) {
-          currentSceneIndex++;
-        } 
-      });
-      startSceneChangeTimer(); // Restart the timer
+        currentSceneIndex = (currentSceneIndex + 1) % scenes.length;
+        print("hello1");
+        startSceneChangeTimer();
+      }); // Restart the timer
     });
   }
 
-  void showSnackBar(BuildContext context, String message, ContentType contentType) {
+  void showSnackBar(
+      BuildContext context, String message, ContentType contentType) {
     final materialBanner = SnackBar(
       elevation: 0,
       backgroundColor: Colors.transparent,
@@ -191,43 +236,6 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
     );
   }
 
-  @override
-  void initState() {
-    super.initState();
-    rootBundle.load("assets/login.riv").then(
-      (data) {
-        final file = RiveFile.import(data);
-        final artboard = file.mainArtboard;
-        stateMachineController =
-            StateMachineController.fromArtboard(artboard, "Login Machine");
-        if (stateMachineController != null) {
-          artboard.addController(stateMachineController!);
-          stateMachineController!.inputs.forEach((element) {
-            if (element.name == "trigSuccess") {
-              successTrigger = element as SMITrigger;
-            } else if (element.name == "trigFail") {
-              failTrigger = element as SMITrigger;
-            } else if (element.name == "isHandsUp") {
-              isHandsUp = element as SMIBool;
-            } else if (element.name == "isChecking") {
-              isChecking = element as SMIBool;
-            } else if (element.name == "numLook") {
-              numLook = element as SMINumber;
-            }
-          });
-        }
-
-        setState(() => _teddyArtboard = artboard);
-      },
-    );
-  }
-
-  @override
-  void dispose() {
-    sceneChangeSubscription?.cancel(); // Stop the timer when the widget is disposed
-    super.dispose();
-  }
-
   void handsOnTheEyes() {
     isHandsUp?.change(true);
   }
@@ -254,7 +262,8 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
   void login() {
     isChecking?.change(false);
     isHandsUp?.change(false);
-    if (_emailController.text == "admin" && _passwordController.text == "admin") {
+    if (_emailController.text == "admin" &&
+        _passwordController.text == "admin") {
       successTrigger?.fire();
       // changeScene();
     } else {
@@ -264,9 +273,15 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
 
   String? errorText;
 
+  bool gameloaded = false;
+
+  Map<String, dynamic> value = {};  
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    print("calling this build");
+    print(currentSceneIndex);
+    return gameloaded? Game(gameJson: value):Scaffold(
       backgroundColor: const Color(0xffd6e2ea),
       body: SingleChildScrollView(
         child: Center(
@@ -386,33 +401,39 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
                                         return RiveAnimationDialog();
                                       },
                                     );
-                                    fetchScenes(context).then((value) => {
-                                          Navigator.of(context).pop(),
-                                          login(),
-                                          print(value.toString()),
-                                          if (value.isNotEmpty)
-                                            if (value["type"] == "puzzle")
-                                              {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          PuzzleGame(
-                                                            imageUrls: [],
-                                                          )), // Replace AnotherRoute() with your desired route
-                                                )
-                                              }
-                                            else
-                                              {
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            Game(
-                                                                gameJson:
-                                                                    value)))
-                                              }
-                                        });
+                                    fetchScenes(context, currentSceneIndex)
+                                        .then((value) => {
+                                              setState(() {
+                                                gameloaded = true;
+                                              }),
+                                              login(),
+                                              setState(() {
+                                                value = value;
+                                              }),
+                                              // print(value.toString()),
+                                              // if (value.isNotEmpty)
+                                              //   // if (value["type"] == "puzzle")
+                                              //   //   {
+                                              //   //     Navigator.push(
+                                              //   //       context,
+                                              //   //       MaterialPageRoute(
+                                              //   //           builder: (context) =>
+                                              //   //               PuzzleGame(
+                                              //   //                 imageUrls: [],
+                                              //   //               )), // Replace AnotherRoute() with your desired route
+                                              //   //     )
+                                              //   //   }
+                                              //   // else
+                                              //   //   {
+                                              //   //     Navigator.push(
+                                              //   //         context,
+                                              //   //         MaterialPageRoute(
+                                              //   //             builder: (context) =>
+                                              //   //                 Game(
+                                              //   //                     gameJson:
+                                              //   //                         value)))
+                                              //   //   }
+                                            });
                                   } else {
                                     setState(() {
                                       errorText = "enter valid prompt";
