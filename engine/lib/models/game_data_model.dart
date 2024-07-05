@@ -32,10 +32,11 @@ class GameData {
   late Map<String, CharacterInfo> characters;
   late bool shouldShowDialog;
   late String dialogMessage;
-  late Map<String, String> image_links;
-  late Map<String, dynamic> currentSceneJson; // New variable for current scene JSON
+  late Map<String, String> imageLinks;
+  late int currentSceneIndex;
+  late List<Map<String, dynamic>> scenes;
 
-  Widget background_builder(BuildContext context) {
+  Widget backgroundBuilder(BuildContext context) {
     return Center(
         child: AspectRatio(
             aspectRatio: 4 / 3,
@@ -54,32 +55,36 @@ class GameData {
     required this.characters,
     required this.shouldShowDialog,
     required this.dialogMessage,
-    required this.image_links,
+    required this.imageLinks,
     required this.backgroundImage,
-    required this.currentSceneJson, // Include currentSceneJson in the constructor
+    required this.currentSceneIndex,
+    required this.scenes,
   });
 
-  factory GameData.fromJson(Map<String, dynamic> json) {
+  factory GameData.fromJson(List<Map<String, dynamic>> jsonList, int sceneIndex) {
     Map<String, Variable> variables = {};
     Map<String, CharacterInfo> characters = {};
-    Map<String, String> image_links = {};
-    Map<String, dynamic> currentSceneJson = json; // Initialize with the entire JSON
+    Map<String, String> imageLinks = {};
 
-    json['Images'].forEach((key, value) {
-      image_links[key] = value;
+    // Select the JSON object for the current scene index
+    Map<String, dynamic> currentSceneJson = jsonList[sceneIndex];
+
+    currentSceneJson['Images'].forEach((key, value) {
+      imageLinks[key] = value;
     });
 
-    print("game stateeeeeeeeeeeeeeeeeeeeeeeee");
-    print(json['Game State']);
-    json['Game State'].forEach((value) {
-      print("hfweiufhuwehfiuwehifuhwief");
+    print("game state");
+    print(currentSceneJson['Game State']);
+    currentSceneJson['Game State'].forEach((value) {
+      print("processing game state");
       variables[value['name']] = Variable(
         name: value['name'],
         type: value['type'],
         value: value['value'],
       );
     });
-    List chrs = json['Character'];
+
+    List chrs = currentSceneJson['Character'];
     chrs.forEach((value) {
       print(value["name"]);
       print(value["image"]);
@@ -99,10 +104,11 @@ class GameData {
       characters: characters,
       shouldShowDialog: true,
       dialogMessage:
-          json['Objective'] + "\nTap on the Objects to know more about them",
-      image_links: image_links,
-      backgroundImage: json['Background'],
-      currentSceneJson: currentSceneJson, // Set currentSceneJson in the factory method
+          currentSceneJson['Objective'] + "\nTap on the Objects to know more about them",
+      imageLinks: imageLinks,
+      backgroundImage: currentSceneJson['Background'],
+      currentSceneIndex: sceneIndex,
+      scenes: jsonList,
     );
   }
 

@@ -16,82 +16,51 @@ import '../models/object.dart';
 import "../models/popup.dart";
 
 class MyGame extends FlameGame with HasCollisionDetection, TapCallbacks {
-  MyGame(
-      {required this.gamedata, required this.gameRules, required this.context})
-      : super(
+  MyGame({
+    required this.gamedataList,
+    required this.gameRules,
+    required this.context,
+    required this.currentSceneIndex,
+  }) : super(
           camera: CameraComponent.withFixedResolution(
             width: 900,
             height: 900,
           ),
         );
 
-  final generatedImages = <String, ui.Image>{};
-
-  final GameData gamedata;
+  final List<GameData> gamedataList;
   final BuildContext context;
   final GameRules gameRules;
+  final int currentSceneIndex;
+  late GameData gamedata = gamedataList[currentSceneIndex];
+  final generatedImages = <String, ui.Image>{};
+
   double get width => size.x;
+  double get height => size.y;
+
   Artboard? teddyArtboard;
   StateMachineController? stateMachineController;
   Artboard? compArtboard;
   StateMachineController? compStateMachineController;
   bool isLoaded = false;
   SMITrigger? successTrigger;
-  double get height => size.y;
+
   @override
   Future<void> onLoad() async {
     await preloadImages();
     prepareRive();
     camera.viewfinder.anchor = Anchor.topLeft;
-    // Navigate to another route using Navigator
-    // if (gamedata.type == "puzzle") {
-    //   Navigator.push(
-    //     context,
-    //     MaterialPageRoute(
-    //         builder: (context) => PuzzleGame(
-    //               imageUrls: [],
-    //             )), // Replace AnotherRoute() with your desired route
-    //   );
-    // }
 
-    // showDialog(
-    //   context: context,
-    //   builder: (BuildContext context) {
-    //     return AlertDialog(
-    //       title: Text("Hello"),
-    //       content: Text("This is a custom dialog"),
-    //       actions: <Widget>[
-    //         TextField(
-    //           decoration: InputDecoration(
-    //               enabledBorder: OutlineInputBorder(borderSide: BorderSide()),
-    //               focusedBorder: OutlineInputBorder(borderSide: BorderSide()),
-    //               prefixIcon: Icon(Icons.person),
-    //               hintText: "Name",
-    //               iconColor: Colors.blue),
-    //         ),
-    //         SizedBox(
-    //           height: 20,
-    //         ),
-    //         ElevatedButton(
-    //           child: Text("Close"),
-    //           onPressed: () {
-    //             Navigator.of(context).pop();
-    //           },
-    //         ),
-    //       ],
-    //     );
-    //   },
-    // );
     gamedata.characters.values.forEach((element) {
-      print("jhjgkhfjgxhfgjfghjhugiyfhjk");
-      print(element);
+      print("Adding character: ${element.name}");
       world.add(Object(
-          position: element.position,
-          size: element.size,
-          image: element.image,
-          isStatic: element.isMovable,
-          name: element.name,
-          context: context));
+        position: element.position,
+        size: element.size,
+        image: element.image,
+        isStatic: !element.isMovable,
+        name: element.name,
+        context: context,
+      ));
     });
 
     // wait for all Objects to be added to the world
@@ -110,30 +79,27 @@ class MyGame extends FlameGame with HasCollisionDetection, TapCallbacks {
   @override
   void update(double dt) {
     super.update(dt);
-    // if (
     if (successTrigger != null) {
       successTrigger!.fire();
     }
   }
-
 
   void prepareRive() {
     rootBundle.load("assets/text_pop_up.riv").then(
       (data) {
         final file = RiveFile.import(data);
         final artboard = file.mainArtboard;
-      
-        artboard.stateMachines.forEach((element) { print(element.name);});
+
+        artboard.stateMachines.forEach((element) {
+          print(element.name);
+        });
         stateMachineController =
             StateMachineController.fromArtboard(artboard, "Post Session Menu");
         if (stateMachineController != null) {
           artboard.addController(stateMachineController!);
 
-          
           stateMachineController!.inputs.forEach((element) {
-          
             if (element.name == "click") {
-            
               successTrigger = element as SMITrigger;
             }
           });
@@ -145,41 +111,32 @@ class MyGame extends FlameGame with HasCollisionDetection, TapCallbacks {
 
     rootBundle.load("assets/complete.riv").then(
       (data) {
-      
         final file = RiveFile.import(data);
         final artboard = file.mainArtboard;
-        
-        artboard.stateMachines.forEach((element) { print(element.name);});
+
+        artboard.stateMachines.forEach((element) {
+          print(element.name);
+        });
         compStateMachineController =
             StateMachineController.fromArtboard(artboard, "Post Session Menu");
         if (compStateMachineController != null) {
           artboard.addController(compStateMachineController!);
-
-          // print("length: ${compStateMachineController!.inputs.length}");
-          // compStateMachineController!.inputs.forEach((element) {
-          //   print(element.name);
-          //   if (element.name == "click") {
-          //     print("trigger set");
-          //     successTrigger = element as SMITrigger;
-          //   }
-          // });
         }
 
         compArtboard = artboard;
       },
     );
-  
+
     isLoaded = true;
   }
 
   Future<void> preloadImages() async {
     print("loading images");
-    for (var image_pair in gamedata.image_links.entries) {
+    for (var imagePair in gamedata.imageLinks.entries) {
       try {
-        
-        print(image_pair.key);
+        print(imagePair.key);
 
-        final response = await http.get(Uri.parse(image_pair.value));
+        final response = await http.get(Uri.parse(imagePair.value));
         if (response.statusCode == 200) {
           final Uint8List bytes = response.bodyBytes;
 
@@ -187,7 +144,7 @@ class MyGame extends FlameGame with HasCollisionDetection, TapCallbacks {
           final ui.FrameInfo frameInfo = await codec.getNextFrame();
           final ui.Image image = frameInfo.image;
 
-          generatedImages[image_pair.key] = image;
+          generatedImages[imagePair.key] = image;
         } else {
           print("Failed to load image: ${response.statusCode}");
         }

@@ -123,28 +123,37 @@ class Popup extends PositionComponent with HasGameRef<MyGame> {
       return;
     }
 
-    if (gameRef.gamedata.variables["GameOver"]?.value) {
+    super.update(dt);
 
-      gameRef.gamedata.variables["GameOver"]?.value = false;
+    if (gamedata.variables["GameOver"]?.value == true) {
+      gamedata.variables["GameOver"]?.value = false;
+
+      if (currentSceneIndex < gamedataList.length - 1) {
+        currentSceneIndex++;
+        gamedata = gamedataList[currentSceneIndex];
+       
+      } else {
+        // Final game over logic if all scenes are completed
+        print("All scenes completed. Game Over.");
+        // Handle final game over logic here
+      }
     }
 
-    if (gameRef.gamedata.shouldShowDialog) {
-      final String message = gameRef.gamedata.dialogMessage ?? 'Default message';
+    if (gamedata.shouldShowDialog) {
+      final String message = gamedata.dialogMessage ?? 'Default message';
       successTrigger?.fire();
       showDialog(
         context: context,
         builder: (BuildContext context) {
           return CustomDialog(
             message: message,
-            teddyArtboard: _teddyArtboard,
+            teddyArtboard: teddyArtboard,
             successTrigger: successTrigger,
             isCompleted: false,
           );
         },
       );
-      gameRef.gamedata.shouldShowDialog = false;
+      gamedata.shouldShowDialog = false;
     }
-
-    super.update(dt);
   }
 }

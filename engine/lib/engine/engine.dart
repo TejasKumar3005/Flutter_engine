@@ -4,65 +4,75 @@ import 'package:engine/models/game_data_model.dart';
 import 'package:engine/models/rules_model.dart';
 import 'package:flutter/material.dart';
 import '../test.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flame/game.dart';
 import 'game.dart';
 
 class Game extends StatefulWidget {
-  final Map<String, dynamic> gameJson;
+  final List<Map<String, dynamic>> gameJsonList;
 
-  Game({Key? key, required this.gameJson}) : super(key: key);
+  Game({Key? key, required this.gameJsonList}) : super(key: key);
 
   @override
   State<Game> createState() => _GameState();
 }
 
 class _GameState extends State<Game> {
-  
   bool loading = true;
-  late GameData gameData = GameData(characters: {}, variables: {}, image_links: {},shouldShowDialog: false,dialogMessage: "", backgroundImage: "", currentSceneJson: Map<String, dynamic>());
+  int currentSceneIndex = 0;
+  late GameData gameData;
   GameRules gameRules = GameRules(gameRules: {});
 
   @override
   void initState() {
     super.initState();
-    setState(() {
-      gameData = GameData.fromJson(widget.gameJson);
-      gameRules = GameRules.fromJson(widget.gameJson['Game Rules']);
-      loading = false;
-    });
+    loadGameData(currentSceneIndex);
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeLeft,
       DeviceOrientation.landscapeRight,
     ]);
   }
-  @override
-void didUpdateWidget(covariant Game oldWidget) {
-  super.didUpdateWidget(oldWidget);
-  
-  if (widget.gameJson != oldWidget.gameJson) {
-    // If the incoming data is different, update the game state accordingly
+
+  void loadGameData(int sceneIndex) {
     setState(() {
-      gameData = GameData.fromJson(widget.gameJson);
-      gameRules = GameRules.fromJson(widget.gameJson['Game Rules']);
+      gameData = GameData.fromJson(widget.gameJsonList, sceneIndex);
+      gameRules = GameRules.fromJson(widget.gameJsonList[sceneIndex]['Game Rules']);
       loading = false;
     });
   }
-}
 
+  @override
+  void didUpdateWidget(covariant Game oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (widget.gameJsonList != oldWidget.gameJsonList) {
+      // If the incoming data is different, update the game state accordingly
+      loadGameData(currentSceneIndex);
+    }
+  }
+
+  void goToNextScene() {
+    if (currentSceneIndex < widget.gameJsonList.length - 1) {
+      setState(() {
+        currentSceneIndex++;
+        loadGameData(currentSceneIndex);
+      });
+    }
+  }
+
+  void goToPreviousScene() {
+    if (currentSceneIndex > 0) {
+      setState(() {
+        currentSceneIndex--;
+        loadGameData(currentSceneIndex);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    // if (gameData.characters == {}) {
-    //   return CircularProgressIndicator(
-    //     color: Colors.white,
-    //   );
-    // }
     return Container(
-      // Set your desired aspect ratio here
-      // size take the height and width of the screen
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
       color: Color.fromARGB(255, 216, 19, 19),
@@ -73,16 +83,18 @@ void didUpdateWidget(covariant Game oldWidget) {
               ),
             )
           : AspectRatio(
-              aspectRatio: 4 / 3, // Example aspect ratio: width / height
+              aspectRatio: 4 / 3,
               child: GameWidget<MyGame>(
                 game: MyGame(
-                    gamedata: gameData, gameRules: gameRules, context: context),
+                  gamedata: gameData,
+                  gameRules: gameRules,
+                  context: context,
+                ),
                 backgroundBuilder: (context) {
-                  // Your custom widget as a background
-                  return gameData.background_builder(context);
+                  return gameData.backgroundBuilder(context);
                 },
-                // You can still use all the other properties like backgroundBuilder, overlayBuilderMap, etc.
-              )),
+              ),
+            ),
     );
   }
 
@@ -90,11 +102,10 @@ void didUpdateWidget(covariant Game oldWidget) {
     return await rootBundle.loadString(path);
   }
 
-  Future<Map<String, dynamic>> fetchData() async {
+  Future<List<Map<String, dynamic>>> fetchData() async {
     try {
-      String jsonString =
-          await loadJsonFromAssets('assets/final_game_context.json');
-      Map<String, dynamic> data = jsonDecode(jsonString);
+      String jsonString = await loadJsonFromAssets('assets/final_game_context.json');
+      List<Map<String, dynamic>> data = List<Map<String, dynamic>>.from(jsonDecode(jsonString));
       print("json");
       print(jsonString);
       print(data);
@@ -105,7 +116,7 @@ void didUpdateWidget(covariant Game oldWidget) {
         loading = false;
       });
       print('Error loading JSON data: $e');
-      return {};
+      return [];
     }
   }
 }
