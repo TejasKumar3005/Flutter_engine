@@ -19,6 +19,7 @@ class Game extends StatefulWidget {
 }
 
 class _GameState extends State<Game> {
+  
   bool loading = true;
   late GameData gameData = GameData(characters: {}, variables: {}, image_links: {},shouldShowDialog: false,dialogMessage: "", backgroundImage: "", currentSceneJson: Map<String, dynamic>());
   GameRules gameRules = GameRules(gameRules: {});
@@ -26,7 +27,6 @@ class _GameState extends State<Game> {
   @override
   void initState() {
     super.initState();
-
     setState(() {
       gameData = GameData.fromJson(widget.gameJson);
       gameRules = GameRules.fromJson(widget.gameJson['Game Rules']);
@@ -38,6 +38,20 @@ class _GameState extends State<Game> {
       DeviceOrientation.landscapeRight,
     ]);
   }
+  @override
+void didUpdateWidget(covariant Game oldWidget) {
+  super.didUpdateWidget(oldWidget);
+  
+  if (widget.gameJson != oldWidget.gameJson) {
+    // If the incoming data is different, update the game state accordingly
+    setState(() {
+      gameData = GameData.fromJson(widget.gameJson);
+      gameRules = GameRules.fromJson(widget.gameJson['Game Rules']);
+      loading = false;
+    });
+  }
+}
+
 
   @override
   Widget build(BuildContext context) {

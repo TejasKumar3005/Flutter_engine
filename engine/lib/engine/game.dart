@@ -122,18 +122,18 @@ class MyGame extends FlameGame with HasCollisionDetection, TapCallbacks {
       (data) {
         final file = RiveFile.import(data);
         final artboard = file.mainArtboard;
-        print("state mach");
+      
         artboard.stateMachines.forEach((element) { print(element.name);});
         stateMachineController =
             StateMachineController.fromArtboard(artboard, "Post Session Menu");
         if (stateMachineController != null) {
           artboard.addController(stateMachineController!);
 
-          print("length: ${stateMachineController!.inputs.length}");
+          
           stateMachineController!.inputs.forEach((element) {
-            print(element.name);
+          
             if (element.name == "click") {
-              print("trigger set");
+            
               successTrigger = element as SMITrigger;
             }
           });
@@ -145,11 +145,10 @@ class MyGame extends FlameGame with HasCollisionDetection, TapCallbacks {
 
     rootBundle.load("assets/complete.riv").then(
       (data) {
-        print("loading complete");
-        print(data);
+      
         final file = RiveFile.import(data);
         final artboard = file.mainArtboard;
-        print("state mach");
+        
         artboard.stateMachines.forEach((element) { print(element.name);});
         compStateMachineController =
             StateMachineController.fromArtboard(artboard, "Post Session Menu");
@@ -177,7 +176,7 @@ class MyGame extends FlameGame with HasCollisionDetection, TapCallbacks {
     print("loading images");
     for (var image_pair in gamedata.image_links.entries) {
       try {
-        print("loading some image");
+        
         print(image_pair.key);
 
         final response = await http.get(Uri.parse(image_pair.value));

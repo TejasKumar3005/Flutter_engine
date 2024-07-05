@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:engine/utils/loading.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
@@ -12,24 +13,6 @@ import 'package:engine/utils/gameWidgets/puzzlegame.dart';
 import '../engine/game.dart'; // Assuming this is where MyGame is defined
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quiver/async.dart';
-
-class RiveAnimationDialog extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      backgroundColor: Colors.transparent,
-      content: Container(
-        width: 200,
-        height: 200,
-        child: RiveAnimation.asset(
-          'assets/loading.riv', // Replace with your Rive animation asset path
-          fit: BoxFit.contain,
-        ),
-      ),
-      actions: [],
-    );
-  }
-}
 
 class CustomDialog extends StatefulWidget {
   final String message;
@@ -123,7 +106,7 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
   @override
   void initState() {
     super.initState();
-    startSceneChangeTimer();
+
     rootBundle.load("assets/login.riv").then(
       (data) {
         final file = RiveFile.import(data);
@@ -151,9 +134,7 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
       },
     );
 
-    // Load the initial JSON data and start the timer
-    fetchScenes(context, currentSceneIndex)
-        .then((_) => startSceneChangeTimer());
+    
   }
 
   @override
@@ -163,8 +144,7 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
     super.dispose();
   }
 
-  Future<Map<String, dynamic>> fetchScenes(
-      BuildContext context, int currentIndex) async {
+  Future<void> fetchScenes(BuildContext context, int currentIndex) async {
     try {
       String jsonData = await rootBundle.loadString('assets/main.json');
       List<dynamic> responseJson = jsonDecode(jsonData);
@@ -174,11 +154,9 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
             responseJson.map((scene) => scene as Map<String, dynamic>).toList();
         print("fetch scenes");
       });
-      return scenes[currentIndex];
     } catch (e) {
       showSnackBar(context, e.toString(), ContentType.failure);
       failTrigger?.fire();
-      
     }
   }
 
@@ -196,9 +174,9 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
     }, onDone: () {
       setState(() {
         currentSceneIndex = (currentSceneIndex + 1) % scenes.length;
-        print("hello1");
+        print("hello 1");
+      }); 
         startSceneChangeTimer();
-      }); // Restart the timer
     });
   }
 
@@ -274,192 +252,209 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
   String? errorText;
 
   bool gameloaded = false;
-
-  Map<String, dynamic> value = {};  
+  bool loading = false;
+  OverlayEntry? _overlayEntry;
 
   @override
   Widget build(BuildContext context) {
-    print("calling this build");
-    print(currentSceneIndex);
-    return gameloaded? Game(gameJson: value):Scaffold(
-      backgroundColor: const Color(0xffd6e2ea),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              if (_teddyArtboard != null)
-                SizedBox(
-                  width: 400,
-                  height: 300,
-                  child: Rive(
-                    artboard: _teddyArtboard!,
-                    fit: BoxFit.fitHeight,
-                  ),
-                ),
-              Container(
-                alignment: Alignment.center,
-                width: 400,
-                padding: const EdgeInsets.only(bottom: 15),
-                margin: const EdgeInsets.only(bottom: 15 * 4),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                ),
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (loading) {
+        _overlayEntry = createOverlayEntry(context);
+        Overlay.of(context)?.insert(_overlayEntry!);
+      } else if (!loading) {
+        _overlayEntry?.remove();
+        _overlayEntry = null;
+      }
+    });
+    print("===== Suurent Scene"+currentSceneIndex.toString());
+    return (gameloaded && currentSceneIndex < scenes.length)
+        ? Game(key: ValueKey(currentSceneIndex),
+          gameJson: scenes[1])
+        : Scaffold(
+            backgroundColor: const Color(0xffd6e2ea),
+            body: SingleChildScrollView(
+              child: Center(
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                    if (_teddyArtboard != null)
+                      SizedBox(
+                        width: 400,
+                        height: 300,
+                        child: Rive(
+                          artboard: _teddyArtboard!,
+                          fit: BoxFit.fitHeight,
+                        ),
+                      ),
+                    Container(
+                      alignment: Alignment.center,
+                      width: 400,
+                      padding: const EdgeInsets.only(bottom: 15),
+                      margin: const EdgeInsets.only(bottom: 15 * 4),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                       child: Column(
                         children: [
-                          const SizedBox(height: 15 * 2),
-                          TextField(
-                            controller: _emailController,
-                            onTapOutside: (event) {
-                              FocusScope.of(context).unfocus();
-                              isChecking?.change(false);
-                            },
-                            onTap: () {
-                              lookOnTheTextField();
-                            },
-                            onChanged: moveEyeBalls,
-                            keyboardType: TextInputType.emailAddress,
-                            style: const TextStyle(fontSize: 14),
-                            cursorColor: const Color(0xffb04863),
-                            decoration: InputDecoration(
-                              labelText: "Prompt",
-                              errorText: _emailController.text.isEmpty
-                                  ? errorText
-                                  : null,
-                              hintText: "make game on Water",
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                              ),
-                              focusColor: Color(0xffb04863),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Color(0xffb04863),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            child: Column(
+                              children: [
+                                const SizedBox(height: 15 * 2),
+                                TextField(
+                                  controller: _emailController,
+                                  onTapOutside: (event) {
+                                    FocusScope.of(context).unfocus();
+                                    isChecking?.change(false);
+                                  },
+                                  onTap: () {
+                                    lookOnTheTextField();
+                                  },
+                                  onChanged: moveEyeBalls,
+                                  keyboardType: TextInputType.emailAddress,
+                                  style: const TextStyle(fontSize: 14),
+                                  cursorColor: const Color(0xffb04863),
+                                  decoration: InputDecoration(
+                                    labelText: "Prompt",
+                                    errorText: _emailController.text.isEmpty
+                                        ? errorText
+                                        : null,
+                                    hintText: "make game on Water",
+                                    filled: true,
+                                    border: OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(10)),
+                                    ),
+                                    focusColor: Color(0xffb04863),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0xffb04863),
+                                      ),
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(10)),
+                                    ),
+                                  ),
                                 ),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 15),
-                          TextField(
-                            controller: _passwordController,
-                            onTap: handsOnTheEyes,
-                            keyboardType: TextInputType.visiblePassword,
-                            style: const TextStyle(fontSize: 14),
-                            cursorColor: const Color(0xffb04863),
-                            onTapOutside: (event) {
-                              setState(() {
-                                errorText = null;
-                              });
-                              FocusScope.of(context).unfocus();
-                              isHandsUp?.change(false);
-                            },
-                            decoration: InputDecoration(
-                              labelText: "Api key",
-                              hintText: "API key",
-                              errorText: _passwordController.text.isEmpty &&
-                                      errorText != null
-                                  ? "enter api key"
-                                  : null,
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                              ),
-                              focusColor: Color(0xffb04863),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Color(0xffb04863),
-                                ),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              ElevatedButton(
-                                onPressed: () {
-                                  if (_emailController.text.isNotEmpty &&
-                                      _passwordController.text.isNotEmpty) {
-                                    showDialog(
-                                      context: context,
-                                      barrierDismissible: false,
-                                      builder: (BuildContext context) {
-                                        return RiveAnimationDialog();
-                                      },
-                                    );
-                                    fetchScenes(context, currentSceneIndex)
-                                        .then((value) => {
-                                              setState(() {
-                                                gameloaded = true;
-                                              }),
-                                              login(),
-                                              setState(() {
-                                                value = value;
-                                              }),
-                                              // print(value.toString()),
-                                              // if (value.isNotEmpty)
-                                              //   // if (value["type"] == "puzzle")
-                                              //   //   {
-                                              //   //     Navigator.push(
-                                              //   //       context,
-                                              //   //       MaterialPageRoute(
-                                              //   //           builder: (context) =>
-                                              //   //               PuzzleGame(
-                                              //   //                 imageUrls: [],
-                                              //   //               )), // Replace AnotherRoute() with your desired route
-                                              //   //     )
-                                              //   //   }
-                                              //   // else
-                                              //   //   {
-                                              //   //     Navigator.push(
-                                              //   //         context,
-                                              //   //         MaterialPageRoute(
-                                              //   //             builder: (context) =>
-                                              //   //                 Game(
-                                              //   //                     gameJson:
-                                              //   //                         value)))
-                                              //   //   }
-                                            });
-                                  } else {
+                                const SizedBox(height: 15),
+                                TextField(
+                                  controller: _passwordController,
+                                  onTap: handsOnTheEyes,
+                                  keyboardType: TextInputType.visiblePassword,
+                                  style: const TextStyle(fontSize: 14),
+                                  cursorColor: const Color(0xffb04863),
+                                  onTapOutside: (event) {
                                     setState(() {
-                                      errorText = "enter valid prompt";
+                                      errorText = null;
                                     });
-                                  }
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xffb04863),
+                                    FocusScope.of(context).unfocus();
+                                    isHandsUp?.change(false);
+                                  },
+                                  decoration: InputDecoration(
+                                    labelText: "Api key",
+                                    hintText: "API key",
+                                    errorText:
+                                        _passwordController.text.isEmpty &&
+                                                errorText != null
+                                            ? "enter api key"
+                                            : null,
+                                    filled: true,
+                                    border: OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(10)),
+                                    ),
+                                    focusColor: Color(0xffb04863),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0xffb04863),
+                                      ),
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(10)),
+                                    ),
+                                  ),
                                 ),
-                                child: const Row(
+                                SizedBox(
+                                  height: 15,
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(
-                                      "Generate Game",
-                                      style: TextStyle(color: Colors.white),
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        if (_emailController.text.isNotEmpty &&
+                                            _passwordController
+                                                .text.isNotEmpty) {
+                                          setState(() {
+                                            loading = true;
+                                          });
+                                          fetchScenes(
+                                                  context, currentSceneIndex)
+                                              .then((_) => {
+                                                startSceneChangeTimer(),
+                                                  login(),
+                                                    setState(() {
+                                                      loading = false;
+                                                      gameloaded = true;
+                                                    }),
+                                                  
+
+                                                    // print(value.toString()),
+                                                    // if (value.isNotEmpty)
+                                                    //   // if (value["type"] == "puzzle")
+                                                    //   //   {
+                                                    //   //     Navigator.push(
+                                                    //   //       context,
+                                                    //   //       MaterialPageRoute(
+                                                    //   //           builder: (context) =>
+                                                    //   //               PuzzleGame(
+                                                    //   //                 imageUrls: [],
+                                                    //   //               )), // Replace AnotherRoute() with your desired route
+                                                    //   //     )
+                                                    //   //   }
+                                                    //   // else
+                                                    //   //   {
+                                                    //   //     Navigator.push(
+                                                    //   //         context,
+                                                    //   //         MaterialPageRoute(
+                                                    //   //             builder: (context) =>
+                                                    //   //                 Game(
+                                                    //   //                     gameJson:
+                                                    //   //                         value)))
+                                                    //   //   }
+                                                  });
+                                        } else {
+                                          setState(() {
+                                            errorText = "enter valid prompt";
+                                          });
+                                        }
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor:
+                                            const Color(0xffb04863),
+                                      ),
+                                      child: const Row(
+                                        children: [
+                                          Text(
+                                            "Generate Game",
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                          SizedBox(
+                                            width: 20,
+                                          ),
+                                          Icon(
+                                            Icons.arrow_circle_right,
+                                            color: Colors.white,
+                                          )
+                                        ],
+                                      ),
                                     ),
-                                    SizedBox(
-                                      width: 20,
-                                    ),
-                                    Icon(
-                                      Icons.arrow_circle_right,
-                                      color: Colors.white,
-                                    )
                                   ],
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ],
                       ),
@@ -467,10 +462,7 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
                   ],
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
-    );
+            ),
+          );
   }
 }
