@@ -269,7 +269,7 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
     print("===== Suurent Scene"+currentSceneIndex.toString());
     return (gameloaded && currentSceneIndex < scenes.length)
         ? Game(key: ValueKey(currentSceneIndex),
-          gameJson: scenes[1])
+          gameJsonList: scenes)
         : Scaffold(
             backgroundColor: const Color(0xffd6e2ea),
             body: SingleChildScrollView(

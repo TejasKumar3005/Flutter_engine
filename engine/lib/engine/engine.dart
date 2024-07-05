@@ -20,7 +20,7 @@ class Game extends StatefulWidget {
 class _GameState extends State<Game> {
   bool loading = true;
   int currentSceneIndex = 0;
-  late GameData gameData;
+  late List<GameData> gameData;
   GameRules gameRules = GameRules(gameRules: {});
 
   @override
@@ -36,7 +36,10 @@ class _GameState extends State<Game> {
 
   void loadGameData(int sceneIndex) {
     setState(() {
-      gameData = GameData.fromJson(widget.gameJsonList, sceneIndex);
+      
+      for (var i = 0; i < widget.gameJsonList.length; i++) {
+        gameData.add(GameData.fromJson(widget.gameJsonList, i));
+      }
       gameRules = GameRules.fromJson(widget.gameJsonList[sceneIndex]['Game Rules']);
       loading = false;
     });
@@ -86,12 +89,13 @@ class _GameState extends State<Game> {
               aspectRatio: 4 / 3,
               child: GameWidget<MyGame>(
                 game: MyGame(
-                  gamedata: gameData,
+                  gamedataList: gameData,
                   gameRules: gameRules,
                   context: context,
+                  currentSceneIndex: currentSceneIndex
                 ),
                 backgroundBuilder: (context) {
-                  return gameData.backgroundBuilder(context);
+                  return gameData[currentSceneIndex].backgroundBuilder(context);
                 },
               ),
             ),
