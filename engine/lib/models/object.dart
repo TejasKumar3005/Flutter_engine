@@ -26,11 +26,14 @@ class Object extends SpriteComponent
             paint: Paint()
               ..color = Color.fromARGB(255, 6, 180, 76)
               ..style = PaintingStyle.fill);
+
   final String name;
   final bool isStatic;
   final BuildContext context;
   String image;
   Vector2? draggedPosition;
+  bool shine = false; // Add a boolean to track shine state
+
   @override
   FutureOr<void> onLoad() async {
     print("in load");
@@ -48,10 +51,24 @@ class Object extends SpriteComponent
     }
 
     // Load and play the audio
-      await FlameAudio.audioCache.load('assets/game_music.mp3');
-      FlameAudio.loop('assets/game_music.mp3', volume: 0.25);
+    await FlameAudio.audioCache.load('assets/game_music.mp3');
+    FlameAudio.loop('assets/game_music.mp3', volume: 0.25);
 
     return super.onLoad();
+  }
+
+  @override
+  void render(Canvas canvas) {
+    super.render(canvas);
+
+    // Draw the shine effect if shine is true
+   if (shine) {
+      final shinePaint = Paint()
+        ..color = Colors.white.withOpacity(0.5)
+        ..maskFilter = MaskFilter.blur(BlurStyle.normal, 10);
+
+      canvas.drawRect(size.toRect(), shinePaint);
+    }
   }
 
   @override
@@ -59,40 +76,14 @@ class Object extends SpriteComponent
     // Your update logic here
     if (!isDragged) {
       // Do something when the object is dragged
-      position = gameRef.gamedata.characters[name]!.position + (position - gameRef.gamedata.characters[name]!.position) * dt * 5 ;
+      position = gameRef.gamedata.characters[name]!.position +
+          (position - gameRef.gamedata.characters[name]!.position) * dt * 5;
     }
   }
 
   // Override TapCallbacks methods
   @override
   void onTapUp(TapUpEvent details) {
-    // gameRef.gamedata.shouldShowDialog = true;
-
-    //  showDialog(
-    //   context: context,
-    //   builder: (BuildContext context) {
-    //     return AlertDialog(
-    //       title: const Text('Input Dialog'),
-    //       content: TextField(
-    //         decoration: InputDecoration(hintText: "Enter your input here"),
-    //       ),
-    //       actions: <Widget>[
-    //         TextButton(
-    //           child: const Text('Cancel'),
-    //           onPressed: () {
-    //             Navigator.of(context).pop();
-    //           },
-    //         ),
-    //         TextButton(
-    //           child: const Text('Submit'),
-    //           onPressed: () {
-    //             // Handle the submit action
-    //           },
-    //         ),
-    //       ],
-    //     );
-    //   },
-    // );
     gameRef.gameRules.onTap(name, gameRef.gamedata);
   }
 
@@ -104,6 +95,9 @@ class Object extends SpriteComponent
     // Reduce the size when dragging starts
     size = size * 0.8;
     priority = 10;
+
+    // Enable the shine effect
+    shine = true;
   }
 
   @override
@@ -113,6 +107,9 @@ class Object extends SpriteComponent
     // Restore the size when dragging ends
     size = gameRef.gamedata.characters[name]!.size;
     priority = 10;
+
+    // Disable the shine effect
+    shine = false;
   }
 
   @override
