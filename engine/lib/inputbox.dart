@@ -244,6 +244,7 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
             key: ValueKey(currentSceneIndex),
             gameJsonList: scenes)
         : Scaffold(
+          
             backgroundColor: const Color(0xffd6e2ea),
             body: SingleChildScrollView(
               child: Center(
