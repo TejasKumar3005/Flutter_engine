@@ -1,6 +1,7 @@
 import 'dart:ui';
+import 'package:engine/models/game_data_model.dart';
 import 'package:flame/components.dart';
-import 'package:flutter/material.dart';// Assuming this is where MyGame is defined
+import 'package:flutter/material.dart'; // Assuming this is where MyGame is defined
 import 'package:rive/rive.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -99,9 +100,6 @@ class Popup extends PositionComponent with HasGameRef<MyGame> {
     isLoaded = true;
   }
 
- 
-
-
   void showCompletionAnimation() {
     showDialog(
       context: context,
@@ -125,13 +123,13 @@ class Popup extends PositionComponent with HasGameRef<MyGame> {
 
     super.update(dt);
 
+    GameData gamedata = gameRef.gamedata;
     if (gamedata.variables["GameOver"]?.value == true) {
       gamedata.variables["GameOver"]?.value = false;
 
-      if (currentSceneIndex < gamedataList.length - 1) {
-        currentSceneIndex++;
-        gamedata = gamedataList[currentSceneIndex];
-       
+      if (gamedata.currentSceneIndex < gamedata.scenes.length - 1) {
+        gamedata.currentSceneIndex++;
+        gamedata = GameData.fromJson(gamedata.scenes, gamedata.currentSceneIndex);
       } else {
         // Final game over logic if all scenes are completed
         print("All scenes completed. Game Over.");
@@ -140,14 +138,14 @@ class Popup extends PositionComponent with HasGameRef<MyGame> {
     }
 
     if (gamedata.shouldShowDialog) {
-      final String message = gamedata.dialogMessage ?? 'Default message';
+      final String message = gamedata.dialogMessage;
       successTrigger?.fire();
       showDialog(
         context: context,
         builder: (BuildContext context) {
           return CustomDialog(
             message: message,
-            teddyArtboard: teddyArtboard,
+            teddyArtboard: _teddyArtboard,
             successTrigger: successTrigger,
             isCompleted: false,
           );

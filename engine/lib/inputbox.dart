@@ -12,7 +12,6 @@ import 'package:rive/rive.dart';
 import 'package:engine/utils/gameWidgets/puzzlegame.dart';
 import '../engine/game.dart'; // Assuming this is where MyGame is defined
 import 'package:google_fonts/google_fonts.dart';
-import 'package:quiver/async.dart';
 
 class CustomDialog extends StatefulWidget {
   final String message;
@@ -96,8 +95,6 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
   SMINumber? numLook;
   List<Map<String, dynamic>> scenes = [];
   int currentSceneIndex = 0;
-  CountdownTimer? sceneChangeTimer;
-  StreamSubscription<CountdownTimer>? sceneChangeSubscription;
 
   StateMachineController? stateMachineController;
   final TextEditingController _emailController = TextEditingController();
@@ -133,14 +130,10 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
         setState(() => _teddyArtboard = artboard);
       },
     );
-
-    
   }
 
   @override
   void dispose() {
-    sceneChangeSubscription
-        ?.cancel(); // Stop the timer when the widget is disposed
     super.dispose();
   }
 
@@ -148,7 +141,6 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
     try {
       String jsonData = await rootBundle.loadString('assets/main.json');
       List<dynamic> responseJson = jsonDecode(jsonData);
-      startSceneChangeTimer();
       setState(() {
         scenes =
             responseJson.map((scene) => scene as Map<String, dynamic>).toList();
@@ -158,26 +150,6 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
       showSnackBar(context, e.toString(), ContentType.failure);
       failTrigger?.fire();
     }
-  }
-
-  void startSceneChangeTimer() {
-    sceneChangeSubscription?.cancel(); // Cancel any existing timer
-    sceneChangeTimer = CountdownTimer(
-      Duration(seconds: 15),
-      Duration(seconds: 1),
-    );
-
-    sceneChangeSubscription = sceneChangeTimer!.listen((event) {
-      final timeLeft = 15 - event.elapsed.inSeconds;
-      print('Time left: $timeLeft seconds');
-      print(currentSceneIndex);
-    }, onDone: () {
-      setState(() {
-        currentSceneIndex = (currentSceneIndex + 1) % scenes.length;
-        print("hello 1");
-      }); 
-        startSceneChangeTimer();
-    });
   }
 
   void showSnackBar(
@@ -266,10 +238,11 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
         _overlayEntry = null;
       }
     });
-    print("===== Suurent Scene"+currentSceneIndex.toString());
+    print("===== Current Scene: $currentSceneIndex");
     return (gameloaded && currentSceneIndex < scenes.length)
-        ? Game(key: ValueKey(currentSceneIndex),
-          gameJsonList: scenes)
+        ? Game(
+            key: ValueKey(currentSceneIndex),
+            gameJsonList: scenes)
         : Scaffold(
             backgroundColor: const Color(0xffd6e2ea),
             body: SingleChildScrollView(
@@ -392,37 +365,11 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
                                           fetchScenes(
                                                   context, currentSceneIndex)
                                               .then((_) => {
-                                                startSceneChangeTimer(),
-                                                  login(),
+                                                    login(),
                                                     setState(() {
                                                       loading = false;
                                                       gameloaded = true;
                                                     }),
-                                                  
-
-                                                    // print(value.toString()),
-                                                    // if (value.isNotEmpty)
-                                                    //   // if (value["type"] == "puzzle")
-                                                    //   //   {
-                                                    //   //     Navigator.push(
-                                                    //   //       context,
-                                                    //   //       MaterialPageRoute(
-                                                    //   //           builder: (context) =>
-                                                    //   //               PuzzleGame(
-                                                    //   //                 imageUrls: [],
-                                                    //   //               )), // Replace AnotherRoute() with your desired route
-                                                    //   //     )
-                                                    //   //   }
-                                                    //   // else
-                                                    //   //   {
-                                                    //   //     Navigator.push(
-                                                    //   //         context,
-                                                    //   //         MaterialPageRoute(
-                                                    //   //             builder: (context) =>
-                                                    //   //                 Game(
-                                                    //   //                     gameJson:
-                                                    //   //                         value)))
-                                                    //   //   }
                                                   });
                                         } else {
                                           setState(() {

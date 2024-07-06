@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:engine/models/game_data_model.dart';
 import 'package:engine/models/rules_model.dart';
 import 'package:flutter/material.dart';
-import '../test.dart';
 import 'package:flutter/services.dart';
 import 'package:flame/game.dart';
 import 'game.dart';
@@ -26,6 +25,7 @@ class _GameState extends State<Game> {
   @override
   void initState() {
     super.initState();
+    gameData = [];
     loadGameData(currentSceneIndex);
 
     SystemChrome.setPreferredOrientations([
@@ -36,10 +36,10 @@ class _GameState extends State<Game> {
 
   void loadGameData(int sceneIndex) {
     setState(() {
-      
-      for (var i = 0; i < widget.gameJsonList.length; i++) {
-        gameData.add(GameData.fromJson(widget.gameJsonList, i));
-      }
+      gameData = widget.gameJsonList.map((scene) {
+        return GameData.fromJson(scene['gameData'], sceneIndex);
+      }).toList();
+
       gameRules = GameRules.fromJson(widget.gameJsonList[sceneIndex]['Game Rules']);
       loading = false;
     });
@@ -92,7 +92,7 @@ class _GameState extends State<Game> {
                   gamedataList: gameData,
                   gameRules: gameRules,
                   context: context,
-                  currentSceneIndex: currentSceneIndex
+                  currentSceneIndex: currentSceneIndex,
                 ),
                 backgroundBuilder: (context) {
                   return gameData[currentSceneIndex].backgroundBuilder(context);
