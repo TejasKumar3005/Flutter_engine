@@ -33,6 +33,7 @@ class _CustomDialogState extends State<CustomDialog> {
           Center(
             child: Container(
               alignment: Alignment.center,
+              
               width: MediaQuery.of(context).size.width * 0.6,
               height: MediaQuery.of(context).size.height * 0.8,
               child: GestureDetector(
