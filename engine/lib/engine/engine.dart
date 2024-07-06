@@ -29,12 +29,12 @@ class _GameState extends State<Game> {
   void initState() {
     super.initState();
     gameData = [];
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+  
+    if (widget.gameJsonList.isNotEmpty) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
       final provider=Provider.of<GameUtilsProvider>(context, listen: false);
     loadGameData(provider.currentSceneIndex);
     });
-    if (widget.gameJsonList.isNotEmpty) {
-      loadGameData(currentSceneIndex);
     } else {
       print('gameJsonList is empty');
       setState(() {
