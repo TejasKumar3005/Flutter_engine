@@ -220,11 +220,23 @@
                             {
                                 "operator": "show_text",
                                 "operand1": {
-                                    "name": "name",
-                                    "type": "String",
-                                    "value": "\"Drag the circles to the circle basket.\""
+                                  "name": "name",
+                                  "type": "String",
+                                  "value": "\"Drag the circles to the circle basket.\""
                                 }
-                            }
+                              },
+                              {
+                                "target": {
+                                  "name": "GameOver",
+                                  "type": "variable"
+                                },
+                                "operand1": {
+                                  "name": "true",
+                                  "type": "Boolean",
+                                  "value": "true"
+                                },
+                                "operator": "="
+                              }
                         ]
                     }
                 }
@@ -237,11 +249,23 @@
                             {
                                 "operator": "show_text",
                                 "operand1": {
-                                    "name": "name",
-                                    "type": "String",
-                                    "value": "\"Drag the circles to the circle basket.\""
+                                  "name": "name",
+                                  "type": "String",
+                                  "value": "\"Drag the circles to the circle basket.\""
                                 }
-                            }
+                              },
+                              {
+                                "target": {
+                                  "name": "GameOver",
+                                  "type": "variable"
+                                },
+                                "operand1": {
+                                  "name": "true",
+                                  "type": "Boolean",
+                                  "value": "true"
+                                },
+                                "operator": "="
+                              }
                         ]
                     }
                 }

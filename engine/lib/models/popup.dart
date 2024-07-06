@@ -127,9 +127,8 @@ class Popup extends PositionComponent with HasGameRef<MyGame> {
     if (gamedata.variables["GameOver"]?.value == true) {
       gamedata.variables["GameOver"]?.value = false;
 
-      if (gamedata.currentSceneIndex < gamedata.scenes.length - 1) {
+      if (gameRef.provider.currentSceneIndex < gamedata.scenes.length - 1) {
         gameRef.provider.increaseIndex();
-        gamedata.currentSceneIndex++;
         gamedata =
             GameData.fromJson(gamedata.scenes, gameRef.provider.currentSceneIndex);
       } else {
