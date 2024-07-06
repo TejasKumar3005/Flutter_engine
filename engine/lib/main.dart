@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:engine/controllers/player_controller.dart';
 import 'package:engine/utils/gameWidgets/puzzlegame.dart';
 import 'package:engine/utils/puzzlefunctions.dart';
 // import 'package:flame/game.dart';
@@ -12,7 +13,7 @@ import 'inputbox.dart';
 
 void main() {
    WidgetsFlutterBinding.ensureInitialized();
-  runApp(MultiProvider(providers: [ChangeNotifierProvider(create: (context) =>ImageSlicer())],
+  runApp(MultiProvider(providers: [ChangeNotifierProvider(create: (context) =>ImageSlicer()),ChangeNotifierProvider(create:(context)=>GameUtilsProvider())],
   child: const MyApp()));
 }
 

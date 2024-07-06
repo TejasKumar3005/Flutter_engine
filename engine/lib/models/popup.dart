@@ -34,7 +34,6 @@ class _CustomDialogState extends State<CustomDialog> {
           Center(
             child: Container(
               alignment: Alignment.center,
-              
               width: MediaQuery.of(context).size.width * 0.6,
               height: MediaQuery.of(context).size.height * 0.8,
               child: GestureDetector(
@@ -129,8 +128,10 @@ class Popup extends PositionComponent with HasGameRef<MyGame> {
       gamedata.variables["GameOver"]?.value = false;
 
       if (gamedata.currentSceneIndex < gamedata.scenes.length - 1) {
+        gameRef.provider.increaseIndex();
         gamedata.currentSceneIndex++;
-        gamedata = GameData.fromJson(gamedata.scenes, gamedata.currentSceneIndex);
+        gamedata =
+            GameData.fromJson(gamedata.scenes, gameRef.provider.currentSceneIndex);
       } else {
         // Final game over logic if all scenes are completed
         print("All scenes completed. Game Over.");

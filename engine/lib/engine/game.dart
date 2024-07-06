@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
+import 'package:engine/controllers/player_controller.dart';
 import 'package:engine/models/game_data_model.dart';
 import 'package:engine/models/rules_model.dart';
 import 'package:engine/utils/gameWidgets/puzzlegame.dart';
@@ -21,6 +22,7 @@ class MyGame extends FlameGame with HasCollisionDetection, TapCallbacks {
     required this.gameRules,
     required this.context,
     required this.currentSceneIndex,
+    required this.provider
   }) : super(
           camera: CameraComponent.withFixedResolution(
             width: 900,
@@ -29,6 +31,7 @@ class MyGame extends FlameGame with HasCollisionDetection, TapCallbacks {
         );
 
   final List<GameData> gamedataList;
+  final GameUtilsProvider provider;
   final BuildContext context;
   final GameRules gameRules;
   final int currentSceneIndex;

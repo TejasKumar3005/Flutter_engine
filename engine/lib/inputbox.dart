@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:engine/controllers/player_controller.dart';
 import 'package:engine/utils/loading.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:engine/engine/engine.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:rive/rive.dart';
 import 'package:engine/utils/gameWidgets/puzzlegame.dart';
 import '../engine/game.dart'; // Assuming this is where MyGame is defined
@@ -238,13 +240,11 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
         _overlayEntry = null;
       }
     });
+    final provider = context.watch<GameUtilsProvider>();
     print("===== Current Scene: $currentSceneIndex");
-    return (gameloaded && currentSceneIndex < scenes.length)
-        ? Game(
-            key: ValueKey(currentSceneIndex),
-            gameJsonList: scenes)
+    return (gameloaded && provider.currentSceneIndex < scenes.length)
+        ? Game(key: ValueKey(provider.currentSceneIndex), gameJsonList: scenes)
         : Scaffold(
-          
             backgroundColor: const Color(0xffd6e2ea),
             body: SingleChildScrollView(
               child: Center(

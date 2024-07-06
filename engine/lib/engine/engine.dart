@@ -1,10 +1,12 @@
 import 'dart:convert';
 
+import 'package:engine/controllers/player_controller.dart';
 import 'package:engine/models/game_data_model.dart';
 import 'package:engine/models/rules_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flame/game.dart';
+import 'package:provider/provider.dart';
 import 'game.dart';
 
 class Game extends StatefulWidget {
@@ -18,7 +20,7 @@ class Game extends StatefulWidget {
 
 class _GameState extends State<Game> {
   bool loading = true;
-  int currentSceneIndex = 0;
+
   late List<GameData> gameData;
   GameRules gameRules = GameRules(gameRules: {});
 
@@ -26,7 +28,10 @@ class _GameState extends State<Game> {
   void initState() {
     super.initState();
     gameData = [];
-    loadGameData(currentSceneIndex);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final provider=Provider.of<GameUtilsProvider>(context, listen: false);
+    loadGameData(provider.currentSceneIndex);
+    });
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeLeft,
@@ -40,7 +45,8 @@ class _GameState extends State<Game> {
         return GameData.fromJson(scene['gameData'], sceneIndex);
       }).toList();
 
-      gameRules = GameRules.fromJson(widget.gameJsonList[sceneIndex]['Game Rules']);
+      gameRules =
+          GameRules.fromJson(widget.gameJsonList[sceneIndex]['Game Rules']);
       loading = false;
     });
   }
@@ -48,33 +54,34 @@ class _GameState extends State<Game> {
   @override
   void didUpdateWidget(covariant Game oldWidget) {
     super.didUpdateWidget(oldWidget);
-
+final pro=Provider.of<GameUtilsProvider>(context, listen: false);
     if (widget.gameJsonList != oldWidget.gameJsonList) {
       // If the incoming data is different, update the game state accordingly
-      loadGameData(currentSceneIndex);
+      loadGameData(pro.currentSceneIndex);
     }
   }
 
-  void goToNextScene() {
-    if (currentSceneIndex < widget.gameJsonList.length - 1) {
-      setState(() {
-        currentSceneIndex++;
-        loadGameData(currentSceneIndex);
-      });
-    }
-  }
+  // void goToNextScene() {
+  //   if (currentSceneIndex < widget.gameJsonList.length - 1) {
+  //     setState(() {
+  //       currentSceneIndex++;
+  //       loadGameData(currentSceneIndex);
+  //     });
+  //   }
+  // }
 
-  void goToPreviousScene() {
-    if (currentSceneIndex > 0) {
-      setState(() {
-        currentSceneIndex--;
-        loadGameData(currentSceneIndex);
-      });
-    }
-  }
+  // void goToPreviousScene() {
+  //   if (currentSceneIndex > 0) {
+  //     setState(() {
+  //       currentSceneIndex--;
+  //       loadGameData(currentSceneIndex);
+  //     });
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
+    final gameState = Provider.of<GameUtilsProvider>(context, listen: false);
     return Container(
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
@@ -89,13 +96,14 @@ class _GameState extends State<Game> {
               aspectRatio: 4 / 3,
               child: GameWidget<MyGame>(
                 game: MyGame(
-                  gamedataList: gameData,
-                  gameRules: gameRules,
-                  context: context,
-                  currentSceneIndex: currentSceneIndex,
-                ),
+                    gamedataList: gameData,
+                    gameRules: gameRules,
+                    context: context,
+                    currentSceneIndex: gameState.currentSceneIndex,
+                    provider: gameState),
                 backgroundBuilder: (context) {
-                  return gameData[currentSceneIndex].backgroundBuilder(context);
+                  return gameData[gameState.currentSceneIndex]
+                      .backgroundBuilder(context);
                 },
               ),
             ),
@@ -108,8 +116,10 @@ class _GameState extends State<Game> {
 
   Future<List<Map<String, dynamic>>> fetchData() async {
     try {
-      String jsonString = await loadJsonFromAssets('assets/final_game_context.json');
-      List<Map<String, dynamic>> data = List<Map<String, dynamic>>.from(jsonDecode(jsonString));
+      String jsonString =
+          await loadJsonFromAssets('assets/final_game_context.json');
+      List<Map<String, dynamic>> data =
+          List<Map<String, dynamic>>.from(jsonDecode(jsonString));
       print("json");
       print(jsonString);
       print(data);
