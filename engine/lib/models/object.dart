@@ -2,11 +2,12 @@ import 'dart:ui';
 import 'package:flame/collisions.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
+import 'package:quiver/strings.dart';
 import '../engine/game.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'dart:async';
-
 import 'package:flame/components.dart';
 
 class Object extends SpriteComponent
@@ -45,6 +46,11 @@ class Object extends SpriteComponent
         sprite = Sprite(loaded_image);
       }
     }
+
+    // Load and play the audio
+      await FlameAudio.audioCache.load('assets/game_music.mp3');
+      FlameAudio.loop('assets/game_music.mp3', volume: 0.25);
+
     return super.onLoad();
   }
 
@@ -87,20 +93,26 @@ class Object extends SpriteComponent
     //     );
     //   },
     // );
-    gameRef.gameRules.onTap(name!, gameRef.gamedata);
+    gameRef.gameRules.onTap(name, gameRef.gamedata);
   }
 
   // Override DragCallbacks methods
   @override
   void onDragStart(DragStartEvent event) {
     super.onDragStart(event);
+
+    // Reduce the size when dragging starts
+    size = size * 0.8;
     priority = 10;
   }
 
   @override
   void onDragEnd(DragEndEvent event) {
     super.onDragEnd(event);
-    priority = 2;
+
+    // Restore the size when dragging ends
+    size = gameRef.gamedata.characters[name]!.size;
+    priority = 10;
   }
 
   @override
