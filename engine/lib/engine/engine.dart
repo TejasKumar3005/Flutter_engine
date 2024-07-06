@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:engine/controllers/player_controller.dart';
 import 'package:engine/models/game_data_model.dart';
 import 'package:engine/models/rules_model.dart';
+import 'package:engine/utils/dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flame/game.dart';
@@ -32,6 +33,14 @@ class _GameState extends State<Game> {
       final provider=Provider.of<GameUtilsProvider>(context, listen: false);
     loadGameData(provider.currentSceneIndex);
     });
+    if (widget.gameJsonList.isNotEmpty) {
+      loadGameData(currentSceneIndex);
+    } else {
+      print('gameJsonList is empty');
+      setState(() {
+        loading = false;
+      });
+    }
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeLeft,
@@ -40,15 +49,30 @@ class _GameState extends State<Game> {
   }
 
   void loadGameData(int sceneIndex) {
-    setState(() {
-      gameData = widget.gameJsonList.map((scene) {
-        return GameData.fromJson(scene['gameData'], sceneIndex);
-      }).toList();
+    if (sceneIndex >= 0 && sceneIndex < widget.gameJsonList.length) {
+      setState(() {
+        gameData = [];
 
-      gameRules =
-          GameRules.fromJson(widget.gameJsonList[sceneIndex]['Game Rules']);
-      loading = false;
-    });
+        for (var scene in widget.gameJsonList) {
+          if (scene != null ) {
+            gameData.add(GameData.fromJson(widget.gameJsonList, sceneIndex));
+          } else {  
+            print('Invalid or missing gameData for scene $sceneIndex');
+           
+          }
+        }
+
+        if (widget.gameJsonList[sceneIndex]['Game Rules'] != null) {
+          gameRules = GameRules.fromJson(widget.gameJsonList[sceneIndex]['Game Rules']);
+        } else {
+          print('Invalid or missing Game Rules for scene $sceneIndex');
+        }
+
+        loading = false;
+      });
+    } else {
+      print('Scene index $sceneIndex is out of range');
+    }
   }
 
   @override

@@ -82,7 +82,7 @@ class _CustomDialogState extends State<CustomDialog> {
   }
 }
 
-class KafkaMessageWidget extends StatefulWidget {
+class KafkaMessageWidget extends StatefulWidget  {
   const KafkaMessageWidget({Key? key}) : super(key: key);
 
   @override
