@@ -49,10 +49,11 @@ class Object extends SpriteComponent
         sprite = Sprite(loaded_image);
       }
     }
-
+FlameAudio.bgm.initialize();
     // Load and play the audio
     await FlameAudio.audioCache.load('assets/game_music.mp3');
-    FlameAudio.loop('assets/game_music.mp3', volume: 0.25);
+
+    FlameAudio.bgm.play('game_music.mp3', volume: .25);
 
     return super.onLoad();
   }
