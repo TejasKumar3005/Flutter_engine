@@ -106,27 +106,27 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
   void initState() {
     super.initState();
 
-    rootBundle.load("assets/login.riv").then(
+    rootBundle.load("assets/speed.riv").then(
       (data) {
         final file = RiveFile.import(data);
         final artboard = file.mainArtboard;
         stateMachineController =
-            StateMachineController.fromArtboard(artboard, "Login Machine");
+            StateMachineController.fromArtboard(artboard, "SM");
         if (stateMachineController != null) {
           artboard.addController(stateMachineController!);
-          stateMachineController!.inputs.forEach((element) {
-            if (element.name == "trigSuccess") {
-              successTrigger = element as SMITrigger;
-            } else if (element.name == "trigFail") {
-              failTrigger = element as SMITrigger;
-            } else if (element.name == "isHandsUp") {
-              isHandsUp = element as SMIBool;
-            } else if (element.name == "isChecking") {
-              isChecking = element as SMIBool;
-            } else if (element.name == "numLook") {
-              numLook = element as SMINumber;
-            }
-          });
+          // stateMachineController!.inputs.forEach((element) {
+          //   if (element.name == "mouse-click") {
+          //     successTrigger = element as SMITrigger;
+          //   } else if (element.name == "trigFail") {
+          //     failTrigger = element as SMITrigger;
+          //   } else if (element.name == "isHandsUp") {
+          //     isHandsUp = element as SMIBool;
+          //   } else if (element.name == "isChecking") {
+          //     isChecking = element as SMIBool;
+          //   } else if (element.name == "numLook") {
+          //     numLook = element as SMINumber;
+          //   }
+          // });
         }
 
         setState(() => _teddyArtboard = artboard);
@@ -257,7 +257,7 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
                         height: 300,
                         child: Rive(
                           artboard: _teddyArtboard!,
-                          fit: BoxFit.fitHeight,
+                          fit: BoxFit.contain,
                         ),
                       ),
                     Container(
