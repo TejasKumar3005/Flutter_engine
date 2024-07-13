@@ -15,7 +15,6 @@ void main() {
    WidgetsFlutterBinding.ensureInitialized();
   runApp(MultiProvider(providers: [ChangeNotifierProvider(create: (context) =>ImageSlicer()),ChangeNotifierProvider(create:(context)=>GameUtilsProvider())],
   child: const MyApp()));
-  
 }
 
 class MyApp extends StatelessWidget {

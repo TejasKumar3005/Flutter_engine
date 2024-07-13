@@ -29,13 +29,9 @@ class DataType {
     }
   }
 
-  void setValue(GameData gameData, dynamic value){
+  void setValue(GameData gameData, dynamic value){}
 
-  }
-
-  void fixCharac (GameData gameData){
-
-  }
+  void fixCharac (GameData gameData){}
 
   @override
   String toString() {

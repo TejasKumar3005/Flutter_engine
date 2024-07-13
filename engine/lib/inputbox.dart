@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:typed_data';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:engine/controllers/player_controller.dart';
 import 'package:engine/utils/loading.dart';
@@ -11,9 +12,14 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rive/rive.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:engine/utils/gameWidgets/puzzlegame.dart';
 import '../engine/game.dart'; // Assuming this is where MyGame is defined
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rive/src/core/importers/file_asset_importer.dart';
+import 'dart:io' if (dart.library.html) 'dart:html' as html;
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart'; 
 
 class CustomDialog extends StatefulWidget {
   final String message;
@@ -82,7 +88,7 @@ class _CustomDialogState extends State<CustomDialog> {
   }
 }
 
-class KafkaMessageWidget extends StatefulWidget  {
+class KafkaMessageWidget extends StatefulWidget {
   const KafkaMessageWidget({Key? key}) : super(key: key);
 
   @override
@@ -105,8 +111,10 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
   @override
   void initState() {
     super.initState();
-
-    rootBundle.load("assets/speed.riv").then(
+  
+    // Pick and initialize the local image file
+    // _pickAndInitializeLocalImage();
+    rootBundle.load("assets/newjigsaw.riv").then(
       (data) {
         final file = RiveFile.import(data);
         final artboard = file.mainArtboard;
@@ -133,6 +141,13 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
       },
     );
   }
+
+ Future<void> _pickAndInitializeLocalImage() async {
+  final ByteData data = await rootBundle.load('assets/manuscript.png');
+    final Uint8List bytes = data.buffer.asUint8List();
+    await FileAssetImporter.initializeLocalImage(bytes,'arrow');
+}
+
 
   @override
   void dispose() {
