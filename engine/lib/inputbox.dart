@@ -114,7 +114,7 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
   
     // Pick and initialize the local image file
     // _pickAndInitializeLocalImage();
-    rootBundle.load("assets/newjigsaw.riv").then(
+    rootBundle.load("assets/login.riv").then(
       (data) {
         final file = RiveFile.import(data);
         final artboard = file.mainArtboard;
@@ -122,19 +122,19 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
             StateMachineController.fromArtboard(artboard, "SM");
         if (stateMachineController != null) {
           artboard.addController(stateMachineController!);
-          // stateMachineController!.inputs.forEach((element) {
-          //   if (element.name == "mouse-click") {
-          //     successTrigger = element as SMITrigger;
-          //   } else if (element.name == "trigFail") {
-          //     failTrigger = element as SMITrigger;
-          //   } else if (element.name == "isHandsUp") {
-          //     isHandsUp = element as SMIBool;
-          //   } else if (element.name == "isChecking") {
-          //     isChecking = element as SMIBool;
-          //   } else if (element.name == "numLook") {
-          //     numLook = element as SMINumber;
-          //   }
-          // });
+          stateMachineController!.inputs.forEach((element) {
+            if (element.name == "mouse-click") {
+              successTrigger = element as SMITrigger;
+            } else if (element.name == "trigFail") {
+              failTrigger = element as SMITrigger;
+            } else if (element.name == "isHandsUp") {
+              isHandsUp = element as SMIBool;
+            } else if (element.name == "isChecking") {
+              isChecking = element as SMIBool;
+            } else if (element.name == "numLook") {
+              numLook = element as SMINumber;
+            }
+          });
         }
 
         setState(() => _teddyArtboard = artboard);
