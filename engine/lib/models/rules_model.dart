@@ -21,9 +21,7 @@ class GameRules {
     print(json);
     Map<String, GameObjectRule> gameRules = {};
     json.forEach((key, value) {
-      print("wertyui");
       print(value[0]);
-
       gameRules[key] = GameObjectRule.fromJson(key, value[0]);  // TODO remove 0 in future
     });
 

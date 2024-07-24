@@ -1,21 +1,15 @@
-// action class
 import 'conditional_model.dart';
 import 'game_data_model.dart';
 import 'variables_model.dart';
 
-
 class Action {
   DataType? var1;
   DataType? var2;
-  // List<DataType> varList;
   DataType? targetvar;
   String? operation; // +, -, *, inplace+, inplace*, inplace-
 
   factory Action.fromJson(Map<String, dynamic> json) {
-
-
     return Action.variableOperation(
-      // check if var1 and var2 are variables or not
       var1: initDataType(json["operand1"]),
       var2: initDataType(json["operand2"]),
       targetvar: initDataType(json["target"]),
@@ -32,28 +26,16 @@ class Action {
   });
 
   void execute(GameData gameData) {
-    print("fgyuhvygihbjvguyhvjuygvhjmmmmmmmmmmmmm");
-    print(var1);
-    print(var2);
-    print(operation);
-    if ( operation != null) {
+    if (operation != null) {
       performVariableOperation(gameData);
     }
   }
 
   void performVariableOperation(GameData gameData) {
-    // if (gameData.variables.containsKey(var1) &&
-
-    print("var1: $var1");
-    print("weyukdhfh");
-    print(operation);
-    print("----------------------");
-    //     gameData.variables.containsKey(var2)) {
     dynamic result;
     switch (operation) {
       case '+':
         result = var1!.getValue(gameData) + var2!.getValue(gameData);
-      print("addition done");
         break;
       case '-':
         result = var1!.getValue(gameData) - var2!.getValue(gameData);
@@ -62,8 +44,8 @@ class Action {
         result = var1!.getValue(gameData) * var2!.getValue(gameData);
         break;
       case '=':
-        result = var1!.getValue(gameData);  
-         break;
+        result = var1!.getValue(gameData);
+        break;
       case '||':
         result = _toBoolean(var1!, gameData) || _toBoolean(var2!, gameData);
         break;
@@ -75,7 +57,6 @@ class Action {
         break;
       case 'update_position':
         result = var1!.getValue(gameData);
-        // targetvar!.fixCharac(gameData);
         break;
       case 'fix_pos':
         targetvar!.fixCharac(gameData);
@@ -84,29 +65,35 @@ class Action {
         replaceValues(gameData);
         break;
       case 'show_text':
-      print("text");
         gameData.shouldShowDialog = true;
         gameData.dialogMessage = var1!.getValue(gameData);
+        break;
+      case 'change_animation':
+        if (targetvar != null && var1 != null) {
+          changeAnimation(gameData, targetvar!.getValue(gameData), var1!.getValue(gameData));
+        }
         break;
       default:
         throw Exception('Unsupported variable operation: $operation');
     }
     if (result != null) {
-      print(targetvar!.getValue(gameData));
       targetvar!.setValue(gameData, result);
-      print(targetvar!.getValue(gameData));
-      print("result: $result"); 
     }
   }
-  // }
 
   void replaceValues(GameData gameData) {
     if (gameData.variables.containsKey(var1) &&
         gameData.variables.containsKey(var2)) {
-      // replace the values of var1 with var2 and vice versa
       var temp = gameData.variables[var1]!.value;
       gameData.variables[var1]!.value = gameData.variables[var2]!.value;
       gameData.variables[var2]!.value = temp;
+    }
+  }
+
+  void changeAnimation(GameData gameData, String characterName, String newGif) {
+    if (gameData.characters.containsKey(characterName)) {
+      print("change of animation");
+      gameData.characters[characterName]!.currentGif = newGif;
     }
   }
 
@@ -126,8 +113,6 @@ class Action {
     }
   }
 }
-
-
 
 class ConditionAction {
   final ConditionalOp condition;

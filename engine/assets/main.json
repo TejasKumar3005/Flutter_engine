@@ -1,201 +1,241 @@
 [
-    {
-      "Objective": "Child will learn about the introduction of Ramayana, abduction of Sita, and the journey of Rama to rescue Sita.",
-      "Character": [
-        {
-          "name": "LordRama1",
-          "description": "An image of Lord Rama.",
-          "count": 1,
-          "size": {
-            "width": 150,
-            "height": 150
-          },
-          "isMovable": false,
-          "position": {
-            "x": 200,
-            "y": 200
-          },
-          "image": "image1"
+  {
+    "Objective": "Child will learn about the introduction of Ramayana, abduction of Sita, and the journey of Rama to rescue Sita.",
+    "Character": [
+      {
+        "name": "LordRama1",
+        "description": "An image of Lord Rama.",
+        "count": 1,
+        "size": {
+          "width": 150,
+          "height": 150
         },
-        {
-          "name": "Sita1",
-          "description": "An image of Sita.",
-          "count": 1,
-          "size": {
-            "width": 150,
-            "height": 150
-          },
-          "isMovable": false,
-          "position": {
-            "x": 400,
-            "y": 200
-          },
-          "image": "image2"
+        "isMovable": false,
+        "position": {
+          "x": 200,
+          "y": 200
         },
-        {
-          "name": "Lakshmana1",
-          "description": "An image of Lakshmana.",
-          "count": 1,
-          "size": {
-            "width": 150,
-            "height": 150
-          },
-          "isMovable": false,
-          "position": {
-            "x": 600,
-            "y": 200
-          },
-          "image": "image3"
-        },
-        {
-          "name": "Ravana1",
-          "description": "An image of Ravana.",
-          "count": 1,
-          "size": {
-            "width": 150,
-            "height": 150
-          },
-          "isMovable": false,
-          "position": {
-            "x": 200,
-            "y": 400
-          },
-          "image": "image4"
-        },
-        {
-          "name": "Hanuman1",
-          "description": "An image of Hanuman.",
-          "count": 1,
-          "size": {
-            "width": 150,
-            "height": 150
-          },
-          "isMovable": false,
-          "position": {
-            "x": 400,
-            "y": 400
-          },
-          "image": "image5"
-        }
-      ],
-      "Background": "https://images.svar.in/Images/a2e41164-c512-4759-b155-8aad69340822.png",
-      "Game State": [
-        {
-          "name": "GameOver",
-          "type": "Boolean",
-          "value": false
-        }
-      ],
-      "Game Rules": {
-        "LordRama1": [
-          {
-            "on_tap": {
-              "condition": [],
-              "action": [
-                {
-                  "operator": "show_text",
-                  "operand1": {
-                    "name": "name",
-                    "type": "String",
-                    "value": "\"This is Lord Rama, the prince of Ayodhya.\""
-                  }
-                },
-                {
-                    "target": {
-                      "name": "GameOver",
-                      "type": "variable"
-                    },
-                    "operand1": {
-                      "name": "true",
-                      "type": "Boolean",
-                      "value": "true"
-                    },
-                    "operator": "="
-                  }
-              ]
-            }
-          }
-        ],
-        "Sita1": [
-          {
-            "on_tap": {
-              "condition": [],
-              "action": [
-                {
-                  "operator": "show_text",
-                  "operand1": {
-                    "name": "name",
-                    "type": "String",
-                    "value": "\"This is Sita, the wife of Lord Rama.\""
-                  }
-                  
-                }
-              ]
-            }
-          }
-        ],
-        "Lakshmana1": [
-          {
-            "on_tap": {
-              "condition": [],
-              "action": [
-                {
-                  "operator": "show_text",
-                  "operand1": {
-                    "name": "name",
-                    "type": "String",
-                    "value": "\"This is Lakshmana, the brother of Lord Rama.\""
-                  }
-            
-                }
-              ]
-            }
-          }
-        ],
-        "Ravana1": [
-          {
-            "on_tap": {
-              "condition": [],
-              "action": [
-                {
-                  "operator": "show_text",
-                  "operand1": {
-                    "name": "name",
-                    "type": "String",
-                    "value": "\"This is Ravana, the demon king who abducted Sita.\""
-                  }
-                }
-              ]
-            }
-          }
-        ],
-        "Hanuman1": [
-          {
-            "on_tap": {
-              "condition": [],
-              "action": [
-                {
-                  "operator": "show_text",
-                  "operand1": {
-                    "name": "name",
-                    "type": "String",
-                    "value": "\"This is Hanuman, the monkey god who helped Lord Rama.\""
-                  }
-                }
-              ]
-            }
-          }
-        ]
+        "image": "image1",
+        "gifs": ["gif1", "gif2", "gif3"],
+        "currentGif": "gif1"
       },
-      "Images": {
-        "image1": "https://images.svar.in/Images/528a6302-2443-45f4-b9d7-61a2ca0e003c.png",
-        "image2": "https://images.svar.in/Images/45e65911-600f-4423-bf41-4c2309bbd828.png",
-        "image3": "https://images.svar.in/Images/d8d221b6-1673-40e1-b553-262cb5f309d7.png",
-        "image4": "https://images.svar.in/Images/f4ca1699-f6a5-42b2-97ae-411a7985682c.png",
-        "image5": "https://images.svar.in/Images/b72e04c1-c581-401c-90ee-626c053220cf.png"
+      {
+        "name": "Sita1",
+        "description": "An image of Sita.",
+        "count": 1,
+        "size": {
+          "width": 150,
+          "height": 150
+        },
+        "isMovable": false,
+        "position": {
+          "x": 400,
+          "y": 200
+        },
+        "image": "image2",
+        "gifs": ["gif1", "gif2", "gif3"],
+        "currentGif": "gif2"
+      },
+      {
+        "name": "Lakshmana1",
+        "description": "An image of Lakshmana.",
+        "count": 1,
+        "size": {
+          "width": 150,
+          "height": 150
+        },
+        "isMovable": false,
+        "position": {
+          "x": 600,
+          "y": 200
+        },
+        "image": "image3",
+        "gifs": ["gif1", "gif2", "gif3"],
+        "currentGif": "gif3"
+      },
+      {
+        "name": "Ravana1",
+        "description": "An image of Ravana.",
+        "count": 1,
+        "size": {
+          "width": 150,
+          "height": 150
+        },
+        "isMovable": false,
+        "position": {
+          "x": 200,
+          "y": 400
+        },
+        "image": "image4",
+        "gifs": ["gif1", "gif2", "gif3"],
+        "currentGif": "gif4"
+      },
+      {
+        "name": "Hanuman1",
+        "description": "An image of Hanuman.",
+        "count": 1,
+        "size": {
+          "width": 150,
+          "height": 150
+        },
+        "isMovable": false,
+        "position": {
+          "x": 400,
+          "y": 400
+        },
+        "image": "image5",
+        "gifs": ["gif1", "gif2", "gif3"],
+        "currentGif": "gif5"
       }
+    ],
+    "Background": "https://images.svar.in/Images/a2e41164-c512-4759-b155-8aad69340822.png",
+    "Game State": [
+      {
+        "name": "GameOver",
+        "type": "Boolean",
+        "value": false
+      }
+    ],
+    "Game Rules": {
+      "LordRama1": [
+        {
+          "on_tap": {
+            "condition": [],
+            "action": [
+              {
+                "operator": "change_animation",
+                "operand1": {
+                  "name": "gif2",
+                  "type": "String",
+                  "value": "gif2"
+                },
+                "target": {
+                  "name": "LordRama1",
+                  "type": "String",
+                  "value": "LordRama1"
+                }
+              },
+              {
+                "target": {
+                  "name": "GameOver",
+                  "type": "variable"
+                },
+                "operand1": {
+                  "name": "true",
+                  "type": "Boolean",
+                  "value": "true"
+                },
+                "operator": "="
+              }
+            ]
+          }
+        }
+      ],
+      "Sita1": [
+        {
+          "on_tap": {
+            "condition": [],
+            "action": [
+              {
+                "operator": "change_animation",
+                "operand1": {
+                  "name": "gif2",
+                  "type": "String",
+                  "value": "gif2"
+                },
+                "target": {
+                  "name": "Sita1",
+                  "type": "String",
+                  "value": "Sita1"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "Lakshmana1": [
+        {
+          "on_tap": {
+            "condition": [],
+            "action": [
+              {
+                "operator": "change_animation",
+                "operand1": {
+                  "name": "gif2",
+                  "type": "String",
+                  "value": "gif2"
+                },
+                "target": {
+                  "name": "Lakshmana1",
+                  "type": "String",
+                  "value": "Lakshmana1"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "Ravana1": [
+        {
+          "on_tap": {
+            "condition": [],
+            "action": [
+              {
+                "operator": "change_animation",
+                "operand1": {
+                  "name": "gif2",
+                  "type": "String",
+                  "value": "gif2"
+                },
+                "target": {
+                  "name": "Ravana1",
+                  "type": "String",
+                  "value": "Ravana1"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "Hanuman1": [
+        {
+          "on_tap": {
+            "condition": [],
+            "action": [
+              {
+                "operator": "change_animation",
+                "operand1": {
+                  "name": "gif2",
+                  "type": "String",
+                  "value": "gif2"
+                },
+                "target": {
+                  "name": "Hanuman1",
+                  "type": "String",
+                  "value": "Hanuman1"
+                }
+              }
+            ]
+          }
+        }
+      ]
     },
-    {
+    "Images": {
+      "image1": "https://images.svar.in/Images/528a6302-2443-45f4-b9d7-61a2ca0e003c.png",
+      "image2": "https://images.svar.in/Images/45e65911-600f-4423-bf41-4c2309bbd828.png",
+      "image3": "https://images.svar.in/Images/d8d221b6-1673-40e1-b553-262cb5f309d7.png",
+      "image4": "https://images.svar.in/Images/f4ca1699-f6a5-42b2-97ae-411a7985682c.png",
+      "image5": "https://images.svar.in/Images/b72e04c1-c581-401c-90ee-626c053220cf.png"
+    },
+    "Gifs": {
+      "gif1": "assets/gifs/bell-pepper-8079_256.gif",
+      "gif2": "assets/gifs/car-1803_256.gif",
+      "gif3": "assets/gifs/ghost-8811_256.gif",
+      "gif4": "assets/gifs/star-19_256.gif",
+      "gif5": "assets/gifs/wheel-6663_256.gif"
+    }
+  },
+  {
       "Objective": "Child has to help Rama and Lakshmana to cross the river by making a bridge with the help of monkeys.",
       "Character": [
         {

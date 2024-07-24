@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../engine/game.dart';
 
+
 class CustomDialog extends StatefulWidget {
   String? message;
   Artboard? teddyArtboard;
@@ -129,8 +130,8 @@ class Popup extends PositionComponent with HasGameRef<MyGame> {
 
       if (gameRef.provider.currentSceneIndex < gamedata.scenes.length - 1) {
         gameRef.provider.increaseIndex();
-        gamedata =
-            GameData.fromJson(gamedata.scenes, gameRef.provider.currentSceneIndex);
+        // gamedata =
+        //     GameData.fromJson(gamedata.scenes, gameRef.provider.currentSceneIndex);
       } else {
         // Final game over logic if all scenes are completed
         print("All scenes completed. Game Over.");

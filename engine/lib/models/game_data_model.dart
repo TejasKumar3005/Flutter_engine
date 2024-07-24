@@ -1,9 +1,38 @@
-import 'package:engine/utils/Image.dart'; // Import the necessary dependencies for images
-import 'package:flame/game.dart'; // Import the necessary dependencies for game logic
 import 'package:flutter/material.dart';
 import 'package:vector_math/vector_math_64.dart';
 
-import 'variables_model.dart'; // Import Vector2 from the vector_math library for 2D vectors
+class Variable {
+  String name;
+  String type;
+  dynamic value;
+
+  Variable({
+    required this.name,
+    required this.type,
+    required this.value,
+  });
+
+  dynamic getValue(GameData gameData) {
+    return value;
+  }
+
+  void setValue(GameData gameData, dynamic newValue) {
+    value = newValue;
+  }
+
+  factory Variable.fromJson(Map<String, dynamic> json) {
+    return Variable(
+      name: json['name'],
+      type: json['type'],
+      value: json['value'],
+    );
+  }
+
+  @override
+  String toString() {
+    return 'Variable(name: $name, type: $type, value: $value)';
+  }
+}
 
 class CharacterInfo {
   String image;
@@ -11,6 +40,8 @@ class CharacterInfo {
   Vector2 size;
   bool isMovable;
   String name;
+  List<String> gifs; // List to store multiple GIFs
+  String currentGif; // Field to store the current GIF
 
   CharacterInfo({
     required this.image,
@@ -18,11 +49,27 @@ class CharacterInfo {
     required this.size,
     required this.isMovable,
     required this.name,
+    required this.gifs,
+    required this.currentGif, // Initialize the current GIF
   });
 
   @override
   String toString() {
-    return 'Name: $name, Position: $position, Size: $size, IsMovable: $isMovable, Image: $image';
+    String gifsString = gifs.join(', ');
+    return 'Name: $name, Position: $position, Size: $size, IsMovable: $isMovable, Image: $image, GIFs: $gifsString, Current GIF: $currentGif';
+  }
+
+  factory CharacterInfo.fromJson(Map<String, dynamic> json) {
+    List<String> gifs = List<String>.from(json['gifs']);
+    return CharacterInfo(
+      image: json['image'],
+      position: Vector2(json['position']['x'].toDouble(), json['position']['y'].toDouble()),
+      size: Vector2(json['size']['width'].toDouble(), json['size']['height'].toDouble()),
+      isMovable: json['isMovable'],
+      name: json['name'],
+      gifs: gifs,
+      currentGif: json['currentGif'],
+    );
   }
 }
 
@@ -33,21 +80,26 @@ class GameData {
   late bool shouldShowDialog;
   late String dialogMessage;
   late Map<String, String> imageLinks;
+  late Map<String, String> gifLinks;
   late int currentSceneIndex;
   late List<Map<String, dynamic>> scenes;
 
   Widget backgroundBuilder(BuildContext context) {
     return Center(
-        child: AspectRatio(
-            aspectRatio: 4 / 3,
-            child: Container(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: NetworkImage(backgroundImage),
-                      fit: BoxFit.fitHeight)),
-            )));
+      child: AspectRatio(
+        aspectRatio: 4 / 3,
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage(backgroundImage),
+              fit: BoxFit.fitHeight,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
   GameData({
@@ -56,6 +108,7 @@ class GameData {
     required this.shouldShowDialog,
     required this.dialogMessage,
     required this.imageLinks,
+    required this.gifLinks,
     required this.backgroundImage,
     required this.currentSceneIndex,
     required this.scenes,
@@ -65,6 +118,7 @@ class GameData {
     Map<String, Variable> variables = {};
     Map<String, CharacterInfo> characters = {};
     Map<String, String> imageLinks = {};
+    Map<String, String> gifLinks = {};
 
     // Select the JSON object for the current scene index
     Map<String, dynamic> currentSceneJson = jsonList[sceneIndex];
@@ -72,11 +126,11 @@ class GameData {
     currentSceneJson['Images'].forEach((key, value) {
       imageLinks[key] = value;
     });
+    currentSceneJson['Gifs'].forEach((key, value) {
+      gifLinks[key] = value;
+    });
 
-    print("game state");
-    print(currentSceneJson['Game State']);
     currentSceneJson['Game State'].forEach((value) {
-      print("processing game state");
       variables[value['name']] = Variable(
         name: value['name'],
         type: value['type'],
@@ -86,26 +140,24 @@ class GameData {
 
     List chrs = currentSceneJson['Character'];
     chrs.forEach((value) {
-      print(value["name"]);
-      print(value["image"]);
-
       characters[value["name"]] = CharacterInfo(
-          image: value["image"],
-          position: Vector2((value['position']["x"]).toDouble(),
-              value['position']['y'].toDouble()),
-          size: Vector2(value['size']["width"].toDouble(),
-              value['size']["height"].toDouble()),
-          isMovable: value['isMovable'],
-          name: value["name"]);
+        image: value["image"],
+        gifs: List<String>.from(value["gifs"]),
+        currentGif: value["currentGif"],
+        position: Vector2(value['position']["x"].toDouble(), value['position']['y'].toDouble()),
+        size: Vector2(value['size']["width"].toDouble(), value['size']["height"].toDouble()),
+        isMovable: value['isMovable'],
+        name: value["name"],
+      );
     });
 
     return GameData(
       variables: variables,
       characters: characters,
       shouldShowDialog: true,
-      dialogMessage:
-          currentSceneJson['Objective'] + "\nTap on the Objects to know more about them",
+      dialogMessage: currentSceneJson['Objective'] + "\nTap on the Objects to know more about them",
       imageLinks: imageLinks,
+      gifLinks: gifLinks,
       backgroundImage: currentSceneJson['Background'],
       currentSceneIndex: sceneIndex,
       scenes: jsonList,

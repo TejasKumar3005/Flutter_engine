@@ -81,6 +81,7 @@ flutter:
       - assets/
       - assets/game_music.mp3
       - assets/icons/
+      - assets/gifs/
       
     
 

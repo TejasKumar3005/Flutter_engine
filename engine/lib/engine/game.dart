@@ -15,6 +15,13 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import '../models/object.dart';
 import "../models/popup.dart";
+import 'package:flame/sprite.dart';
+import 'package:flame/collisions.dart';
+import 'package:flame/flame.dart';
+import 'package:flame_audio/flame_audio.dart';
+
+
+
 
 class MyGame extends FlameGame with HasCollisionDetection, TapCallbacks {
   MyGame({
@@ -22,7 +29,7 @@ class MyGame extends FlameGame with HasCollisionDetection, TapCallbacks {
     required this.gameRules,
     required this.context,
     required this.currentSceneIndex,
-    required this.provider
+    required this.provider,
   }) : super(
           camera: CameraComponent.withFixedResolution(
             width: 900,
@@ -37,6 +44,7 @@ class MyGame extends FlameGame with HasCollisionDetection, TapCallbacks {
   final int currentSceneIndex;
   late GameData gamedata = gamedataList[currentSceneIndex];
   final generatedImages = <String, ui.Image>{};
+  final generatedGifs = <String, SpriteAnimation>{}; // Updated to store SpriteAnimation
 
   double get width => size.x;
   double get height => size.y;
@@ -51,20 +59,23 @@ class MyGame extends FlameGame with HasCollisionDetection, TapCallbacks {
   @override
   Future<void> onLoad() async {
     await preloadImages();
+    await preloadGifs(); // Preload gifs
     prepareRive();
     camera.viewfinder.anchor = Anchor.topLeft;
 
-    gamedata.characters.values.forEach((element) {
+    for (var element in gamedata.characters.values) {
       print("Adding character: ${element.name}");
       world.add(Object(
         position: element.position,
         size: element.size,
+        currentGif: element.currentGif,
+        gifs: element.gifs,
         image: element.image,
         isStatic: !element.isMovable,
         name: element.name,
         context: context,
       ));
-    });
+    }
 
     // wait for all Objects to be added to the world
     await Future.delayed(Duration(seconds: 1));
@@ -101,11 +112,11 @@ class MyGame extends FlameGame with HasCollisionDetection, TapCallbacks {
         if (stateMachineController != null) {
           artboard.addController(stateMachineController!);
 
-          stateMachineController!.inputs.forEach((element) {
+          for (var element in stateMachineController!.inputs) {
             if (element.name == "click") {
               successTrigger = element as SMITrigger;
             }
-          });
+          }
         }
 
         teddyArtboard = artboard;
@@ -132,6 +143,36 @@ class MyGame extends FlameGame with HasCollisionDetection, TapCallbacks {
 
     isLoaded = true;
   }
+
+Future<void> preloadGifs() async {
+  print("loading gifs");
+  for (var gifPair in gamedata.gifLinks.entries) {
+    try {
+      print(gifPair.key);
+
+      final ByteData data = await rootBundle.load(gifPair.value);
+      final Uint8List bytes = data.buffer.asUint8List();
+
+      // Create a codec for animated image
+      final codec = await ui.instantiateImageCodec(bytes);
+      List<Sprite> sprites = [];
+      for (int i = 0; i < codec.frameCount; i++) {
+        final frameInfo = await codec.getNextFrame();
+        final image = frameInfo.image;
+        sprites.add(Sprite(image));
+      }
+
+      final spriteAnimation = SpriteAnimation.spriteList(
+        sprites,
+        stepTime: 0.1, // Set the frame duration
+      );
+
+      generatedGifs[gifPair.key] = spriteAnimation;
+    } catch (e) {
+      print("Error loading gif: $e");
+    }
+  }
+}
 
   Future<void> preloadImages() async {
     print("loading images");
