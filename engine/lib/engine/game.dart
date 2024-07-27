@@ -64,7 +64,7 @@ class MyGame extends FlameGame with HasCollisionDetection, TapCallbacks {
     camera.viewfinder.anchor = Anchor.topLeft;
 
     for (var element in gamedata.characters.values) {
-      print("Adding character: ${element.name}");
+      print("Adding Character: ${element.name}");
       world.add(Object(
         position: element.position,
         size: element.size,

@@ -33,7 +33,7 @@
           "y": 200
         },
         "image": "image2",
-        "gifs": ["gif1", "gif2", "gif3"],
+        "gifs": ["gif3", "gif1", "gif5"],
         "currentGif": "gif2"
       },
       {
@@ -46,11 +46,11 @@
         },
         "isMovable": false,
         "position": {
-          "x": 600,
+          "x": 100,
           "y": 200
         },
         "image": "image3",
-        "gifs": ["gif1", "gif2", "gif3"],
+        "gifs": ["gif4", "gif3", "gif1"],
         "currentGif": "gif3"
       },
       {
@@ -67,7 +67,7 @@
           "y": 400
         },
         "image": "image4",
-        "gifs": ["gif1", "gif2", "gif3"],
+        "gifs": ["gif2", "gif5", "gif4"],
         "currentGif": "gif4"
       },
       {
@@ -84,7 +84,7 @@
           "y": 400
         },
         "image": "image5",
-        "gifs": ["gif1", "gif2", "gif3"],
+        "gifs": ["gif1", "gif4", "gif3"],
         "currentGif": "gif5"
       }
     ],
@@ -105,9 +105,9 @@
               {
                 "operator": "change_animation",
                 "operand1": {
-                  "name": "gif2",
+                  "name": "gif1",
                   "type": "String",
-                  "value": "gif2"
+                  "value": "gif4"
                 },
                 "target": {
                   "name": "LordRama1",
@@ -141,7 +141,7 @@
                 "operand1": {
                   "name": "gif2",
                   "type": "String",
-                  "value": "gif2"
+                  "value": "gif5"
                 },
                 "target": {
                   "name": "Sita1",
@@ -161,9 +161,9 @@
               {
                 "operator": "change_animation",
                 "operand1": {
-                  "name": "gif2",
+                  "name": "gif3",
                   "type": "String",
-                  "value": "gif2"
+                  "value": "gif1"
                 },
                 "target": {
                   "name": "Lakshmana1",
@@ -183,7 +183,7 @@
               {
                 "operator": "change_animation",
                 "operand1": {
-                  "name": "gif2",
+                  "name": "gif4",
                   "type": "String",
                   "value": "gif2"
                 },
@@ -205,9 +205,9 @@
               {
                 "operator": "change_animation",
                 "operand1": {
-                  "name": "gif2",
+                  "name": "gif5",
                   "type": "String",
-                  "value": "gif2"
+                  "value": "gif3"
                 },
                 "target": {
                   "name": "Hanuman1",

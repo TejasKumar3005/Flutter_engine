@@ -43,22 +43,16 @@ class Object extends PositionComponent
     print(name);
     print(isStatic);
     print(position);
-    if (image.isNotEmpty) {
-      print("in image");
-      final loadedImage = gameRef.generatedImages[image];
-      if (loadedImage != null) {
-        print("sprite done");
-        sprite = Sprite(loadedImage);
-      }
+
+    // Ensure GIF animation is initialized
+    if (gifs.isNotEmpty) {
+      updateGifAnimation();
     }
 
     FlameAudio.bgm.initialize();
     // Load and play the audio
     await FlameAudio.audioCache.load('assets/game_music.mp3');
     FlameAudio.bgm.play('game_music.mp3', volume: .25);
-
-    // Load the initial GIF
-    updateGifAnimation();
 
     return super.onLoad();
   }
@@ -75,8 +69,6 @@ class Object extends PositionComponent
         position: position,
         size: size,
       );
-    } else if (sprite != null) {
-      sprite!.render(canvas, position: position, size: size);
     }
   }
 
@@ -101,6 +93,19 @@ class Object extends PositionComponent
       currentGif = character.currentGif;
       updateGifAnimation();
     }
+
+    // Ensure the object stays within screen bounds
+    final screenSize = gameRef.size;
+    if (position.x < 0) {
+      position.x = 0;
+    } else if (position.x + size.x > screenSize.x) {
+      position.x = screenSize.x - size.x;
+    }
+    if (position.y < 0) {
+      position.y = 0;
+    } else if (position.y + size.y > screenSize.y) {
+      position.y = screenSize.y - size.y;
+    }
   }
 
   void updateGifAnimation() {
@@ -111,6 +116,18 @@ class Object extends PositionComponent
   @override
   void onTapUp(TapUpEvent details) {
     gameRef.gameRules.onTap(name, gameRef.gamedata);
+    shuffleGif();
+  }
+
+  void shuffleGif() {
+    final character = gameRef.gamedata.characters[name];
+    if (character != null) {
+      int currentIndex = gifs.indexOf(currentGif);
+      currentIndex = (currentIndex + 1) % gifs.length;
+      currentGif = gifs[currentIndex];
+      updateGifAnimation();
+      character.currentGif = currentGif; // Update the current GIF in character info
+    }
   }
 
   // Override DragCallbacks methods
