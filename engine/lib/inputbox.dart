@@ -154,20 +154,34 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
     super.dispose();
   }
 
-  Future<void> fetchScenes(BuildContext context, int currentIndex) async {
-    try {
+  Future<void> fetchScenes(BuildContext context, int currentIndex, {bool useApi = true}) async {
+  try {
+    List<dynamic> responseJson;
+    
+    if (useApi) {
+      // Fetch data from API
+      final response = await http.get(Uri.parse('https://gameapi.svar.in'));
+      if (response.statusCode == 200) {
+        responseJson = jsonDecode(response.body);
+      } else {
+        print("failed to load data");
+        throw Exception('Failed to load data from API');
+      }
+    } else {
+      // Load data from local JSON file
       String jsonData = await rootBundle.loadString('assets/main.json');
-      List<dynamic> responseJson = jsonDecode(jsonData);
-      setState(() {
-        scenes =
-            responseJson.map((scene) => scene as Map<String, dynamic>).toList();
-        print("fetch scenes");
-      });
-    } catch (e) {
-      showSnackBar(context, e.toString(), ContentType.failure);
-      failTrigger?.fire();
+      responseJson = jsonDecode(jsonData);
     }
+
+    setState(() {
+      scenes = responseJson.map((scene) => scene as Map<String, dynamic>).toList();
+      print("fetch scenes");
+    });
+  } catch (e) {
+    showSnackBar(context, e.toString(), ContentType.failure);
+    failTrigger?.fire();
   }
+}
 
   void showSnackBar(
       BuildContext context, String message, ContentType contentType) {
