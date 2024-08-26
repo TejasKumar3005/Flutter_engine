@@ -40,8 +40,9 @@ class CharacterInfo {
   Vector2 size;
   bool isMovable;
   String name;
-  List<String> gifs; // List to store multiple GIFs
-  String currentGif; // Field to store the current GIF
+  final Map<String, String> gifs;  // List to store multiple GIFs
+  String currentGif;
+  bool isVisible; // Field to store the current GIF
 
   CharacterInfo({
     required this.image,
@@ -50,17 +51,20 @@ class CharacterInfo {
     required this.isMovable,
     required this.name,
     required this.gifs,
-    required this.currentGif, // Initialize the current GIF
+    required this.currentGif,
+    this.isVisible = true, // Initialize the current GIF
   });
 
-  @override
+ @override
   String toString() {
-    String gifsString = gifs.join(', ');
-    return 'Name: $name, Position: $position, Size: $size, IsMovable: $isMovable, Image: $image, GIFs: $gifsString, Current GIF: $currentGif';
+    // Update to handle Map structure for gifs
+    String gifsString = gifs.entries.map((entry) => '${entry.key}: ${entry.value}').join(', ');
+    return 'Name: $name, Position: $position, Size: $size, IsMovable: $isMovable, Image: $image, GIFs: {$gifsString}, Current GIF: $currentGif';
   }
 
   factory CharacterInfo.fromJson(Map<String, dynamic> json) {
-    List<String> gifs = List<String>.from(json['gifs']);
+    // Update to handle Map structure for gifs
+    Map<String, String> gifs = Map<String, String>.from(json['gifs']);
     return CharacterInfo(
       image: json['image'],
       position: Vector2(json['position']['x'].toDouble(), json['position']['y'].toDouble()),
@@ -126,7 +130,7 @@ class GameData {
     currentSceneJson['Images'].forEach((key, value) {
       imageLinks[key] = value;
     });
-    currentSceneJson['Gifs'].forEach((key, value) {
+    currentSceneJson['gifs'].forEach((key, value) {
       gifLinks[key] = value;
     });
 
@@ -140,16 +144,16 @@ class GameData {
 
     List chrs = currentSceneJson['Character'];
     chrs.forEach((value) {
-      characters[value["name"]] = CharacterInfo(
-        image: value["image"],
-        gifs: List<String>.from(value["gifs"]),
-        currentGif: value["currentGif"],
-        position: Vector2(value['position']["x"].toDouble(), value['position']['y'].toDouble()),
-        size: Vector2(value['size']["width"].toDouble(), value['size']["height"].toDouble()),
-        isMovable: value['isMovable'],
-        name: value["name"],
-      );
-    });
+    characters[value["name"]] = CharacterInfo(
+    image: value["image"],
+    gifs: Map<String, String>.from(value["gifs"]),  // Change here to accommodate the map structure
+    currentGif: value["currentGif"],
+    position: Vector2(value['position']["x"].toDouble(), value['position']['y'].toDouble()),
+    size: Vector2(value['size']["width"].toDouble(), value['size']["height"].toDouble()),
+    isMovable: value['isMovable'],
+    name: value["name"],
+  );
+});
 
     return GameData(
       variables: variables,

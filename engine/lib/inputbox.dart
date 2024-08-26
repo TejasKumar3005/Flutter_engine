@@ -154,14 +154,25 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
     super.dispose();
   }
 
-  Future<void> fetchScenes(BuildContext context, int currentIndex, {bool useApi = true}) async {
+  Future<void> fetchScenes(BuildContext context, int currentIndex, {bool useApi = false}) async {
   try {
     List<dynamic> responseJson;
     
     if (useApi) {
       // Fetch data from API
-      final response = await http.get(Uri.parse('https://gameapi.svar.in'));
+      http.Response response = await http.post(
+          Uri.parse("https://gameapi.svar.in/send_data"),
+          body: jsonEncode(
+            {
+              "msg": _emailController.text.toString(),
+              "api_key": _passwordController.text.toString()
+            },
+          ),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8'
+          });
       if (response.statusCode == 200) {
+        print("data loaded successfully");
         responseJson = jsonDecode(response.body);
       } else {
         print("failed to load data");

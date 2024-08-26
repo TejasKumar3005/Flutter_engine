@@ -63,19 +63,22 @@ class MyGame extends FlameGame with HasCollisionDetection, TapCallbacks {
     prepareRive();
     camera.viewfinder.anchor = Anchor.topLeft;
 
-    for (var element in gamedata.characters.values) {
-      print("Adding Character: ${element.name}");
-      world.add(Object(
-        position: element.position,
-        size: element.size,
-        currentGif: element.currentGif,
-        gifs: element.gifs,
-        image: element.image,
-        isStatic: !element.isMovable,
-        name: element.name,
-        context: context,
-      ));
-    }
+   for (var element in gamedata.characters.values) {
+  print("Adding Character: ${element.name}");
+  world.add(
+    Object(
+      position: element.position,
+      size: element.size,
+      currentGif: element.currentGif,
+      gifs: element.gifs.values.toList(), // Pass the Map<String, String> directly
+      image: element.image,
+      isStatic: !element.isMovable,
+      name: element.name,
+      context: context,
+    ),
+  );
+}
+
 
     // wait for all Objects to be added to the world
     await Future.delayed(Duration(seconds: 1));
@@ -148,31 +151,37 @@ Future<void> preloadGifs() async {
   print("loading gifs");
   for (var gifPair in gamedata.gifLinks.entries) {
     try {
-      print(gifPair.key);
+      print("Downloading GIF from: ${gifPair.value}");
+      
+      // Download the GIF from the URL
+      final response = await http.get(Uri.parse(gifPair.value));
+      if (response.statusCode == 200) {
+        final Uint8List bytes = response.bodyBytes;
 
-      final ByteData data = await rootBundle.load(gifPair.value);
-      final Uint8List bytes = data.buffer.asUint8List();
+        // Create a codec for the animated image
+        final codec = await ui.instantiateImageCodec(bytes);
+        List<Sprite> sprites = [];
+        for (int i = 0; i < codec.frameCount; i++) {
+          final frameInfo = await codec.getNextFrame();
+          final image = frameInfo.image;
+          sprites.add(Sprite(image));
+        }
 
-      // Create a codec for animated image
-      final codec = await ui.instantiateImageCodec(bytes);
-      List<Sprite> sprites = [];
-      for (int i = 0; i < codec.frameCount; i++) {
-        final frameInfo = await codec.getNextFrame();
-        final image = frameInfo.image;
-        sprites.add(Sprite(image));
+        final spriteAnimation = SpriteAnimation.spriteList(
+          sprites,
+          stepTime: 0.1, // Set the frame duration
+        );
+
+        generatedGifs[gifPair.key] = spriteAnimation;
+      } else {
+        print("Failed to download GIF: ${gifPair.key}, Status Code: ${response.statusCode}");
       }
-
-      final spriteAnimation = SpriteAnimation.spriteList(
-        sprites,
-        stepTime: 0.1, // Set the frame duration
-      );
-
-      generatedGifs[gifPair.key] = spriteAnimation;
     } catch (e) {
       print("Error loading gif: $e");
     }
   }
 }
+
 
   Future<void> preloadImages() async {
     print("loading images");

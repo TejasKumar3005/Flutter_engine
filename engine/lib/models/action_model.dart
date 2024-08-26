@@ -1,6 +1,7 @@
 import 'conditional_model.dart';
 import 'game_data_model.dart';
 import 'variables_model.dart';
+import 'package:vector_math/vector_math_64.dart';
 
 class Action {
   DataType? var1;
@@ -73,6 +74,16 @@ class Action {
           changeAnimation(gameData, targetvar!.getValue(gameData), var1!.getValue(gameData));
         }
         break;
+      case 'delete_character':
+      if (targetvar != null) {
+        toggleVisibility(gameData, targetvar!.getValue(gameData));
+      }
+      break;
+      case 'swap_positions':
+      if (targetvar != null && var1 != null) {
+        swapPositions(gameData, targetvar!.getValue(gameData), var1!.getValue(gameData));
+      }
+       break;
       default:
         throw Exception('Unsupported variable operation: $operation');
     }
@@ -80,6 +91,15 @@ class Action {
       targetvar!.setValue(gameData, result);
     }
   }
+
+  void toggleVisibility(GameData gameData, String characterName) {
+  if (gameData.characters.containsKey(characterName)) {
+    gameData.characters[characterName]!.isVisible = !gameData.characters[characterName]!.isVisible;
+    print('Toggled visibility of $characterName to ${gameData.characters[characterName]!.isVisible}.');
+  } else {
+    print('Character $characterName not found.');
+  }
+}
 
   void replaceValues(GameData gameData) {
     if (gameData.variables.containsKey(var1) &&
@@ -89,6 +109,17 @@ class Action {
       gameData.variables[var2]!.value = temp;
     }
   }
+
+  void swapPositions(GameData gameData, String characterName1, String characterName2) {
+  if (gameData.characters.containsKey(characterName1) && gameData.characters.containsKey(characterName2)) {
+    Vector2 tempPosition = gameData.characters[characterName1]!.position;
+    gameData.characters[characterName1]!.position = gameData.characters[characterName2]!.position;
+    gameData.characters[characterName2]!.position = tempPosition;
+    print('Swapped positions of $characterName1 and $characterName2.');
+  } else {
+    print('One or both characters not found.');
+  }
+}
 
   void changeAnimation(GameData gameData, String characterName, String newGif) {
     if (gameData.characters.containsKey(characterName)) {
