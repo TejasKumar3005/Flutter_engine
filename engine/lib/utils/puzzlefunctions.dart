@@ -150,7 +150,7 @@ Widget riveanimation(BuildContext context) {
         height: 300,
         width: 200,
         child: RiveAnimation.asset(
-          'assets/complete.riv',
+          'complete.riv',
           fit: BoxFit.contain,
         ),
       ),

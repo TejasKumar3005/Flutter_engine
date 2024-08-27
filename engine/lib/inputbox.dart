@@ -114,7 +114,7 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
   
     // Pick and initialize the local image file
     // _pickAndInitializeLocalImage();
-    rootBundle.load("assets/login.riv").then(
+    rootBundle.load("login.riv").then(
       (data) {
         final file = RiveFile.import(data);
         final artboard = file.mainArtboard;
@@ -143,7 +143,7 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
   }
 
  Future<void> _pickAndInitializeLocalImage() async {
-  final ByteData data = await rootBundle.load('assets/manuscript.png');
+  final ByteData data = await rootBundle.load('manuscript.png');
     final Uint8List bytes = data.buffer.asUint8List();
     await FileAssetImporter.initializeLocalImage(bytes,'arrow');
 }
@@ -180,7 +180,7 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
       }
     } else {
       // Load data from local JSON file
-      String jsonData = await rootBundle.loadString('assets/main.json');
+      String jsonData = await rootBundle.loadString('main.json');
       responseJson = jsonDecode(jsonData);
     }
 
@@ -282,9 +282,11 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
     });
     final provider = context.watch<GameUtilsProvider>();
     print("===== Current Scene: $currentSceneIndex");
-    return (gameloaded && provider.currentSceneIndex < scenes.length)
-        ? Game(key: ValueKey(provider.currentSceneIndex), gameJsonList: scenes)
-        : Scaffold(
+
+     if (gameloaded && provider.currentSceneIndex < scenes.length)
+        // ? Game(key: ValueKey(provider.currentSceneIndex), gameJsonList: scenes)
+        {Navigator.push(context, MaterialPageRoute(builder: (context) => Game( gameJsonList: scenes)));}
+        return Scaffold(
             backgroundColor: const Color(0xffd6e2ea),
             body: SingleChildScrollView(
               child: Center(

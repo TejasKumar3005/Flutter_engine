@@ -85,7 +85,7 @@ class _PuzzleGameState extends State<PuzzleGame> {
   }
 
   Future<void> load_images() async {
-    final ByteData data = await rootBundle.load('assets/bg1.jpg');
+    final ByteData data = await rootBundle.load('bg1.jpg');
     final Uint8List bytes = data.buffer.asUint8List();
     final ui.Codec codec = await ui.instantiateImageCodec(bytes);
     final ui.FrameInfo frameInfo = await codec.getNextFrame();
@@ -138,7 +138,7 @@ class _PuzzleGameState extends State<PuzzleGame> {
   }
 
   void prepareRive() {
-    rootBundle.load("assets/complete.riv").then(
+    rootBundle.load("complete.riv").then(
       (data) {
         final file = RiveFile.import(data);
         final artboard = file.mainArtboard;
@@ -190,7 +190,7 @@ class _PuzzleGameState extends State<PuzzleGame> {
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         image: NetworkImage(
-                            "https://svar.in/assets/img/vector3.1.png"),
+                            "https://svar.in/img/vector3.1.png"),
                         fit: BoxFit.fill,
                         filterQuality: FilterQuality.low),
                     border: Border.all(color: Colors.white, width: 2)),
@@ -263,7 +263,7 @@ class _PuzzleGameState extends State<PuzzleGame> {
                         width: 100,
                         decoration: BoxDecoration(
                             image: DecorationImage(
-                          image: AssetImage("assets/icons/Play (3).png"),
+                          image: AssetImage("icons/Play (3).png"),
                         )),
                       ),
                     ),

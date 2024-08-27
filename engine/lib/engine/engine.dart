@@ -144,7 +144,7 @@ class _GameState extends State<Game> {
   Future<List<Map<String, dynamic>>> fetchData() async {
     try {
       String jsonString =
-          await loadJsonFromAssets('assets/final_game_context.json');
+          await loadJsonFromAssets('final_game_context.json');
       List<Map<String, dynamic>> data =
           List<Map<String, dynamic>>.from(jsonDecode(jsonString));
       print("json");

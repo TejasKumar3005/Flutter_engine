@@ -17,7 +17,7 @@ OverlayEntry createOverlayEntry(BuildContext context) {
           width: 200,
           height: 200,
           child: RiveAnimation.asset(
-            'assets/loading.riv', // Replace with your Rive animation asset path
+            'loading.riv', // Replace with your Rive animation asset path
             fit: BoxFit.contain,
           ),
                 ),

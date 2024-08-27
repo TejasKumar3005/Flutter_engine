@@ -102,7 +102,7 @@ class MyGame extends FlameGame with HasCollisionDetection, TapCallbacks {
   }
 
   void prepareRive() {
-    rootBundle.load("assets/text_pop_up.riv").then(
+    rootBundle.load("text_pop_up.riv").then(
       (data) {
         final file = RiveFile.import(data);
         final artboard = file.mainArtboard;
@@ -126,7 +126,7 @@ class MyGame extends FlameGame with HasCollisionDetection, TapCallbacks {
       },
     );
 
-    rootBundle.load("assets/complete.riv").then(
+    rootBundle.load("complete.riv").then(
       (data) {
         final file = RiveFile.import(data);
         final artboard = file.mainArtboard;
