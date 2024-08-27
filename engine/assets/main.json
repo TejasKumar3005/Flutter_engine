@@ -130,7 +130,7 @@
                     "width": 50,
                     "height": 50
                 },
-                "isMovable": false,
+                "isMovable": true,
                 "gifs": {
                     "Bloom": "Flower_Bloom",
                     "Normal": "Flower_Normal"

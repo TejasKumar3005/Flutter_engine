@@ -116,6 +116,9 @@ class Object extends PositionComponent
   // Override TapCallbacks methods
   @override
   void onTapUp(TapUpEvent details) {
+    print("Tapped on $name");
+    print("tapped location: ${details.localPosition}");
+    print("position: $position");
     gameRef.gameRules.onTap(name, gameRef.gamedata);
     // Assuming the tap action updates the currentGif via changeAnimation logic in gameRules
     final character = gameRef.gamedata.characters[name];
@@ -129,7 +132,6 @@ class Object extends PositionComponent
   @override
   void onDragStart(DragStartEvent event) {
     super.onDragStart(event);
-
     // Reduce the size when dragging starts
     size = size * 0.8;
     priority = 10;

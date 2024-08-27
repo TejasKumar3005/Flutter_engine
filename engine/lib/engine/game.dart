@@ -58,7 +58,7 @@ class MyGame extends FlameGame with HasCollisionDetection, TapCallbacks {
 
   @override
   Future<void> onLoad() async {
-    await preloadImages();
+    // await preloadImages();
     await preloadGifs(); // Preload gifs
     prepareRive();
     camera.viewfinder.anchor = Anchor.topLeft;
@@ -72,7 +72,7 @@ class MyGame extends FlameGame with HasCollisionDetection, TapCallbacks {
       currentGif: element.currentGif,
       gifs:  element.gifs, // Pass the Map<String, String> directly
       image: element.image,
-      isStatic: !element.isMovable,
+      isStatic: false, // Set to false
       name: element.name,
       context: context,
     ),
@@ -91,7 +91,9 @@ class MyGame extends FlameGame with HasCollisionDetection, TapCallbacks {
   }
 
   @override
-  void onTapUp(TapUpEvent details) {}
+  void onTapUp(TapUpEvent details) {
+    print("location tapped: ${details.localPosition}");
+  }
 
   @override
   void update(double dt) {

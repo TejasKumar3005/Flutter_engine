@@ -283,9 +283,9 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
     final provider = context.watch<GameUtilsProvider>();
     print("===== Current Scene: $currentSceneIndex");
 
-     if (gameloaded && provider.currentSceneIndex < scenes.length)
+    //  if (gameloaded && provider.currentSceneIndex < scenes.length)
         // ? Game(key: ValueKey(provider.currentSceneIndex), gameJsonList: scenes)
-        {Navigator.push(context, MaterialPageRoute(builder: (context) => Game( gameJsonList: scenes)));}
+        // {Navigator.push(context, MaterialPageRoute(builder: (context) => Game( gameJsonList: scenes)));}
         return Scaffold(
             backgroundColor: const Color(0xffd6e2ea),
             body: SingleChildScrollView(
@@ -413,6 +413,13 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
                                                       loading = false;
                                                       gameloaded = true;
                                                     }),
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                Game(
+                                                                    gameJsonList:
+                                                                        scenes)))
                                                   });
                                         } else {
                                           setState(() {
