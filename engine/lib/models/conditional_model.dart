@@ -18,6 +18,11 @@ class ConditionalOp {
     );
   }
 
+  @override
+  String toString() {
+    return 'ConditionalOp(operation: $operation, var1: $var1, var2: $var2)';
+  }
+
   ConditionalOp.variableOperation({
     required this.var1,
     required this.var2,
@@ -162,5 +167,10 @@ class Conditional {
       operations.add(ops);
     }
     return Conditional(operations);
+  }
+
+  @override
+  String toString() {
+    return 'Conditional(operations: $operations)';
   }
 }

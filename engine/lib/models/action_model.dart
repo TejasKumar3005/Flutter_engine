@@ -18,6 +18,11 @@ class Action {
     );
   }
 
+  @override
+  String toString() {
+    return 'Action(var1: $var1, var2: $var2, targetvar: $targetvar, operation: $operation)';
+  }
+
   // Constructors for different types of actions
   Action.variableOperation({
     required this.var1,
@@ -34,6 +39,8 @@ class Action {
 
   void performVariableOperation(GameData gameData) {
     dynamic result;
+    print("printing operation");
+    print(operation);
     switch (operation) {
       case '+':
         result = var1!.getValue(gameData) + var2!.getValue(gameData);
@@ -70,20 +77,46 @@ class Action {
         gameData.dialogMessage = var1!.getValue(gameData);
         break;
       case 'change_animation':
+        print("Changing animation");
         if (targetvar != null && var1 != null) {
-          changeAnimation(gameData, targetvar!.getValue(gameData), var1!.getValue(gameData));
+          print("Changing animation");
+
+          // Retrieve the character name and the gif key from gameData
+          String characterName = targetvar!.getValue(gameData);
+          String gifKey = var1!.getValue(gameData);
+
+          // Ensure the character exists in gameData
+          if (gameData.characters.containsKey(characterName)) {
+            final character = gameData.characters[characterName];
+
+            // Ensure the gifKey exists in the gifs map for that character
+            if (character != null && character.gifs.containsKey(gifKey)) {
+              String newGif = character.gifs[gifKey]!;
+              print(
+                  "Setting animation for $characterName to $gifKey ($newGif)");
+
+              // Update the currentGif and ensure the character re-renders with the new GIF
+              character.currentGif = newGif;
+            } else {
+              print("GIF key $gifKey not found for character $characterName");
+            }
+          } else {
+            print("Character $characterName not found in gameData");
+          }
         }
         break;
+       
       case 'delete_character':
-      if (targetvar != null) {
-        toggleVisibility(gameData, targetvar!.getValue(gameData));
-      }
-      break;
+        if (targetvar != null) {
+          toggleVisibility(gameData, targetvar!.getValue(gameData));
+        }
+        break;
       case 'swap_positions':
-      if (targetvar != null && var1 != null) {
-        swapPositions(gameData, targetvar!.getValue(gameData), var1!.getValue(gameData));
-      }
-       break;
+        if (targetvar != null && var1 != null) {
+          swapPositions(gameData, targetvar!.getValue(gameData),
+              var1!.getValue(gameData));
+        }
+        break;
       default:
         throw Exception('Unsupported variable operation: $operation');
     }
@@ -93,13 +126,15 @@ class Action {
   }
 
   void toggleVisibility(GameData gameData, String characterName) {
-  if (gameData.characters.containsKey(characterName)) {
-    gameData.characters[characterName]!.isVisible = !gameData.characters[characterName]!.isVisible;
-    print('Toggled visibility of $characterName to ${gameData.characters[characterName]!.isVisible}.');
-  } else {
-    print('Character $characterName not found.');
+    if (gameData.characters.containsKey(characterName)) {
+      gameData.characters[characterName]!.isVisible =
+          !gameData.characters[characterName]!.isVisible;
+      print(
+          'Toggled visibility of $characterName to ${gameData.characters[characterName]!.isVisible}.');
+    } else {
+      print('Character $characterName not found.');
+    }
   }
-}
 
   void replaceValues(GameData gameData) {
     if (gameData.variables.containsKey(var1) &&
@@ -110,38 +145,49 @@ class Action {
     }
   }
 
-  void swapPositions(GameData gameData, String characterName1, String characterName2) {
-  if (gameData.characters.containsKey(characterName1) && gameData.characters.containsKey(characterName2)) {
-    Vector2 tempPosition = gameData.characters[characterName1]!.position;
-    gameData.characters[characterName1]!.position = gameData.characters[characterName2]!.position;
-    gameData.characters[characterName2]!.position = tempPosition;
-    print('Swapped positions of $characterName1 and $characterName2.');
-  } else {
-    print('One or both characters not found.');
+  void swapPositions(
+      GameData gameData, String characterName1, String characterName2) {
+    if (gameData.characters.containsKey(characterName1) &&
+        gameData.characters.containsKey(characterName2)) {
+      Vector2 tempPosition = gameData.characters[characterName1]!.position;
+      gameData.characters[characterName1]!.position =
+          gameData.characters[characterName2]!.position;
+      gameData.characters[characterName2]!.position = tempPosition;
+      print('Swapped positions of $characterName1 and $characterName2.');
+    } else {
+      print('One or both characters not found.');
+    }
+  }
+
+  void changeAnimation(GameData gameData, String characterName, String gifKey) {
+    if (gameData.characters.containsKey(characterName)) {
+      final character = gameData.characters[characterName];
+
+      // Retrieve the GIF value (e.g., "Student_Run") based on the gifKey (e.g., "Run")
+      if (character != null && character.gifs.containsKey(gifKey)) {
+        String newGif = character.gifs[gifKey]!;
+        print("Changing animation for $characterName to $gifKey ($newGif)");
+        character.currentGif = newGif;
+      } else {
+        print("GIF key $gifKey not found for character $characterName");
+      }
+    }
   }
 }
 
-  void changeAnimation(GameData gameData, String characterName, String newGif) {
-    if (gameData.characters.containsKey(characterName)) {
-      print("change of animation");
-      gameData.characters[characterName]!.currentGif = newGif;
-    }
-  }
-
-  bool _toBoolean(DataType variable, GameData gameData) {
-    switch (variable.type) {
-      case 'bool':
-        return variable.getValue(gameData);
-      case 'int':
-      case 'double':
-        return variable.getValue(gameData) != 0;
-      case 'String':
-        return variable.getValue(gameData).isNotEmpty;
-      case 'List':
-        return variable.getValue(gameData).isNotEmpty;
-      default:
-        return false;
-    }
+bool _toBoolean(DataType variable, GameData gameData) {
+  switch (variable.type) {
+    case 'bool':
+      return variable.getValue(gameData);
+    case 'int':
+    case 'double':
+      return variable.getValue(gameData) != 0;
+    case 'String':
+      return variable.getValue(gameData).isNotEmpty;
+    case 'List':
+      return variable.getValue(gameData).isNotEmpty;
+    default:
+      return false;
   }
 }
 

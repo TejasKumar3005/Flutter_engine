@@ -57,6 +57,7 @@ class GameRules {
 // }
   void onTap(String objectType, GameData gameData) {
     final rules = gameRules[objectType]?.tapWith;
+    print("rules: $rules");
       // player.play(AssetSource('assets/success.mp3', mimeType: 'audio/mpeg'));
     print(rules);
     if (rules!= null) {
@@ -135,6 +136,12 @@ class InteractionRule {
       actions: List<Action>.from(json['action'].map((e) => Action.fromJson(e))),
     );
   }
+
+  @override
+  String toString() {
+    return 'InteractionRule(condition: $condition, actions: $actions)';
+  }
+
 }
 
 // All the rules asscoiated with one object

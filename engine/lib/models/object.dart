@@ -31,7 +31,7 @@ class Object extends PositionComponent
   final bool isStatic;
   final BuildContext context;
   String image;
-  List<String> gifs;
+  Map<String, String> gifs; // Changed to Map for key-value pairs
   String currentGif;
   SpriteAnimationTicker? gifAnimationTicker;
   Sprite? sprite;
@@ -49,10 +49,10 @@ class Object extends PositionComponent
       updateGifAnimation();
     }
 
-    FlameAudio.bgm.initialize();
-    // Load and play the audio
-    await FlameAudio.audioCache.load('assets/game_music.mp3');
-    FlameAudio.bgm.play('game_music.mp3', volume: .25);
+    // FlameAudio.bgm.initialize();
+    // // Load and play the audio
+    // await FlameAudio.audioCache.load('assets/game_music.mp3');
+    // FlameAudio.bgm.play('game_music.mp3', volume: .25);
 
     return super.onLoad();
   }
@@ -89,9 +89,9 @@ class Object extends PositionComponent
     // Update the current GIF based on the current animation
     final character = gameRef.gamedata.characters[name];
     if (character != null && character.currentGif != currentGif) {
-      print("gif done");
+      print("GIF change detected for $name. Updating to ${character.currentGif}");
       currentGif = character.currentGif;
-      updateGifAnimation();
+      updateGifAnimation(); // Re-render with the new GIF
     }
 
     // Ensure the object stays within screen bounds
@@ -109,6 +109,7 @@ class Object extends PositionComponent
   }
 
   void updateGifAnimation() {
+    // Update the gifAnimationTicker with the correct animation
     gifAnimationTicker = gameRef.generatedGifs[currentGif]?.createTicker();
   }
 
@@ -116,17 +117,11 @@ class Object extends PositionComponent
   @override
   void onTapUp(TapUpEvent details) {
     gameRef.gameRules.onTap(name, gameRef.gamedata);
-    shuffleGif();
-  }
-
-  void shuffleGif() {
+    // Assuming the tap action updates the currentGif via changeAnimation logic in gameRules
     final character = gameRef.gamedata.characters[name];
-    if (character != null) {
-      int currentIndex = gifs.indexOf(currentGif);
-      currentIndex = (currentIndex + 1) % gifs.length;
-      currentGif = gifs[currentIndex];
-      updateGifAnimation();
-      character.currentGif = currentGif; // Update the current GIF in character info
+    if (character != null && character.gifs.containsKey(character.currentGif)) {
+      currentGif = character.gifs[character.currentGif]!;
+      updateGifAnimation(); // Apply the new animation
     }
   }
 
@@ -167,10 +162,8 @@ class Object extends PositionComponent
     if (other is Object) {
       String currObj = name;
       String othObj = other.name;
-      print("col $currObj $othObj");
-      print(gameRef.gamedata.variables);
+      print("Collision detected between $currObj and $othObj");
       gameRef.gameRules.onCollision(currObj, othObj, gameRef.gamedata);
-      print(gameRef.gamedata.variables);
     }
   }
 }

@@ -269,9 +269,9 @@
                                     "value": "\"Run\""
                                 },
                                 "operand2": {
-                                    "name": "\"Student\"",
+                                    "name": "\"Student1\"",
                                     "type": "String",
-                                    "value": "\"Student\""
+                                    "value": "\"Student1\""
                                 }
                             }
                         ]
@@ -291,9 +291,9 @@
                                     "value": "\"Talk\""
                                 },
                                 "operand2": {
-                                    "name": "\"Guru\"",
+                                    "name": "\"Guru1\"",
                                     "type": "String",
-                                    "value": "\"Guru\""
+                                    "value": "\"Guru1\""
                                 }
                             }
                         ]
@@ -307,7 +307,7 @@
             "image3": "https://images.svar.in/Images/47d01401-8d9e-49bd-8bbf-895365e6642a.png"
         },
         "gifs": {
-            "Student_Walk": "https://images.svar.in/Images/running.gif",
+            "Student_Walk": "https://images.svar.in/Images/bloom.gif",
             "Student_Run": "https://images.svar.in/Images/running.gif",
             "Guru_Smile": "https://images.svar.in/Images/happy.gif",
             "Guru_Talk": "https://images.svar.in/Images/talking.gif",

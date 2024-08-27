@@ -28,6 +28,7 @@ class _GameState extends State<Game> {
   @override
   void initState() {
     super.initState();
+    print("initState called");
     gameData = [];
   
     if (widget.gameJsonList.isNotEmpty) {
@@ -78,11 +79,12 @@ class _GameState extends State<Game> {
   @override
   void didUpdateWidget(covariant Game oldWidget) {
     super.didUpdateWidget(oldWidget);
-final pro=Provider.of<GameUtilsProvider>(context, listen: false);
-    if (widget.gameJsonList != oldWidget.gameJsonList) {
-      // If the incoming data is different, update the game state accordingly
-      loadGameData(pro.currentSceneIndex);
-    }
+    print("didUpdateWidget called");
+// final pro=Provider.of<GameUtilsProvider>(context, listen: false);
+//     if (widget.gameJsonList != oldWidget.gameJsonList) {
+//       // If the incoming data is different, update the game state accordingly
+//       loadGameData(pro.currentSceneIndex);
+//     }
   }
 
   // void goToNextScene() {
@@ -106,6 +108,7 @@ final pro=Provider.of<GameUtilsProvider>(context, listen: false);
   @override
   Widget build(BuildContext context) {
     final gameState = Provider.of<GameUtilsProvider>(context, listen: false);
+    print("game state rebuilt");
     return Container(
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,

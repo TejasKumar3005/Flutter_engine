@@ -70,7 +70,7 @@ class MyGame extends FlameGame with HasCollisionDetection, TapCallbacks {
       position: element.position,
       size: element.size,
       currentGif: element.currentGif,
-      gifs: element.gifs.values.toList(), // Pass the Map<String, String> directly
+      gifs:  element.gifs, // Pass the Map<String, String> directly
       image: element.image,
       isStatic: !element.isMovable,
       name: element.name,
