@@ -145,7 +145,7 @@ class _KafkaMessageWidgetState extends State<KafkaMessageWidget> {
  Future<void> _pickAndInitializeLocalImage() async {
   final ByteData data = await rootBundle.load('manuscript.png');
     final Uint8List bytes = data.buffer.asUint8List();
-    await FileAssetImporter.initializeLocalImage(bytes,'arrow');
+    await FileAssetImporter.initializeLocalImage('arrow');
 }
 
 
