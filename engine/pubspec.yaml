@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.0.5 <4.0.0'
+  sdk: ">=3.5.0 <4.0.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -30,28 +30,28 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+    git: https://github.com/armando-couto/kafkabr.git
+  animated_text_kit: ^4.2.2
+  audioplayers: ^6.0.0
+  awesome_snackbar_content: ^0.1.3
+  connectivity_plus: ^2.3.8
+  cupertino_icons: ^1.0.2
+  file_picker: ^8.0.6
+  flame_audio: ^2.10.2
   flame: ^1.14.0
   flutter_svg: ^2.0.9
-  flame_audio: ^2.10.2
   google_fonts: ^6.2.1
-  universal_io: ^2.0.4
-  file_picker: ^8.0.6
-  image_picker: ^0.8.4+4
-  web: ^0.5.0
-  quiver: ^3.0.1
-  provider: ^6.1.1
-  audioplayers: ^6.0.0
-  kafkabr:
-    git: https://github.com/armando-couto/kafkabr.git
   http: ^1.1.0
+  image_picker: ^0.8.4+4
   image: ^3.0.1
-  awesome_snackbar_content: ^0.1.3
+  kafkabr:
+  provider: ^6.1.1
+  quiver: ^3.0.1
   rive: ^0.13.1
-  animated_text_kit: ^4.2.2
-  connectivity_plus: ^2.3.8
+  universal_io: ^2.0.4
+  web: ^0.5.0
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
   
 
 dev_dependencies:
