@@ -30,6 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  kafkabr:  
     git: https://github.com/armando-couto/kafkabr.git
   animated_text_kit: ^4.2.2
   audioplayers: ^6.0.0
@@ -44,7 +45,7 @@ dependencies:
   http: ^1.1.0
   image_picker: ^0.8.4+4
   image: ^3.0.1
-  kafkabr:
+  
   provider: ^6.1.1
   quiver: ^3.0.1
   rive: ^0.13.1
