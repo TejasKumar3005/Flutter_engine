@@ -6,7 +6,7 @@ import 'package:engine/controllers/player_controller.dart';
 import 'package:engine/models/game_data_model.dart';
 import 'package:engine/models/rules_model.dart';
 import 'package:engine/utils/gameWidgets/puzzlegame.dart';
-import 'package:flame/components.dart';
+import 'package:flame/components.dart'; 
 import 'package:flame/events.dart';
 import 'package:rive/rive.dart';
 import 'package:flame/game.dart';

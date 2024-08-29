@@ -98,7 +98,7 @@ class GameData {
           decoration: BoxDecoration(
             image: DecorationImage(
               image: NetworkImage(backgroundImage),
-              fit: BoxFit.fitHeight,
+              fit: BoxFit.fill ,
             ),
           ),
         ),

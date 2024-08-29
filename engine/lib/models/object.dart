@@ -148,9 +148,10 @@ class Object extends PositionComponent
 
   @override
   void onDragUpdate(DragUpdateEvent event) {
-    if (gameRef.gamedata.characters[name]!.isMovable == false) {
-      return;
-    }
+    print(gameRef.gamedata.characters[name]!.isMovable);
+    // if (gameRef.gamedata.characters[name]!.isMovable == false) {
+      // return;
+    // }
     position += event.localDelta;
   }
 
