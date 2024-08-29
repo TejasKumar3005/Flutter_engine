@@ -2,9 +2,9 @@ import 'dart:ui';
 import 'package:engine/models/game_data_model.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart'; // Assuming this is where MyGame is defined
+import 'package:google_fonts/google_fonts.dart';
 import 'package:rive/rive.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../engine/game.dart';
 
 

@@ -30,13 +30,17 @@ class MyGame extends FlameGame with HasCollisionDetection, TapCallbacks {
     required this.context,
     required this.currentSceneIndex,
     required this.provider,
+    required this.width,
+    required this.height,
   }) : super(
           camera: CameraComponent.withFixedResolution(
-            width: 900,
+            width: 1200,
             height: 900,
           ),
         );
 
+  final double width;
+  final double height;
   final List<GameData> gamedataList;
   final GameUtilsProvider provider;
   final BuildContext context;
@@ -46,8 +50,8 @@ class MyGame extends FlameGame with HasCollisionDetection, TapCallbacks {
   final generatedImages = <String, ui.Image>{};
   final generatedGifs = <String, SpriteAnimation>{}; // Updated to store SpriteAnimation
 
-  double get width => size.x;
-  double get height => size.y;
+  double get w => size.x;
+  double get h => size.y;
 
   Artboard? teddyArtboard;
   StateMachineController? stateMachineController;
@@ -92,7 +96,7 @@ class MyGame extends FlameGame with HasCollisionDetection, TapCallbacks {
 
   @override
   void onTapUp(TapUpEvent details) {
-    print("location tapped: ${details.localPosition}");
+    print("location tapped: ${details}");
   }
 
   @override

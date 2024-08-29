@@ -11,7 +11,7 @@ import 'package:flame_audio/flame_audio.dart';
 import 'package:flame/components.dart';
 import '../engine/game.dart';
 
-class Object extends PositionComponent
+class Object extends SpriteAnimationComponent
     with HasGameRef<MyGame>, CollisionCallbacks, DragCallbacks, TapCallbacks {
   Object({
     required this.name,
@@ -22,12 +22,17 @@ class Object extends PositionComponent
     required this.context,
     required this.gifs,
     required this.currentGif,
+    this.animation,
   }) : super(
           position: position,
           size: size,
+          children: [RectangleHitbox()],
+          animation: animation
+        
         );
 
   final String name;
+  final SpriteAnimation? animation;
   final bool isStatic;
   final BuildContext context;
   String image;
@@ -39,15 +44,16 @@ class Object extends PositionComponent
   @override
   FutureOr<void> onLoad() async {
     print("in load");
-    print(image);
-    print(name);
-    print(isStatic);
-    print(position);
+    // print(image);
+    // print(name);
+    // print(isStatic);
+    // print(position);
 
-    // Ensure GIF animation is initialized
-    if (gifs.isNotEmpty) {
-      updateGifAnimation();
-    }
+    // // Ensure GIF animation is initialized
+    // if (gifs.isNotEmpty) {
+    //   updateGifAnimation();
+    // }
+    animation=gameRef.generatedGifs[currentGif];
 
     // FlameAudio.bgm.initialize();
     // // Load and play the audio
@@ -57,20 +63,20 @@ class Object extends PositionComponent
     return super.onLoad();
   }
 
-  @override
-  void render(Canvas canvas) {
-    super.render(canvas);
+  // @override
+  // void render(Canvas canvas) {
+  //   super.render(canvas);
 
-    // Draw the current GIF animation frame if available
-    if (gifAnimationTicker != null) {
-      final sprite = gifAnimationTicker!.getSprite();
-      sprite.render(
-        canvas,
-        position: position,
-        size: size,
-      );
-    }
-  }
+  //   // Draw the current GIF animation frame if available
+  //   if (gifAnimationTicker != null) {
+  //     final sprite = gifAnimationTicker!.getSprite();
+  //     sprite.render(
+  //       canvas,
+  //       position: position,
+  //       size: size,
+  //     );
+  //   }
+  // }
 
   @override
   void update(double dt) {
@@ -133,7 +139,7 @@ class Object extends PositionComponent
   void onDragStart(DragStartEvent event) {
     super.onDragStart(event);
     // Reduce the size when dragging starts
-    size = size * 0.8;
+    // size = size * 0.8;
     priority = 10;
   }
 
@@ -143,15 +149,14 @@ class Object extends PositionComponent
 
     // Restore the size when dragging ends
     size = gameRef.gamedata.characters[name]!.size;
-    priority = 10;
+    priority = 0;
   }
 
   @override
   void onDragUpdate(DragUpdateEvent event) {
-    print(gameRef.gamedata.characters[name]!.isMovable);
-    // if (gameRef.gamedata.characters[name]!.isMovable == false) {
+    if (gameRef.gamedata.characters[name]!.isMovable == false) {
       // return;
-    // }
+    }
     position += event.localDelta;
   }
 

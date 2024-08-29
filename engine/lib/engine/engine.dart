@@ -120,20 +120,22 @@ class _GameState extends State<Game> {
               ),
             )
           : AspectRatio(
-              aspectRatio: 4 / 3,
-              child: GameWidget<MyGame>(
-                game: MyGame(
-                    gamedataList: gameData,
-                    gameRules: gameRules,
-                    context: context,
-                    currentSceneIndex: gameState.currentSceneIndex,
-                    provider: gameState),
-                backgroundBuilder: (context) {
-                  return gameData[gameState.currentSceneIndex]
-                      .backgroundBuilder(context);
-                },
-              ),
+            aspectRatio: 4/3,
+            child: GameWidget<MyGame>(
+              game: MyGame(
+                  gamedataList: gameData,
+                  gameRules: gameRules,
+                  context: context,
+                  currentSceneIndex: gameState.currentSceneIndex,
+                  provider: gameState,
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height),
+              backgroundBuilder: (context) {
+                return gameData[gameState.currentSceneIndex]
+                    .backgroundBuilder(context);
+              },
             ),
+          ),
     );
   }
 

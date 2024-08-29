@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vector_math/vector_math_64.dart';
+import 'package:vector_math/vector_math_64.dart' hide Colors;
 
 class Variable {
   String name;
@@ -90,16 +90,14 @@ class GameData {
 
   Widget backgroundBuilder(BuildContext context) {
     return Center(
-      child: AspectRatio(
-        aspectRatio: 4 / 3,
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: NetworkImage(backgroundImage),
-              fit: BoxFit.fill ,
-            ),
+      child: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+          border:Border.all(color: Colors.black, width: 2),
+          image: DecorationImage(
+            image: NetworkImage(backgroundImage),
+            fit: BoxFit.cover,
           ),
         ),
       ),
