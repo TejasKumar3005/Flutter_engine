@@ -1,14 +1,10 @@
 import 'dart:convert';
 
 import 'package:engine/controllers/player_controller.dart';
-import 'package:engine/utils/gameWidgets/puzzlegame.dart';
 import 'package:engine/utils/puzzlefunctions.dart';
 // import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'test.dart';
-import 'engine/engine.dart';
 import 'inputbox.dart';
 
 void main() {

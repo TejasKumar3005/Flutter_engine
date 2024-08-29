@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:ui';
 import 'package:engine/models/game_data_model.dart';
 import 'package:flame/components.dart';
@@ -128,15 +129,24 @@ class Popup extends PositionComponent with HasGameRef<MyGame> {
     if (gamedata.variables["GameOver"]?.value == true) {
       gamedata.variables["GameOver"]?.value = false;
 
-      if (gameRef.provider.currentSceneIndex < gamedata.scenes.length - 1) {
-        gameRef.provider.increaseIndex();
-        // gamedata =
-        //     GameData.fromJson(gamedata.scenes, gameRef.provider.currentSceneIndex);
-      } else {
-        // Final game over logic if all scenes are completed
-        print("All scenes completed. Game Over.");
-        // Handle final game over logic here
-      }
+      
+      // if (gameRef.provider.currentSceneIndex < gamedata.scenes.length - 1) {
+      //   gameRef.router.pushNamed()
+      //   // gamedata =
+      //   //     GameData.fromJson(gamedata.scenes, gameRef.provider.currentSceneIndex);
+      // } else {
+      //   // Final game over logic if all scenes are completed
+      //   print("All scenes completed. Game Over.");
+      //   // Handle final game over logic here
+      // }
+
+      if(gameRef.router.currentRoute.name=="level1"){
+        gameRef.router.pushNamed("level2");
+    }else if(gameRef.router.currentRoute.name=="level2"){
+        gameRef.router.pushNamed("level3");
+    }else if(gameRef.router.currentRoute.name=="level3"){
+        gameRef.router.pushNamed("level1");
+    }
     }
 
     if (gamedata.shouldShowDialog) {
